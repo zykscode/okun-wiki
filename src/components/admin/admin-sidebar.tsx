@@ -22,7 +22,7 @@ export function AdminSidebar() {
   return (
     <aside className="w-64 border-r border-wiki-border shrink-0 hidden lg:block theme-transition" style={{ background: "var(--color-wiki-card)" }}>
       <div className="p-4 border-b border-wiki-border">
-        <h2 className="font-bold text-base bg-gradient-to-r from-coral-500 to-coral-700 bg-clip-text text-transparent">Admin Panel</h2>
+        <h2 className="font-display font-medium text-lg text-wiki-text tracking-tight">Admin Panel</h2>
         <p className="text-xs text-wiki-muted mt-0.5">Manage Okunpedia</p>
       </div>
       <nav className="p-2 space-y-1">
@@ -35,7 +35,7 @@ export function AdminSidebar() {
               className={cn(
                 "flex items-center gap-3 px-3 py-2 rounded-xl text-sm no-underline transition-all duration-200",
                 isActive
-                  ? "bg-coral-500/15 text-coral-500 font-medium"
+                  ? "bg-forest-600/10 text-forest-600 dark:bg-forest-500/20 dark:text-forest-400 font-medium"
                   : "text-wiki-muted hover:bg-wiki-hover hover:text-wiki-text"
               )}
             >

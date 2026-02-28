@@ -9,9 +9,9 @@ export function CTASection() {
     <section className="border-t border-wiki-border theme-transition">
       <div className="max-w-[860px] mx-auto px-4 sm:px-6 py-12">
         <motion.div
-          className="text-center p-8 sm:p-10 rounded-2xl border border-wiki-border"
+          className="text-center p-8 sm:p-12 rounded-2xl border border-wiki-border overflow-hidden relative"
           style={{
-            background: "linear-gradient(135deg, rgba(255,77,77,0.05) 0%, var(--color-wiki-card-strong) 50%, rgba(0,229,204,0.03) 100%)",
+            background: "linear-gradient(135deg, rgba(45,89,72,0.05) 0%, var(--color-wiki-card-strong) 50%, rgba(224,153,32,0.03) 100%)",
             backdropFilter: "blur(12px)",
           }}
           initial={{ opacity: 0, y: 20 }}
@@ -19,10 +19,10 @@ export function CTASection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-2xl font-bold text-wiki-text mb-3">
+          <h2 className="text-3xl font-display font-medium text-wiki-text mb-4">
             Know an Ọ̀kun town?
           </h2>
-          <p className="text-wiki-muted max-w-xl mx-auto mb-6 leading-relaxed">
+          <p className="text-wiki-secondary max-w-xl mx-auto mb-8 leading-relaxed text-lg">
             Help us document the heritage of Ọ̀kun people. Every story, every tradition,
             every piece of history matters.
           </p>

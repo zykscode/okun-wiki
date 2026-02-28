@@ -131,30 +131,30 @@ export function CommunityDirectory({ showJoinButton = false }: CommunityDirector
       {/* Communities Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {communities.map((community) => (
-          <Card key={community.id} className="hover:shadow-md transition-shadow">
+          <Card key={community.id} className="bg-wiki-card border-wiki-border shadow-sm hover:shadow-md hover:border-forest-500/30 transition-all duration-300 group">
             <CardHeader>
               <h3 className="text-lg font-bold">
                 <Link 
                   href={`/communities/${community.id}`}
-                  className="hover:text-blue-600 transition-colors"
+                  className="font-display text-wiki-text group-hover:text-forest-600 dark:group-hover:text-forest-400 transition-colors no-underline"
                 >
                   {community.name}
                 </Link>
               </h3>
               {community.region && (
-                <p className="text-sm text-gray-600">
+                <p className="text-sm font-medium text-forest-600/80 dark:text-forest-400/80 mt-1">
                   {community.region}
                 </p>
               )}
             </CardHeader>
             <CardContent>
               {community.description && (
-                <p className="text-sm text-gray-700 mb-4 line-clamp-3">
+                <p className="text-sm text-wiki-secondary leading-relaxed mb-4 line-clamp-3">
                   {community.description}
                 </p>
               )}
               
-              <div className="flex justify-between items-center text-sm text-gray-600 mb-4">
+              <div className="flex justify-between items-center text-xs font-medium text-wiki-muted mb-4 border-t border-wiki-border pt-4 mt-auto">
                 <span>{community._count.members} members</span>
                 <span>{community._count.articles} articles</span>
               </div>

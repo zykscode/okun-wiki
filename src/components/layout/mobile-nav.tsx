@@ -34,13 +34,13 @@ export function MobileNav() {
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
             >
               <div className="flex items-center justify-between p-4 border-b border-wiki-border">
-                <div className="flex items-center gap-2">
-                  <div className="p-1 rounded-lg bg-gradient-to-br from-coral-500 to-coral-700 text-white">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-xl bg-forest-600/10 text-forest-600 dark:bg-forest-500/20 dark:text-forest-400">
                     <BookOpen className="h-4 w-4" />
                   </div>
-                  <span className="font-bold bg-gradient-to-r from-coral-500 to-coral-700 bg-clip-text text-transparent">Okunpedia</span>
+                  <span className="text-xl font-display font-medium text-wiki-text tracking-tight">Okunpedia</span>
                 </div>
-                <button onClick={() => setOpen(false)} className="p-1 cursor-pointer text-wiki-muted hover:text-wiki-text">
+                <button onClick={() => setOpen(false)} className="p-2 cursor-pointer text-wiki-muted hover:text-wiki-text rounded-xl hover:bg-forest-50 dark:hover:bg-forest-900/20 transition-all duration-200">
                   <X className="h-5 w-5" />
                 </button>
               </div>
@@ -59,7 +59,7 @@ export function MobileNav() {
                     key={item.href}
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="block px-3 py-2.5 rounded-xl text-sm text-wiki-muted hover:bg-wiki-hover hover:text-coral-500 no-underline transition-all duration-200"
+                    className="block px-4 py-3 rounded-xl text-base font-medium text-wiki-muted hover:bg-forest-50 dark:hover:bg-forest-900/20 hover:text-forest-600 dark:hover:text-forest-400 no-underline transition-all duration-200"
                   >
                     {item.label}
                   </Link>

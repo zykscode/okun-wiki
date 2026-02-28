@@ -35,9 +35,9 @@ interface StatsBarProps {
 
 export function StatsBar({ stats }: StatsBarProps) {
   const items = [
-    { icon: MapPin, value: stats.townCount, label: "Towns documented", color: "text-coral-500" },
-    { icon: FileText, value: stats.pageCount, label: "Wiki pages", color: "text-cyan-500" },
-    { icon: Users, value: stats.userCount, label: "Contributors", color: "text-coral-400" },
+    { icon: MapPin, value: stats.townCount, label: "Towns documented", color: "text-forest-500" },
+    { icon: FileText, value: stats.pageCount, label: "Wiki pages", color: "text-forest-400" },
+    { icon: Users, value: stats.userCount, label: "Contributors", color: "text-[#e09920]" }, // Muted gold
   ];
 
   return (
@@ -59,10 +59,10 @@ export function StatsBar({ stats }: StatsBarProps) {
               >
                 <item.icon className={`h-6 w-6 ${item.color}`} />
               </motion.div>
-              <p className="text-2xl font-bold text-wiki-text">
+              <p className="text-3xl font-display font-medium text-wiki-text tracking-tight mb-1">
                 <AnimatedNumber value={item.value} />
               </p>
-              <p className="text-sm text-wiki-muted">{item.label}</p>
+              <p className="text-xs uppercase tracking-wider text-wiki-muted font-medium">{item.label}</p>
             </motion.div>
           ))}
         </div>

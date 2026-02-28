@@ -19,14 +19,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           id={id}
           className={cn(
-            "w-full rounded-xl border border-wiki-border bg-wiki-input px-4 py-2.5 text-sm text-wiki-text placeholder:text-wiki-muted focus:outline-none focus:ring-2 focus:ring-coral-500/30 focus:border-coral-500 transition-all duration-200 theme-transition",
+            "w-full rounded-xl border border-wiki-border bg-wiki-input px-4 py-2.5 text-sm text-wiki-text placeholder:text-wiki-muted focus:outline-none focus:ring-2 focus:ring-forest-500/30 focus:border-forest-500 transition-all duration-200 theme-transition",
             error && "border-red-500 focus:ring-red-500/30",
             className
           )}
           style={{ backdropFilter: "blur(12px)" }}
           {...props}
         />
-        {error && <p className="mt-1 text-sm text-coral-500">{error}</p>}
+        {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
       </div>
     );
   }

@@ -14,13 +14,13 @@ export async function Header() {
       <div className="max-w-[860px] mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 no-underline group">
-            <div className="p-1.5 rounded-xl bg-gradient-to-br from-coral-500 to-coral-700 text-white group-hover:shadow-lg group-hover:shadow-coral-500/30 transition-all duration-300">
+          <Link href="/" className="flex items-center gap-3 no-underline group">
+            <div className="p-2 rounded-xl bg-forest-600/10 text-forest-600 dark:bg-forest-500/20 dark:text-forest-400 group-hover:bg-forest-600 group-hover:text-white dark:group-hover:bg-forest-500 transition-all duration-300">
               <BookOpen className="h-5 w-5" />
             </div>
-            <div>
-              <span className="text-lg font-bold bg-gradient-to-r from-coral-500 to-coral-700 bg-clip-text text-transparent">Okunpedia</span>
-              <span className="hidden sm:block text-[11px] text-wiki-muted leading-tight">The Encyclopedia of Ọ̀kun Land</span>
+            <div className="flex flex-col">
+              <span className="text-xl font-display font-medium text-wiki-text tracking-tight transition-colors group-hover:text-forest-600 dark:group-hover:text-forest-400">Okunpedia</span>
+              <span className="hidden sm:block text-[10px] uppercase tracking-wider text-wiki-muted font-medium mt-0.5">The Encyclopedia of Ọ̀kun Land</span>
             </div>
           </Link>
 
@@ -36,9 +36,10 @@ export async function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-wiki-muted hover:text-wiki-text no-underline transition-colors"
+                className="relative text-sm font-medium text-wiki-muted hover:text-wiki-text transition-colors group py-1"
               >
                 {link.label}
+                <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-forest-500 transition-all duration-300 group-hover:w-full rounded-full"></span>
               </Link>
             ))}
           </nav>
@@ -47,7 +48,7 @@ export async function Header() {
           <div className="flex items-center gap-2">
             <Link
               href="/search"
-              className="p-2 text-wiki-muted hover:text-coral-500 no-underline rounded-xl hover:bg-wiki-hover transition-all duration-200"
+              className="p-2 text-wiki-muted hover:text-forest-600 dark:hover:text-forest-400 rounded-xl hover:bg-forest-50 dark:hover:bg-forest-900/20 transition-all duration-200"
               title="Search"
             >
               <Search className="h-4 w-4" />

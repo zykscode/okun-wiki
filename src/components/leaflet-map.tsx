@@ -138,12 +138,17 @@ export default function LeafletMap({
           }).addTo(map);
 
           marker.bindPopup(`
-            <div class="p-2">
-              <h3 class="font-semibold text-blue-600">${town.name}</h3>
-              <p class="text-xs text-gray-500 mb-1">${town.tagline || ""}</p>
-              <p class="text-sm text-gray-600">LGA: ${town.lga}</p>
-              ${town.population ? `<p class="text-sm text-gray-600">Population: ${town.population.toLocaleString()}</p>` : ""}
-              <a href="/towns/${town.slug}" class="text-xs text-blue-500 underline mt-2 block">View Town Details</a>
+            <div class="p-3 font-sans">
+              <h3 class="font-display font-medium text-lg text-wiki-text tracking-tight mb-1">${town.name}</h3>
+              ${town.tagline ? `<p class="text-xs italic text-wiki-muted mb-2">${town.tagline}</p>` : ""}
+              <div class="border-t border-wiki-border pt-2 mt-2">
+                <p class="text-xs text-wiki-secondary mb-1"><span class="font-medium">LGA:</span> ${town.lga}</p>
+                ${town.population ? `<p class="text-xs text-wiki-secondary mb-2"><span class="font-medium">Pop.</span>: ${town.population.toLocaleString()}</p>` : ""}
+              </div>
+              <a href="/towns/${town.slug}" class="text-xs font-medium text-forest-600 hover:text-forest-400 mt-2 inline-flex items-center gap-1 group">
+                View History
+                <span class="transition-transform group-hover:translate-x-1">→</span>
+              </a>
             </div>
           `);
         });
@@ -171,47 +176,46 @@ export default function LeafletMap({
       <div ref={mapRef} className="w-full h-full" style={{ minHeight: '400px' }} />
 
       {/* Legend */}
-      <div className="absolute top-4 left-4 bg-white rounded-lg shadow-md p-3 z-[1000]">
-        <h3 className="text-sm font-semibold text-gray-800 mb-2">Okun LGAs</h3>
+      <div className="absolute top-4 left-4 bg-wiki-card-strong border border-wiki-border rounded-xl shadow-lg p-3 z-[1000] backdrop-blur-md">
+        <h3 className="text-xs uppercase tracking-wider font-semibold text-wiki-text mb-3 border-b border-wiki-border pb-2">Okun LGAs</h3>
         {Object.entries(lgaColors).map(([lga, color]) => (
-          <div key={lga} className="flex items-center mb-1">
+          <div key={lga} className="flex items-center mb-1.5">
             <div 
-              className="w-4 h-4 rounded mr-2 border border-gray-300"
+              className="w-3.5 h-3.5 rounded-sm mr-2.5 opacity-80"
               style={{ backgroundColor: color }}
             ></div>
-            <span className="text-xs text-gray-700">{lga}</span>
+            <span className="text-xs font-medium text-wiki-secondary">{lga}</span>
           </div>
         ))}
         
-        <div className="mt-3 pt-2 border-t border-gray-200">
-          <h4 className="text-xs font-semibold text-gray-700 mb-1">Markers</h4>
+        <div className="mt-3 pt-3 border-t border-wiki-border">
           <div className="flex items-center">
-            <div className="w-3 h-3 rounded-full bg-green-500 border-2 border-white mr-2"></div>
-            <span className="text-xs text-gray-600">Okun Town</span>
+            <div className="w-3 h-3 rounded-full bg-forest-500 mr-2.5 outline outline-2 outline-white dark:outline-wiki-bg outline-offset-[-1px]"></div>
+            <span className="text-xs font-medium text-wiki-secondary">Registered Town</span>
           </div>
         </div>
       </div>
 
       {/* Map info */}
-      <div className="absolute top-4 right-4 bg-white rounded-lg shadow-md p-3 z-[1000]">
-        <div className="text-xs text-gray-600 mb-2">Map Features</div>
-        <div className="text-xs text-gray-500">
-          • Interactive ward boundaries<br/>
-          • Major towns & cities<br/>
-          • Click wards to explore<br/>
-          • Zoom and pan enabled
+      <div className="absolute bottom-4 right-4 bg-wiki-card border border-wiki-border rounded-lg shadow-sm p-3 z-[1000] backdrop-blur-sm max-w-[200px]">
+        <div className="text-[10px] uppercase tracking-wider font-semibold text-wiki-muted mb-1.5">Features</div>
+        <div className="text-[11px] text-wiki-secondary leading-relaxed">
+          • Interactive boundaries<br/>
+          • Historical towns<br/>
+          • Click maps to explore
         </div>
       </div>
 
       {/* Selected ward info */}
       {selectedWard && (
-        <div className="absolute bottom-4 left-4 bg-blue-600 text-white p-3 rounded-lg shadow-lg z-[1000]">
-          <div className="text-sm font-medium">Selected: {selectedWard}</div>
+        <div className="absolute bottom-4 left-4 bg-forest-600/95 text-white p-4 rounded-xl shadow-xl z-[1000] backdrop-blur-md border border-forest-500/30">
+          <div className="text-xs uppercase tracking-wider text-forest-200/80 mb-1 font-medium">Selected Ward</div>
+          <div className="text-base font-display font-medium mb-1">{selectedWard}</div>
           <button 
             onClick={onClearSelection}
-            className="text-xs underline mt-1"
+            className="text-xs text-forest-200 hover:text-white transition-colors"
           >
-            Clear selection
+            Clear selection ✕
           </button>
         </div>
       )}

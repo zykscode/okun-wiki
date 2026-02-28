@@ -33,14 +33,14 @@ const LeafletMap = dynamic(() => import('@/components/leaflet-map'), {
 // Remove unused generic townData here since we fetch it.
 // Leaving only structure if it is needed, but it seems we fetch from API.
 
-// Color mapping for LGAs
+// Refined, muted tone mapping for LGAs to match elegant aesthetic
 const lgaColors: { [key: string]: string } = {
-  "Kabba/Bunu": "#3b82f6",
-  "Yagba West": "#ef4444", 
-  "Yagba East": "#10b981",
-  "Mopa-Muro": "#f59e0b",
-  "Ijumu": "#8b5cf6",
-  "Lokoja": "#ec4899"
+  "Kabba/Bunu": "#2d5948", // Forest 700
+  "Yagba West": "#4a8b71", // Forest 500
+  "Yagba East": "#e09920", // Gold 500
+  "Mopa-Muro": "#9a5715",  // Gold 700
+  "Ijumu": "#386f59",      // Forest 600
+  "Lokoja": "#c17816"      // Gold 600
 };
 
 export default function InteractiveMap() {

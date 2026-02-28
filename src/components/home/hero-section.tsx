@@ -11,25 +11,25 @@ export function HeroSection() {
       {/* Stars */}
       <div className="absolute inset-0 stars-bg opacity-60 pointer-events-none" />
 
-      {/* Nebula glow */}
+      {/* Deep forest nebula glow */}
       <div className="absolute inset-0 pointer-events-none" style={{
         background: `
-          radial-gradient(ellipse 80% 50% at 20% 20%, rgba(255,77,77,0.1), transparent 50%),
-          radial-gradient(ellipse 60% 60% at 80% 30%, rgba(0,229,204,0.06), transparent 50%),
-          radial-gradient(ellipse 90% 70% at 50% 90%, rgba(255,77,77,0.05), transparent 50%)
+          radial-gradient(ellipse 80% 50% at 20% 20%, rgba(45,89,72,0.1), transparent 50%),
+          radial-gradient(ellipse 60% 60% at 80% 30%, rgba(224,153,32,0.06), transparent 50%),
+          radial-gradient(ellipse 90% 70% at 50% 90%, rgba(45,89,72,0.05), transparent 50%)
         `,
       }} />
 
       {/* Floating orbs */}
       <motion.div
         className="absolute -top-20 -left-20 w-80 h-80 rounded-full blur-3xl pointer-events-none"
-        style={{ background: "rgba(255,77,77,0.06)" }}
+        style={{ background: "rgba(45,89,72,0.06)" }}
         animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full blur-3xl pointer-events-none"
-        style={{ background: "rgba(0,229,204,0.04)" }}
+        style={{ background: "rgba(224,153,32,0.04)" }}
         animate={{ x: [0, -30, 0], y: [0, 20, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -37,7 +37,7 @@ export function HeroSection() {
       <div className="relative max-w-[860px] mx-auto px-4 sm:px-6 py-20 sm:py-28 text-center">
         {/* Floating icon */}
         <motion.div
-          className="mx-auto mb-6 w-20 h-20 flex items-center justify-center rounded-2xl bg-gradient-to-br from-coral-500 to-coral-700 text-white shadow-lg shadow-coral-500/30"
+          className="mx-auto mb-8 w-16 h-16 flex items-center justify-center rounded-2xl bg-forest-600/10 text-forest-600 dark:bg-forest-500/20 dark:text-forest-400 border border-forest-500/20 shadow-lg shadow-forest-500/10"
           animate={{ y: [0, -8, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         >
@@ -45,22 +45,18 @@ export function HeroSection() {
         </motion.div>
 
         <motion.h1
-          className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 tracking-tight leading-none"
+          className="text-5xl sm:text-6xl lg:text-8xl font-display font-medium mb-6 tracking-tight leading-[1.1] text-wiki-text"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <span
-            className="animate-gradient-text"
-            style={{ background: "linear-gradient(135deg, #f0f4ff 0%, #ff4d4d 52%, #00e5cc 100%)", backgroundSize: "200% 200%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
-          >
+          <span>
             Discover Ọ̀kun Land
           </span>
         </motion.h1>
 
         <motion.p
-          className="text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
-          style={{ color: "#8892b0" }}
+          className="text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed text-wiki-secondary"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}

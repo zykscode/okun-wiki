@@ -57,7 +57,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         <div className="space-y-6">
           {posts.map((post) => (
             <Link key={post.id} href={`/blog/${post.slug}`} className="no-underline block group">
-              <Card className="hover:shadow-md transition-all duration-200 overflow-hidden">
+              <Card className="bg-wiki-card border-wiki-border shadow-sm hover:shadow-md hover:border-forest-500/30 transition-all duration-300 overflow-hidden group-hover:-translate-y-1">
                 <CardContent className="flex flex-col sm:flex-row gap-4 py-5">
                   {post.coverImage && (
                     <div className="w-full sm:w-48 h-32 rounded-lg overflow-hidden shrink-0 bg-primary-100">
@@ -70,7 +70,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                       <Badge variant="primary">{post.category.charAt(0) + post.category.slice(1).toLowerCase()}</Badge>
                       <span className="text-xs text-wiki-muted">{formatDate(post.createdAt)}</span>
                     </div>
-                    <h2 className="text-xl font-semibold text-wiki-text group-hover:text-primary-500 transition-colors">
+                    <h2 className="text-xl font-display font-semibold text-wiki-text group-hover:text-forest-600 dark:group-hover:text-forest-400 transition-colors">
                       {post.title}
                     </h2>
                     {post.excerpt && <p className="text-sm text-wiki-muted mt-2 line-clamp-2">{post.excerpt}</p>}

@@ -7,11 +7,11 @@ export function Footer() {
       <div className="max-w-[860px] mx-auto px-4 sm:px-6 py-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <div className="flex items-center gap-2 mb-3">
-              <div className="p-1 rounded-lg bg-gradient-to-br from-coral-500 to-coral-700 text-white">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2 rounded-xl bg-forest-600/10 text-forest-600 dark:bg-forest-500/20 dark:text-forest-400">
                 <BookOpen className="h-4 w-4" />
               </div>
-              <span className="text-base font-bold bg-gradient-to-r from-coral-500 to-coral-700 bg-clip-text text-transparent">Okunpedia</span>
+              <span className="text-xl font-display font-medium text-wiki-text tracking-tight">Okunpedia</span>
             </div>
             <p className="text-sm text-wiki-muted leading-relaxed">
               A community-driven encyclopedia documenting the rich history, culture,
@@ -22,9 +22,9 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-sm mb-3 text-wiki-text">Explore</h3>
             <ul className="space-y-2">
-              <li><Link href="/towns" className="text-sm text-wiki-muted hover:text-coral-500 no-underline transition-colors">All Towns</Link></li>
-              <li><Link href="/blog" className="text-sm text-wiki-muted hover:text-coral-500 no-underline transition-colors">Blog</Link></li>
-              <li><Link href="/about" className="text-sm text-wiki-muted hover:text-coral-500 no-underline transition-colors">About</Link></li>
+              <li><Link href="/towns" className="text-sm text-wiki-muted hover:text-forest-600 dark:hover:text-forest-400 no-underline transition-colors">All Towns</Link></li>
+              <li><Link href="/blog" className="text-sm text-wiki-muted hover:text-forest-600 dark:hover:text-forest-400 no-underline transition-colors">Blog</Link></li>
+              <li><Link href="/about" className="text-sm text-wiki-muted hover:text-forest-600 dark:hover:text-forest-400 no-underline transition-colors">About</Link></li>
             </ul>
           </div>
 

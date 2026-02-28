@@ -22,8 +22,8 @@ export default async function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-2xl font-bold text-wiki-text">Featured Towns</h2>
-            <p className="text-wiki-muted mt-1">Explore the heart of Ọ̀kun land</p>
+            <h2 className="text-3xl font-display font-medium text-wiki-text tracking-tight">Featured Towns</h2>
+            <p className="text-wiki-muted mt-2 text-sm uppercase tracking-wider font-medium">Explore the heart of Ọ̀kun land</p>
           </div>
           <Link href="/towns">
             <Button variant="outline" size="sm">

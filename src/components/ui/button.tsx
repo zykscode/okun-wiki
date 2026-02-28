@@ -12,14 +12,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={cn(
-          "inline-flex items-center justify-center rounded-xl font-semibold transition-all duration-250 focus:outline-none focus:ring-2 focus:ring-coral-500/40 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none cursor-pointer",
+          "inline-flex items-center justify-center rounded-xl font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-forest-500/40 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none cursor-pointer tracking-wide",
           "dark:focus:ring-offset-wiki-bg",
           {
-            "bg-gradient-to-r from-coral-500 to-coral-700 text-white hover:shadow-lg hover:shadow-coral-500/25 hover:-translate-y-0.5": variant === "primary",
-            "bg-wiki-card-strong border border-wiki-border text-wiki-text hover:border-wiki-border-accent hover:shadow-lg hover:shadow-coral-500/10 hover:-translate-y-0.5": variant === "secondary",
-            "border border-wiki-border bg-wiki-card text-wiki-text hover:border-wiki-border-accent hover:bg-wiki-hover": variant === "outline",
-            "text-wiki-secondary hover:text-wiki-text hover:bg-wiki-hover": variant === "ghost",
-            "bg-gradient-to-r from-red-600 to-red-800 text-white hover:shadow-lg hover:shadow-red-600/25 hover:-translate-y-0.5": variant === "danger",
+            "bg-forest-600 text-white hover:bg-forest-500 hover:shadow-lg hover:shadow-forest-500/20 hover:-translate-y-0.5": variant === "primary",
+            "bg-wiki-card-strong border border-wiki-border text-wiki-text hover:border-forest-500/30 hover:text-forest-600 dark:hover:text-forest-400 hover:shadow-md hover:shadow-forest-500/5 hover:-translate-y-0.5": variant === "secondary",
+            "border border-wiki-border bg-transparent text-wiki-text hover:border-forest-500/30 hover:bg-forest-50 dark:hover:bg-forest-900/20 hover:text-forest-600 dark:hover:text-forest-400": variant === "outline",
+            "text-wiki-secondary hover:text-forest-600 dark:hover:text-forest-400 hover:bg-forest-50 dark:hover:bg-forest-900/20": variant === "ghost",
+            "bg-red-600/90 hover:bg-red-500 text-white hover:shadow-lg hover:shadow-red-500/20 hover:-translate-y-0.5": variant === "danger",
           },
           {
             "px-3 py-1.5 text-sm": size === "sm",
