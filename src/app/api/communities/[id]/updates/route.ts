@@ -4,10 +4,10 @@ import { db } from "@/lib/db"
 
 export async function GET(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const communityId = params.id
+        const { id: communityId } = await params
         if (!communityId) {
             return NextResponse.json({ error: "Community ID requires" }, { status: 400 })
         }
@@ -32,13 +32,13 @@ export async function GET(
 
 export async function POST(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const session = await auth()
         if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
-        const communityId = params.id
+        const { id: communityId } = await params
         const { content } = await req.json()
 
         if (!content) return NextResponse.json({ error: "Content is required" }, { status: 400 })

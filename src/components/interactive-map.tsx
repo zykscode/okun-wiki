@@ -70,8 +70,10 @@ export default function InteractiveMap() {
     "Lokoja"
   ];
 
-  const okunWards = (wardData.features as WardFeature[]).filter(
-    feature => feature.properties.statename === "Kogi" && 
+  const typedWardData = wardData as { features: WardFeature[] };
+
+  const okunWards = typedWardData.features.filter(
+    (feature: WardFeature) => feature.properties.statename === "Kogi" && 
     okunLGAs.some(lga => feature.properties.lganame.includes(lga) || lga.includes(feature.properties.lganame))
   );
 
@@ -82,7 +84,7 @@ export default function InteractiveMap() {
   };
 
   // Handle ward click
-  const onWardClick = (feature: unknown) => {
+  const onWardClick = (feature: WardFeature) => {
     setSelectedWard(feature.properties.wardname);
     router.push(`/communities/ward/${feature.properties.wardcode}`);
   };

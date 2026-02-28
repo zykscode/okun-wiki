@@ -3,10 +3,10 @@ import { db } from "@/lib/db"
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const communityId = params.id
+    const { id: communityId } = await params
 
     if (!communityId) {
       return NextResponse.json(
