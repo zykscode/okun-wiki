@@ -38,7 +38,7 @@ export function MobileNav() {
                   <div className="p-1 rounded-lg bg-gradient-to-br from-coral-500 to-coral-700 text-white">
                     <BookOpen className="h-4 w-4" />
                   </div>
-                  <span className="font-bold bg-gradient-to-r from-coral-500 to-coral-700 bg-clip-text text-transparent">Ọ̀kun Wiki</span>
+                  <span className="font-bold bg-gradient-to-r from-coral-500 to-coral-700 bg-clip-text text-transparent">Okunpedia</span>
                 </div>
                 <button onClick={() => setOpen(false)} className="p-1 cursor-pointer text-wiki-muted hover:text-wiki-text">
                   <X className="h-5 w-5" />

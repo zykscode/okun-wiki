@@ -19,7 +19,7 @@ export async function Header() {
               <BookOpen className="h-5 w-5" />
             </div>
             <div>
-              <span className="text-lg font-bold bg-gradient-to-r from-coral-500 to-coral-700 bg-clip-text text-transparent">Ọ̀kun Wiki</span>
+              <span className="text-lg font-bold bg-gradient-to-r from-coral-500 to-coral-700 bg-clip-text text-transparent">Okunpedia</span>
               <span className="hidden sm:block text-[11px] text-wiki-muted leading-tight">The Encyclopedia of Ọ̀kun Land</span>
             </div>
           </Link>

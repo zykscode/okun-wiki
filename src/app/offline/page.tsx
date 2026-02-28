@@ -17,7 +17,7 @@ export default function OfflinePage() {
         </p>
         <div className="mt-6 flex items-center justify-center gap-2 text-primary-500">
           <BookOpen className="h-5 w-5" />
-          <span className="font-semibold">Ọ̀kun Wiki</span>
+          <span className="font-semibold">Okunpedia</span>
         </div>
       </div>
     </div>

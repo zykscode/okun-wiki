@@ -13,7 +13,7 @@ export default function RegisterPage() {
         <CardHeader>
           <div className="text-center">
             <BookOpen className="h-10 w-10 text-primary-500 mx-auto mb-2" />
-            <h1 className="text-2xl font-bold text-wiki-text">Join Ọ̀kun Wiki</h1>
+            <h1 className="text-2xl font-bold text-wiki-text">Join Okunpedia</h1>
             <p className="text-sm text-wiki-muted mt-1">
               Help document the heritage of Ọ̀kun land
             </p>

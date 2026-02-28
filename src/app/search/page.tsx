@@ -40,7 +40,7 @@ export default function SearchPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-        <h1 className="text-3xl font-bold text-wiki-text mb-6 text-center">Search Ọ̀kun Wiki</h1>
+        <h1 className="text-3xl font-bold text-wiki-text mb-6 text-center">Search Okunpedia</h1>
 
         <div className="relative mb-8">
           <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-wiki-muted" />

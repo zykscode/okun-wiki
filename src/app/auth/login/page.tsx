@@ -15,7 +15,7 @@ export default function LoginPage() {
             <BookOpen className="h-10 w-10 text-primary-500 mx-auto mb-2" />
             <h1 className="text-2xl font-bold text-wiki-text">Welcome back</h1>
             <p className="text-sm text-wiki-muted mt-1">
-              Sign in to your Ọ̀kun Wiki account
+              Sign in to your Okunpedia account
             </p>
           </div>
         </CardHeader>

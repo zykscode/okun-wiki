@@ -3,7 +3,7 @@ import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: { default: "Admin", template: "%s | Admin — Ọ̀kun Wiki" },
+  title: { default: "Admin", template: "%s | Admin — Okunpedia" },
 };
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {

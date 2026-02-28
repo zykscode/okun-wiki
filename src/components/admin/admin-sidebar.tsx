@@ -23,7 +23,7 @@ export function AdminSidebar() {
     <aside className="w-64 border-r border-wiki-border shrink-0 hidden lg:block theme-transition" style={{ background: "var(--color-wiki-card)" }}>
       <div className="p-4 border-b border-wiki-border">
         <h2 className="font-bold text-base bg-gradient-to-r from-coral-500 to-coral-700 bg-clip-text text-transparent">Admin Panel</h2>
-        <p className="text-xs text-wiki-muted mt-0.5">Manage Ọ̀kun Wiki</p>
+        <p className="text-xs text-wiki-muted mt-0.5">Manage Okunpedia</p>
       </div>
       <nav className="p-2 space-y-1">
         {navItems.map((item) => {

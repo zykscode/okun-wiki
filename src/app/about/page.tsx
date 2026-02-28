@@ -3,7 +3,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Learn about the Ọ̀kun Wiki project and its mission.",
+  description: "Learn about the Okunpedia project and its mission.",
 };
 
 export default function AboutPage() {
@@ -11,7 +11,7 @@ export default function AboutPage() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
       <div className="text-center mb-12">
         <BookOpen className="h-16 w-16 text-primary-500 mx-auto mb-4" />
-        <h1 className="text-4xl font-bold text-wiki-text">About Ọ̀kun Wiki</h1>
+        <h1 className="text-4xl font-bold text-wiki-text">About Okunpedia</h1>
         <p className="text-lg text-wiki-muted mt-3 max-w-2xl mx-auto">
           Preserving and celebrating the rich heritage of Ọ̀kun people through
           community-driven documentation.
@@ -21,7 +21,7 @@ export default function AboutPage() {
       <div className="wiki-content bg-white rounded-lg border border-wiki-border p-8">
         <h2>Our Mission</h2>
         <p>
-          Ọ̀kun Wiki is a community-driven encyclopedia dedicated to documenting the
+          Okunpedia is a community-driven encyclopedia dedicated to documenting the
           history, culture, geography, and heritage of Ọ̀kun-speaking towns and
           communities in Kogi State, Nigeria. The Ọ̀kun people, a subgroup of the
           Yoruba, have a rich cultural heritage that deserves to be preserved and
@@ -64,7 +64,7 @@ export default function AboutPage() {
 
         <h2>How to Contribute</h2>
         <p>
-          Ọ̀kun Wiki is built by the community, for the community. If you have
+          Okunpedia is built by the community, for the community. If you have
           knowledge about any Ọ̀kun town — its history, festivals, prominent figures,
           or cultural practices — we welcome your contributions. Simply create an
           account and start adding or editing content.

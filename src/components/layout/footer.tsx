@@ -11,7 +11,7 @@ export function Footer() {
               <div className="p-1 rounded-lg bg-gradient-to-br from-coral-500 to-coral-700 text-white">
                 <BookOpen className="h-4 w-4" />
               </div>
-              <span className="text-base font-bold bg-gradient-to-r from-coral-500 to-coral-700 bg-clip-text text-transparent">Ọ̀kun Wiki</span>
+              <span className="text-base font-bold bg-gradient-to-r from-coral-500 to-coral-700 bg-clip-text text-transparent">Okunpedia</span>
             </div>
             <p className="text-sm text-wiki-muted leading-relaxed">
               A community-driven encyclopedia documenting the rich history, culture,
@@ -37,7 +37,7 @@ export function Footer() {
         </div>
 
         <div className="mt-8 pt-4 border-t border-wiki-border flex items-center justify-center gap-3 text-xs text-wiki-muted">
-          <span>© {new Date().getFullYear()} Ọ̀kun Wiki</span>
+          <span>© {new Date().getFullYear()} Okunpedia</span>
           <span className="text-wiki-border">·</span>
           <span>Built with ❤️ for Ọ̀kun land</span>
         </div>

@@ -10,8 +10,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: {
-    default: "Ọ̀kun Wiki — The Encyclopedia of Ọ̀kun Land",
-    template: "%s | Ọ̀kun Wiki",
+    default: "Okunpedia — The Encyclopedia of Ọ̀kun Land",
+    template: "%s | Okunpedia",
   },
   description:
     "A community-driven encyclopedia documenting the history, culture, and heritage of Ọ̀kun towns in Kogi State, Nigeria.",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Ọ̀kun Wiki",
+    title: "Okunpedia",
   },
   formatDetection: {
     telephone: false,
