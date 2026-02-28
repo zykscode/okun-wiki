@@ -49,6 +49,7 @@ export function CommunityDirectory({ showJoinButton = false }: CommunityDirector
     }
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     fetchCommunities()
   }, [searchQuery, selectedRegion])

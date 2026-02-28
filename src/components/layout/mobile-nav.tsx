@@ -48,6 +48,7 @@ export function MobileNav() {
                 {[
                   { href: "/", label: "Home" },
                   { href: "/towns", label: "Towns" },
+                  { href: "/map", label: "Map" },
                   { href: "/blog", label: "Blog" },
                   { href: "/about", label: "About" },
                   { href: "/search", label: "Search" },

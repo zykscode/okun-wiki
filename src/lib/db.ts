@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { createClient } from '@libsql/client';
+// removed unused createClient import
 import { PrismaLibSql } from '@prisma/adapter-libsql';
 
 const globalForPrisma = globalThis as unknown as {
