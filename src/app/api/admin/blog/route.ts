@@ -1,0 +1,26 @@
+import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
+import { logActivity } from "@/lib/actions/auth";
+
+export async function POST(req: NextRequest) {
+  const session = await auth();
+  if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const user = await db.user.findUnique({ where: { id: session.user.id }, select: { role: true } });
+  if (!user || !["ADMIN", "EDITOR"].includes(user.role)) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  const data = await req.json();
+  try {
+    const post = await db.blogPost.create({
+      data: { ...data, authorId: session.user.id },
+    });
+    await logActivity(session.user.id, "created_post", `post:${post.slug}`, post.title);
+    return NextResponse.json(post, { status: 201 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to create post";
+    return NextResponse.json({ error: message }, { status: 400 });
+  }
+}
