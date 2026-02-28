@@ -31,26 +31,26 @@ export function CommunityDirectory({ showJoinButton = false }: CommunityDirector
   const [selectedRegion, setSelectedRegion] = useState<string>("")
   const [joiningCommunity, setJoiningCommunity] = useState<string | null>(null)
 
-  const fetchCommunities = async () => {
-    try {
-      const params = new URLSearchParams()
-      if (searchQuery) params.append("query", searchQuery)
-      if (selectedRegion && selectedRegion !== "all") params.append("region", selectedRegion)
-
-      const response = await fetch(`/api/communities?${params}`)
-      if (response.ok) {
-        const data = await response.json()
-        setCommunities(data)
-      }
-    } catch (error) {
-      console.error("Error fetching communities:", error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
+    // Moved fetchCommunities inside useEffect to avoid exhaustive-deps warning
+    const fetchCommunities = async () => {
+      try {
+        const params = new URLSearchParams()
+        if (searchQuery) params.append("query", searchQuery)
+        if (selectedRegion && selectedRegion !== "all") params.append("region", selectedRegion)
+
+        const response = await fetch(`/api/communities?${params}`)
+        if (response.ok) {
+          const data = await response.json()
+          setCommunities(data)
+        }
+      } catch (error) {
+        console.error("Error fetching communities:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
     fetchCommunities()
   }, [searchQuery, selectedRegion])
 
@@ -64,8 +64,8 @@ export function CommunityDirectory({ showJoinButton = false }: CommunityDirector
       })
 
       if (response.ok) {
-        // Refresh communities to update member count
-        fetchCommunities()
+        // Refresh communities if needed
+        window.location.reload()
       } else {
         const error = await response.json()
         console.error("Error joining community:", error)

@@ -13,7 +13,7 @@ export const authConfig = {
                 email: { label: "Email", type: "email" },
                 password: { label: "Password", type: "password" },
             },
-            async authorize(credentials) {
+            async authorize() {
                 // This will be handled in the main auth.ts where we have DB access
                 return null;
             },

@@ -27,7 +27,7 @@ export async function GET() {
             });
 
         return NextResponse.json(formattedTowns);
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: "Failed to fetch towns" }, { status: 500 });
     }
 }
