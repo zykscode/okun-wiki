@@ -4,11 +4,11 @@ import { db } from "@/lib/db";
 import { logActivity } from "@/lib/actions/auth";
 
 async function checkEditor() {
-  const session = await auth();
-  if (!session?.user?.id) return null;
-  const user = await db.user.findUnique({ where: { id: session.user.id }, select: { role: true } });
-  if (!user || !["ADMIN", "EDITOR"].includes(user.role)) return null;
-  return session.user.id;
+  const session = await auth()
+  if (!session?.user?.id) return null
+  const user = await db.user.findUnique({ where: { id: session.user.id }, select: { role: true } })
+  if (!user || !["ADMIN", "EDITOR"].includes(user.role)) return null
+  return session.user.id
 }
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {

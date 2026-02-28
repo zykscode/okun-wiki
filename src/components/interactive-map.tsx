@@ -59,6 +59,14 @@ const lgaColors: { [key: string]: string } = {
 export default function InteractiveMap() {
   const router = useRouter();
   const [selectedWard, setSelectedWard] = useState<string | null>(null);
+  const [towns, setTowns] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch("/api/map/towns")
+      .then((res) => res.json())
+      .then((data) => setTowns(data))
+      .catch((err) => console.error("Failed to fetch towns:", err));
+  }, []);
 
   // Filter ward data to only show Okun LGAs
   const okunLGAs = [
@@ -92,7 +100,7 @@ export default function InteractiveMap() {
   return (
     <LeafletMap
       wardGeoJSON={wardGeoJSON}
-      townData={townData}
+      townData={towns}
       lgaColors={lgaColors}
       onWardClick={onWardClick}
       selectedWard={selectedWard}

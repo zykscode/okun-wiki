@@ -4,12 +4,12 @@ import { db } from "@/lib/db";
 import { logActivity } from "@/lib/actions/auth";
 
 export async function POST(req: NextRequest) {
-  const session = await auth();
-  if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const session = await auth()
+  if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
-  const user = await db.user.findUnique({ where: { id: session.user.id }, select: { role: true } });
+  const user = await db.user.findUnique({ where: { id: session.user.id }, select: { role: true } })
   if (!user || !["ADMIN", "EDITOR"].includes(user.role)) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 })
   }
 
   const data = await req.json();

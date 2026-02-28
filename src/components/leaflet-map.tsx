@@ -24,10 +24,11 @@ export interface WardFeature {
 
 export interface TownInfo {
   name: string;
+  slug: string;
+  tagline: string | null;
   lga: string;
   coordinates: number[];
-  type: string;
-  population: string;
+  population: number | null;
 }
 
 interface LeafletMapProps {
@@ -119,10 +120,9 @@ export default function LeafletMap({
           }
         }).addTo(map);
 
-        // Create custom icons for different town types
-        const createCustomIcon = (type: string) => {
-          const color = type === "State Capital" ? '#ef4444' : 
-                        type === "LGA HQ" ? '#3b82f6' : '#10b981';
+        // Create custom icons for town markers
+        const createCustomIcon = () => {
+          const color = '#10b981'; // Default green for all database towns
           
           return L.divIcon({
             html: `<div style="background-color: ${color}; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
@@ -135,15 +135,16 @@ export default function LeafletMap({
         // Add town markers
         townData.forEach((town) => {
           const marker = L.marker([town.coordinates[0], town.coordinates[1]], {
-            icon: createCustomIcon(town.type)
+            icon: createCustomIcon()
           }).addTo(map);
 
           marker.bindPopup(`
             <div class="p-2">
               <h3 class="font-semibold text-blue-600">${town.name}</h3>
+              <p class="text-xs text-gray-500 mb-1">${town.tagline || ""}</p>
               <p class="text-sm text-gray-600">LGA: ${town.lga}</p>
-              <p class="text-sm text-gray-600">Type: ${town.type}</p>
-              <p class="text-sm text-gray-600">Population: ${town.population}</p>
+              ${town.population ? `<p class="text-sm text-gray-600">Population: ${town.population.toLocaleString()}</p>` : ""}
+              <a href="/towns/${town.slug}" class="text-xs text-blue-500 underline mt-2 block">View Town Details</a>
             </div>
           `);
         });
@@ -184,18 +185,10 @@ export default function LeafletMap({
         ))}
         
         <div className="mt-3 pt-2 border-t border-gray-200">
-          <h4 className="text-xs font-semibold text-gray-700 mb-1">Towns</h4>
-          <div className="flex items-center mb-1">
-            <div className="w-3 h-3 rounded-full bg-red-500 border-2 border-white mr-2"></div>
-            <span className="text-xs text-gray-600">State Capital</span>
-          </div>
-          <div className="flex items-center mb-1">
-            <div className="w-3 h-3 rounded-full bg-blue-500 border-2 border-white mr-2"></div>
-            <span className="text-xs text-gray-600">LGA HQ</span>
-          </div>
+          <h4 className="text-xs font-semibold text-gray-700 mb-1">Markers</h4>
           <div className="flex items-center">
             <div className="w-3 h-3 rounded-full bg-green-500 border-2 border-white mr-2"></div>
-            <span className="text-xs text-gray-600">Town</span>
+            <span className="text-xs text-gray-600">Okun Town</span>
           </div>
         </div>
       </div>
