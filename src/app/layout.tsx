@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/components/theme/theme-provider";
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://okunpedia.vercel.app"),
   title: {
     default: "Okunpedia — The Encyclopedia of Ọ̀kun Land",
     template: "%s | Okunpedia",
