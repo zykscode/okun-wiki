@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { logActivity } from "@/lib/actions/auth";
+import { sanitizeHtml } from "@/lib/sanitize";
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await auth();
@@ -30,7 +31,10 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     });
   }
 
-  const page = await db.townPage.update({ where: { id }, data });
+  const page = await db.townPage.update({
+    where: { id },
+    data: { ...data, content: sanitizeHtml(data.content || "") },
+  });
   await logActivity(session.user.id, "edited_page", `page:${page.slug}`, page.title);
 
   return NextResponse.json(page);

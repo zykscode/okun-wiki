@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { logActivity } from "@/lib/actions/auth";
+import { sanitizeHtml } from "@/lib/sanitize";
 
 async function checkEditor() {
   const session = await auth()
@@ -17,8 +18,30 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 
   const { id } = await params;
   const data = await req.json();
+  const { tags, ...postData } = data;
+
+  // Process tags
+  const tagList = typeof tags === "string" 
+    ? tags.split(",").map(t => t.trim()).filter(Boolean) 
+    : [];
+  
+  const tagConnectOrCreate = tagList.map(name => ({
+    where: { name },
+    create: { name }
+  }));
+
   try {
-    const post = await db.blogPost.update({ where: { id }, data });
+    const post = await db.blogPost.update({ 
+      where: { id }, 
+      data: {
+        ...postData,
+        content: sanitizeHtml(postData.content || ""),
+        tags: {
+          set: [], // Disconnect existing tags
+          connectOrCreate: tagConnectOrCreate
+        }
+      } 
+    });
     await logActivity(userId, "updated_post", `post:${post.slug}`, post.title);
     return NextResponse.json(post);
   } catch (error: unknown) {

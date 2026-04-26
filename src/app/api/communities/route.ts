@@ -29,6 +29,8 @@ export async function GET(req: NextRequest) {
         name: true,
         description: true,
         region: true,
+        whatsappLink: true,
+        telegramLink: true,
         _count: {
           select: {
             members: true,

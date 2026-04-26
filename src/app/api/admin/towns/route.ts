@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { logActivity } from "@/lib/actions/auth";
+import { sanitizeHtml } from "@/lib/sanitize";
 
 async function checkAdmin() {
   const session = await auth();
@@ -18,7 +19,7 @@ export async function POST(req: NextRequest) {
   const data = await req.json();
   try {
     const town = await db.town.create({
-      data: { ...data, createdById: userId },
+      data: { ...data, overview: sanitizeHtml(data.overview || ""), createdById: userId },
     });
     await logActivity(userId, "created_town", `town:${town.slug}`, town.name);
     return NextResponse.json(town, { status: 201 });

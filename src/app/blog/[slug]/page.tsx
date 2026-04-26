@@ -19,7 +19,10 @@ export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
   const post = await db.blogPost.findUnique({
     where: { slug, published: true },
-    include: { author: { select: { name: true, bio: true, image: true } } },
+    include: { 
+      author: { select: { name: true, bio: true, image: true } },
+      tags: true
+    },
   });
 
   if (!post) notFound();
@@ -50,20 +53,19 @@ export default async function BlogPostPage({ params }: Props) {
           <span className="flex items-center gap-1"><Calendar className="h-4 w-4" />{formatDate(post.createdAt)}</span>
           <span className="flex items-center gap-1"><Eye className="h-4 w-4" />{post.views + 1} views</span>
         </div>
-        {post.tags && (
+        {post.tags.length > 0 && (
           <div className="flex gap-2 mt-3">
-            {post.tags.split(",").map((tag) => (
-              <Badge key={tag.trim()} variant="outline">{tag.trim()}</Badge>
+            {post.tags.map((tag) => (
+              <Badge key={tag.id} variant="outline">{tag.name}</Badge>
             ))}
           </div>
         )}
       </header>
 
-      <div className="wiki-content bg-wiki-card border border-wiki-border rounded-xl p-6 sm:p-8 theme-transition">
-        {post.content.split("\n\n").map((paragraph, i) => (
-          <p key={i}>{paragraph}</p>
-        ))}
-      </div>
+      <div
+        className="wiki-content bg-wiki-card border border-wiki-border rounded-xl p-6 sm:p-8 theme-transition"
+        dangerouslySetInnerHTML={{ __html: post.content }}
+      />
 
       {/* Author card */}
       <div className="mt-8 p-6 bg-wiki-card border border-wiki-border rounded-xl theme-transition">

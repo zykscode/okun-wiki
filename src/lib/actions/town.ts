@@ -29,10 +29,31 @@ export async function getTownBySlug(slug: string) {
         where: { published: true },
         orderBy: { order: "asc" },
       },
-      festivals: true,
+      festivals: {
+        include: { images: true }
+      },
       people: true,
       images: true,
       createdBy: { select: { name: true } },
+      amenities: true,
+      needs: true,
+      families: true,
+      neighbors: {
+        include: { neighbor: { select: { name: true, slug: true } } }
+      },
+      comments: {
+        where: { parentId: null },
+        orderBy: { createdAt: "desc" },
+        include: {
+          author: { select: { id: true, name: true, image: true } },
+          replies: {
+            include: {
+              author: { select: { id: true, name: true, image: true } }
+            },
+            orderBy: { createdAt: "asc" }
+          }
+        }
+      }
     },
   });
 }

@@ -40,6 +40,9 @@ model User {
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 
+  isApprovedWriter Boolean    @default(false)
+  mentorshipTracks MentorshipTrack[] @relation("UserMentorshipTracks")
+
   accounts      Account[]
   sessions      Session[]
   createdTowns  Town[]        @relation("TownCreator")
@@ -129,10 +132,80 @@ model Town {
   people      ProminentPerson[]
   images      TownImage[]
   comments    Comment[]
+  amenities   SocialAmenity[]
+  needs       TownNeed[]
+  families    FamilyLineage[]
+  neighbors   NeighboringTown[] @relation("TownToNeighbor")
+  neighborOf  NeighboringTown[] @relation("NeighborToTown")
 
   @@index([slug])
   @@index([published])
   @@index([featured])
+}
+
+model SocialAmenity {
+  id          String   @id @default(cuid())
+  townId      String
+  town        Town     @relation(fields: [townId], references: [id], onDelete: Cascade)
+  
+  name        String
+  type        String   // e.g. "Hospital", "School", "Water", "Electricity", "Market"
+  status      String   // e.g. "Available", "Functional", "Dilapidated", "Under Construction"
+  description String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([townId])
+}
+
+model TownNeed {
+  id          String   @id @default(cuid())
+  townId      String
+  town        Town     @relation(fields: [townId], references: [id], onDelete: Cascade)
+  
+  category    String   // e.g. "Infrastructure", "Education", "Healthcare", "Security"
+  description String
+  urgency     String   // e.g. "High", "Medium", "Low"
+  status      String   @default("OPEN") // "OPEN", "IN_PROGRESS", "RESOLVED"
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([townId])
+}
+
+model FamilyLineage {
+  id          String   @id @default(cuid())
+  townId      String
+  town        Town     @relation(fields: [townId], references: [id], onDelete: Cascade)
+  
+  name        String
+  history     String
+  headOfFamily String?
+  prominentMembers String? // Can be comma-separated list or JSON
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([townId])
+}
+
+model NeighboringTown {
+  id          String   @id @default(cuid())
+  
+  townId      String
+  town        Town     @relation("TownToNeighbor", fields: [townId], references: [id], onDelete: Cascade)
+  
+  neighborId  String
+  neighbor    Town     @relation("NeighborToTown", fields: [neighborId], references: [id], onDelete: Cascade)
+  
+  direction   String?  // e.g. "North", "South", "East", "West"
+  distanceKm  Float?
+
+  @@unique([townId, neighborId])
+  @@index([townId])
+  @@index([neighborId])
 }
 
 enum PageType {
@@ -195,7 +268,7 @@ model Festival {
   period      String
   significance String
 
-  images      String   // JSON array
+  images      FestivalImage[]
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -265,7 +338,7 @@ model BlogPost {
   coverImage  String?
 
   category    BlogCategory @default(GENERAL)
-  tags        String?      // comma-separated
+  tags        Tag[]        @relation("BlogPostTags")
 
   published   Boolean      @default(false)
   featured    Boolean      @default(false)
@@ -356,6 +429,8 @@ model Community {
   slug        String   @unique
   description String?
   region      String?
+  whatsappLink  String?
+  telegramLink  String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -380,6 +455,7 @@ model UserCommunity {
 model CommunityUpdate {
   id          String   @id @default(cuid())
   content     String
+  isSOS       Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -410,4 +486,27 @@ model Mentorship {
 
   @@unique([mentorId, menteeId, communityId])
   @@index([communityId])
+}
+
+model Tag {
+  id    String @id @default(cuid())
+  name  String @unique
+  posts BlogPost[] @relation("BlogPostTags")
+}
+
+model MentorshipTrack {
+  id    String @id @default(cuid())
+  name  String @unique
+  users User[] @relation("UserMentorshipTracks")
+}
+
+model FestivalImage {
+  id         String   @id @default(cuid())
+  festivalId String
+  festival   Festival @relation(fields: [festivalId], references: [id], onDelete: Cascade)
+  url        String
+  caption    String?
+  createdAt  DateTime @default(now())
+
+  @@index([festivalId])
 }

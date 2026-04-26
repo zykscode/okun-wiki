@@ -3,51 +3,38 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
-import wardData from "@/lib/ward.json";
-
-interface WardFeature {
-  type: "Feature";
-  properties: {
-    FID: number;
-    wardname: string;
-    lganame: string;
-    statename: string;
-    statecode: string;
-    wardcode: string;
-    lgacode: string;
-    population?: string;
-    urban: string;
-  };
-  geometry: {
-    type: "Polygon" | "MultiPolygon";
-    coordinates: number[][][] | number[][][][];
-  };
-}
+import type { TownInfo, WardFeature } from "@/components/leaflet-map";
 
 // Create a dynamic map component to avoid SSR issues
-const LeafletMap = dynamic(() => import('@/components/leaflet-map'), { 
+const LeafletMap = dynamic(() => import("@/components/leaflet-map"), {
   ssr: false,
-  loading: () => <div className="h-96 bg-gray-200 animate-pulse rounded-lg" />
+  loading: () => (
+    <div className="h-full w-full bg-wiki-card animate-pulse rounded-lg flex items-center justify-center">
+      <p className="text-wiki-muted text-sm">Loading map…</p>
+    </div>
+  ),
 });
 
-// Remove unused generic townData here since we fetch it.
-// Leaving only structure if it is needed, but it seems we fetch from API.
-
-// Refined, muted tone mapping for LGAs to match elegant aesthetic
+// Refined, muted tone mapping for Okun LGAs
 const lgaColors: { [key: string]: string } = {
-  "Kabba/Bunu": "#2d5948", // Forest 700
-  "Yagba West": "#4a8b71", // Forest 500
-  "Yagba East": "#e09920", // Gold 500
-  "Mopa-Muro": "#9a5715",  // Gold 700
-  "Ijumu": "#386f59",      // Forest 600
-  "Lokoja": "#c17816"      // Gold 600
+  "Kabba/Bunu": "#2d5948",
+  "Yagba West": "#4a8b71",
+  "Yagba East": "#e09920",
+  "Mopa-Muro": "#9a5715",
+  Ijumu: "#386f59",
+  Lokoja: "#c17816",
 };
+
+const OKUN_LGAS = ["Kabba/Bunu", "Yagba West", "Yagba East", "Mopa-Muro", "Ijumu", "Lokoja"];
 
 export default function InteractiveMap() {
   const router = useRouter();
   const [selectedWard, setSelectedWard] = useState<string | null>(null);
-  const [towns, setTowns] = useState<import('@/components/leaflet-map').TownInfo[]>([]);
+  const [towns, setTowns] = useState<TownInfo[]>([]);
+  const [wardGeoJSON, setWardGeoJSON] = useState<object | null>(null);
+  const [loadingMap, setLoadingMap] = useState(true);
 
+  // Fetch towns from API
   useEffect(() => {
     fetch("/api/map/towns")
       .then((res) => res.json())
@@ -55,34 +42,41 @@ export default function InteractiveMap() {
       .catch((err) => console.error("Failed to fetch towns:", err));
   }, []);
 
-  // Filter ward data to only show Okun LGAs
-  const okunLGAs = [
-    "Kabba/Bunu",
-    "Yagba West", 
-    "Yagba East",
-    "Mopa-Muro",
-    "Ijumu",
-    "Lokoja"
-  ];
+  // Fetch ward GeoJSON from public directory (not bundled)
+  useEffect(() => {
+    fetch("/data/ward.json")
+      .then((res) => res.json())
+      .then((data: { features: WardFeature[] }) => {
+        const okunWards = data.features.filter(
+          (f) =>
+            f.properties.statename === "Kogi" &&
+            OKUN_LGAS.some(
+              (lga) =>
+                f.properties.lganame.includes(lga) ||
+                lga.includes(f.properties.lganame)
+            )
+        );
+        setWardGeoJSON({ type: "FeatureCollection", features: okunWards });
+        setLoadingMap(false);
+      })
+      .catch((err) => {
+        console.error("Failed to load ward GeoJSON:", err);
+        setLoadingMap(false);
+      });
+  }, []);
 
-  const typedWardData = wardData as { features: WardFeature[] };
-
-  const okunWards = typedWardData.features.filter(
-    (feature: WardFeature) => feature.properties.statename === "Kogi" && 
-    okunLGAs.some(lga => feature.properties.lganame.includes(lga) || lga.includes(feature.properties.lganame))
-  );
-
-  // Create GeoJSON for ward boundaries
-  const wardGeoJSON = {
-    type: "FeatureCollection",
-    features: okunWards
-  };
-
-  // Handle ward click
   const onWardClick = (feature: WardFeature) => {
     setSelectedWard(feature.properties.wardname);
     router.push(`/communities/ward/${feature.properties.wardcode}`);
   };
+
+  if (loadingMap || !wardGeoJSON) {
+    return (
+      <div className="h-full w-full bg-wiki-card animate-pulse rounded-lg flex items-center justify-center">
+        <p className="text-wiki-muted text-sm">Loading map data…</p>
+      </div>
+    );
+  }
 
   return (
     <LeafletMap

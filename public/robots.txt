@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Admin panel is private
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://okunpedia.vercel.app/sitemap.xml

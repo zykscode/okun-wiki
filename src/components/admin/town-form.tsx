@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { slugify } from "@/lib/utils";
 
 interface TownData {
@@ -30,6 +31,7 @@ export function TownForm({ town }: { town?: TownData }) {
   const [error, setError] = useState("");
   const [name, setName] = useState(town?.name || "");
   const [slug, setSlug] = useState(town?.slug || "");
+  const [overview, setOverview] = useState(town?.overview || "");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,7 +48,7 @@ export function TownForm({ town }: { town?: TownData }) {
       coordinates: formData.get("coordinates") as string || null,
       population: formData.get("population") ? parseInt(formData.get("population") as string) : null,
       founded: formData.get("founded") as string || null,
-      overview: formData.get("overview") as string,
+      overview,
       metaDescription: formData.get("metaDescription") as string || null,
       published: formData.get("published") === "on",
       featured: formData.get("featured") === "on",
@@ -107,14 +109,15 @@ export function TownForm({ town }: { town?: TownData }) {
                 required
               />
               <Input id="tagline" name="tagline" label="Tagline" defaultValue={town?.tagline || ""} />
-              <Textarea
-                id="overview"
-                name="overview"
-                label="Overview"
-                defaultValue={town?.overview || ""}
-                className="min-h-[200px]"
-                required
-              />
+              <div>
+                <label className="block text-sm font-medium text-wiki-text mb-2">Overview</label>
+                <RichTextEditor
+                  content={overview}
+                  onChange={setOverview}
+                  placeholder="Comprehensive overview of the town..."
+                  minHeight="300px"
+                />
+              </div>
               <Textarea id="metaDescription" name="metaDescription" label="Meta Description (SEO)" defaultValue={town?.metaDescription || ""} />
             </CardContent>
           </Card>

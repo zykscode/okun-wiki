@@ -4,7 +4,6 @@ import { BookOpen, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { UserMenu } from "./user-menu";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
-import { MobileNav } from "./mobile-nav";
 
 export async function Header() {
   const session = await auth();
@@ -64,8 +63,6 @@ export async function Header() {
                 <Link href="/auth/register"><Button size="sm">Sign up</Button></Link>
               </div>
             )}
-
-            <MobileNav />
           </div>
         </div>
       </div>

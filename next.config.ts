@@ -9,9 +9,16 @@ const withPWA = withPWAInit({
 });
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "utfs.io" },
+      { protocol: "https", hostname: "uploadthing.com" },
+      { protocol: "https", hostname: "lh3.googleusercontent.com" },
+    ],
+  },
   experimental: {
     serverActions: {
-      bodySizeLimit: "2mb",
+      bodySizeLimit: "5mb",
     },
   },
   async headers() {

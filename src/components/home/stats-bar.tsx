@@ -41,8 +41,8 @@ export function StatsBar({ stats }: StatsBarProps) {
   ];
 
   return (
-    <section className="border-b border-wiki-border theme-transition" style={{ background: "var(--color-wiki-card)" }}>
-      <div className="max-w-[860px] mx-auto px-4 sm:px-6 py-8">
+    <section className="relative z-10 py-12 border-y border-wiki-border/50 bg-wiki-card/30 backdrop-blur-md">
+      <div className="max-w-[860px] mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-3 gap-8 text-center">
           {items.map((item, i) => (
             <motion.div
@@ -51,18 +51,19 @@ export function StatsBar({ stats }: StatsBarProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.15 }}
+              className="flex flex-col items-center p-4 rounded-3xl hover:bg-wiki-hover transition-colors"
             >
               <motion.div
-                className="flex items-center justify-center mb-2"
-                whileHover={{ scale: 1.2, rotate: 5 }}
+                className="flex items-center justify-center mb-3 h-12 w-12 rounded-2xl bg-wiki-text/5 text-blue-600 dark:text-blue-400"
+                whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <item.icon className={`h-6 w-6 ${item.color}`} />
+                <item.icon className="h-6 w-6" />
               </motion.div>
-              <p className="text-3xl font-display font-medium text-wiki-text tracking-tight mb-1">
+              <p className="text-3xl lg:text-4xl font-display font-bold text-wiki-text tracking-tight mb-1">
                 <AnimatedNumber value={item.value} />
               </p>
-              <p className="text-xs uppercase tracking-wider text-wiki-muted font-medium">{item.label}</p>
+              <p className="text-xs uppercase tracking-wider text-wiki-muted font-semibold">{item.label}</p>
             </motion.div>
           ))}
         </div>

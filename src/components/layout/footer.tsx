@@ -3,7 +3,7 @@ import { BookOpen } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="border-t border-wiki-border mt-auto theme-transition" style={{ background: "var(--color-wiki-card)" }}>
+    <footer className="border-t border-wiki-border/50 mt-auto backdrop-blur-md bg-wiki-card/30">
       <div className="max-w-[860px] mx-auto px-4 sm:px-6 py-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
@@ -21,27 +21,26 @@ export function Footer() {
 
           <div>
             <h3 className="font-semibold text-sm mb-3 text-wiki-text">Explore</h3>
-            <ul className="space-y-2">
-              <li><Link href="/towns" className="text-sm text-wiki-muted hover:text-forest-600 dark:hover:text-forest-400 no-underline transition-colors">All Towns</Link></li>
-              <li><Link href="/blog" className="text-sm text-wiki-muted hover:text-forest-600 dark:hover:text-forest-400 no-underline transition-colors">Blog</Link></li>
-              <li><Link href="/about" className="text-sm text-wiki-muted hover:text-forest-600 dark:hover:text-forest-400 no-underline transition-colors">About</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-sm mb-3 text-wiki-text">Contribute</h3>
-            <p className="text-sm text-wiki-muted leading-relaxed">
-              Know something about an Ọ̀kun town? Sign up and help us document our heritage.
-            </p>
+            <li><Link href="/towns" className="text-sm text-wiki-muted hover:text-blue-500 dark:hover:text-blue-400 no-underline transition-colors">All Towns</Link></li>
+            <li><Link href="/blog" className="text-sm text-wiki-muted hover:text-blue-500 dark:hover:text-blue-400 no-underline transition-colors">Blog</Link></li>
+            <li><Link href="/about" className="text-sm text-wiki-muted hover:text-blue-500 dark:hover:text-blue-400 no-underline transition-colors">About</Link></li>
+            <li><Link href="/admin" className="text-sm text-wiki-muted hover:text-blue-500 dark:hover:text-blue-400 no-underline transition-colors">Admin Dashboard</Link></li>
           </div>
         </div>
 
-        <div className="mt-8 pt-4 border-t border-wiki-border flex items-center justify-center gap-3 text-xs text-wiki-muted">
-          <span>© {new Date().getFullYear()} Okunpedia</span>
-          <span className="text-wiki-border">·</span>
-          <span>Built with ❤️ for Ọ̀kun land</span>
+        <div>
+          <h3 className="font-semibold text-sm mb-3 text-wiki-text">Contribute</h3>
+          <p className="text-sm text-wiki-muted leading-relaxed">
+            Know something about an Ọ̀kun town? Sign up and help us document our heritage.
+          </p>
         </div>
       </div>
-    </footer>
+
+      <div className="mt-8 pt-4 border-t border-wiki-border flex items-center justify-center gap-3 text-xs text-wiki-muted">
+        <span>© {new Date().getFullYear()} Okunpedia</span>
+        <span className="text-wiki-border">·</span>
+        <span>Built with ❤️ for Ọ̀kun land</span>
+      </div>
+    </footer >
   );
 }

@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@/lib/auth"
 import { db } from "@/lib/db"
 
+// Simple in-memory rate limiting map: userId -> timestamp of last post
+// Note: In a production serverless environment, use Upstash Redis.
+const rateLimitMap = new Map<string, number>();
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
+
 export async function GET(
     req: NextRequest,
     { params }: { params: Promise<{ id: string }> }
@@ -19,7 +24,10 @@ export async function GET(
                     select: { id: true, name: true, image: true }
                 }
             },
-            orderBy: { createdAt: "desc" },
+            orderBy: [
+                { isSOS: "desc" },
+                { createdAt: "desc" }
+            ],
             take: 20
         })
 
@@ -38,14 +46,29 @@ export async function POST(
         const session = await auth()
         if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
+        const userId = session.user.id;
+        const now = Date.now();
+        const lastPostTime = rateLimitMap.get(userId);
+
+        if (lastPostTime && now - lastPostTime < RATE_LIMIT_WINDOW_MS) {
+            return NextResponse.json(
+                { error: "You are posting too frequently. Please wait a minute." },
+                { status: 429 }
+            );
+        }
+        
+        // Update rate limit timestamp
+        rateLimitMap.set(userId, now);
+
         const { id: communityId } = await params
-        const { content } = await req.json()
+        const { content, isSOS } = await req.json()
 
         if (!content) return NextResponse.json({ error: "Content is required" }, { status: 400 })
 
         const newUpdate = await db.communityUpdate.create({
             data: {
                 content,
+                isSOS: !!isSOS,
                 authorId: session.user.id,
                 communityId
             },

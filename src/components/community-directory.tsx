@@ -13,6 +13,8 @@ interface Community {
   name: string
   description: string | null
   region: string | null
+  whatsappLink: string | null
+  telegramLink: string | null
   _count: {
     members: number
     articles: number
@@ -30,6 +32,7 @@ export function CommunityDirectory({ showJoinButton = false }: CommunityDirector
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedRegion, setSelectedRegion] = useState<string>("")
   const [joiningCommunity, setJoiningCommunity] = useState<string | null>(null)
+  const [joinedIds, setJoinedIds] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     // Moved fetchCommunities inside useEffect to avoid exhaustive-deps warning
@@ -64,8 +67,15 @@ export function CommunityDirectory({ showJoinButton = false }: CommunityDirector
       })
 
       if (response.ok) {
-        // Refresh communities if needed
-        window.location.reload()
+        // Optimistic update: increment member count, mark as joined
+        setCommunities((prev) =>
+          prev.map((c) =>
+            c.id === communityId
+              ? { ...c, _count: { ...c._count, members: c._count.members + 1 } }
+              : c
+          )
+        )
+        setJoinedIds((prev) => new Set(prev).add(communityId))
       } else {
         const error = await response.json()
         console.error("Error joining community:", error)
@@ -129,10 +139,10 @@ export function CommunityDirectory({ showJoinButton = false }: CommunityDirector
       </div>
 
       {/* Communities Grid */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {communities.map((community) => (
-          <Card key={community.id} className="bg-wiki-card border-wiki-border shadow-sm hover:shadow-md hover:border-forest-500/30 transition-all duration-300 group">
-            <CardHeader>
+          <div key={community.id} className="glass-card flex flex-col group p-6">
+            <div className="mb-4">
               <h3 className="text-lg font-bold">
                 <Link 
                   href={`/communities/${community.id}`}
@@ -146,30 +156,45 @@ export function CommunityDirectory({ showJoinButton = false }: CommunityDirector
                   {community.region}
                 </p>
               )}
-            </CardHeader>
-            <CardContent>
+              </div>
+            <div className="flex-1 flex flex-col">
               {community.description && (
                 <p className="text-sm text-wiki-secondary leading-relaxed mb-4 line-clamp-3">
                   {community.description}
                 </p>
               )}
               
-              <div className="flex justify-between items-center text-xs font-medium text-wiki-muted mb-4 border-t border-wiki-border pt-4 mt-auto">
+              <div className="flex justify-between items-center text-xs font-medium text-wiki-muted mb-4 border-t border-wiki-border/50 pt-4 mt-auto">
                 <span>{community._count.members} members</span>
                 <span>{community._count.articles} articles</span>
               </div>
 
-              {showJoinButton && session && (
+              {(community.whatsappLink || community.telegramLink) && (
+                <div className="flex gap-2 mb-4">
+                  {community.whatsappLink && (
+                    <a href={community.whatsappLink} target="_blank" rel="noreferrer" className="text-xs bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400 px-2 py-1 rounded-md font-medium hover:bg-green-200 transition-colors">
+                      WhatsApp Group
+                    </a>
+                  )}
+                  {community.telegramLink && (
+                    <a href={community.telegramLink} target="_blank" rel="noreferrer" className="text-xs bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400 px-2 py-1 rounded-md font-medium hover:bg-blue-200 transition-colors">
+                      Telegram Group
+                    </a>
+                  )}
+                </div>
+              )}
+
+              {showJoinButton && session && !joinedIds.has(community.id) && (
                 <Button
                   onClick={() => handleJoinCommunity(community.id)}
                   disabled={joiningCommunity === community.id}
-                  className="w-full"
+                  className="w-full rounded-xl bg-blue-600 hover:bg-blue-700"
                 >
                   {joiningCommunity === community.id ? "Joining..." : "Join Community"}
                 </Button>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         ))}
       </div>
 

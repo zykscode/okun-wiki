@@ -61,11 +61,6 @@ export default function LeafletMap({
 
     // Dynamically import Leaflet to avoid SSR issues
     import('leaflet').then((L) => {
-      console.log('Leaflet loaded successfully');
-      console.log('Ward GeoJSON:', wardGeoJSON);
-      console.log('Town data:', townData);
-      console.log('Map container ref:', mapRef.current);
-
       // Fix for default markers in Next.js
       delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
       L.Icon.Default.mergeOptions({
@@ -76,10 +71,8 @@ export default function LeafletMap({
 
       // Initialize map only if container is available and not already initialized
       if (mapRef.current && !mapInstanceRef.current) {
-        console.log('Initializing map...');
         const map = L.map(mapRef.current).setView([7.8, 7.5], 9);
         mapInstanceRef.current = map;
-        console.log('Map initialized:', map);
 
         // Add tile layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -176,7 +169,7 @@ export default function LeafletMap({
       <div ref={mapRef} className="w-full h-full" style={{ minHeight: '400px' }} />
 
       {/* Legend */}
-      <div className="absolute top-4 left-4 bg-wiki-card-strong border border-wiki-border rounded-xl shadow-lg p-3 z-[1000] backdrop-blur-md">
+      <div className="absolute top-4 left-4 bg-wiki-card-strong border border-wiki-border rounded-xl shadow-lg p-3 z-1000 backdrop-blur-md">
         <h3 className="text-xs uppercase tracking-wider font-semibold text-wiki-text mb-3 border-b border-wiki-border pb-2">Okun LGAs</h3>
         {Object.entries(lgaColors).map(([lga, color]) => (
           <div key={lga} className="flex items-center mb-1.5">
@@ -190,14 +183,14 @@ export default function LeafletMap({
         
         <div className="mt-3 pt-3 border-t border-wiki-border">
           <div className="flex items-center">
-            <div className="w-3 h-3 rounded-full bg-forest-500 mr-2.5 outline outline-2 outline-white dark:outline-wiki-bg outline-offset-[-1px]"></div>
+            <div className="w-3 h-3 rounded-full bg-forest-500 mr-2.5 outline-2 outline-white dark:outline-wiki-bg -outline-offset-1"></div>
             <span className="text-xs font-medium text-wiki-secondary">Registered Town</span>
           </div>
         </div>
       </div>
 
       {/* Map info */}
-      <div className="absolute bottom-4 right-4 bg-wiki-card border border-wiki-border rounded-lg shadow-sm p-3 z-[1000] backdrop-blur-sm max-w-[200px]">
+      <div className="absolute bottom-4 right-4 bg-wiki-card border border-wiki-border rounded-lg shadow-sm p-3 z-1000 backdrop-blur-sm max-w-[200px]">
         <div className="text-[10px] uppercase tracking-wider font-semibold text-wiki-muted mb-1.5">Features</div>
         <div className="text-[11px] text-wiki-secondary leading-relaxed">
           • Interactive boundaries<br/>
@@ -208,7 +201,7 @@ export default function LeafletMap({
 
       {/* Selected ward info */}
       {selectedWard && (
-        <div className="absolute bottom-4 left-4 bg-forest-600/95 text-white p-4 rounded-xl shadow-xl z-[1000] backdrop-blur-md border border-forest-500/30">
+        <div className="absolute bottom-4 left-4 bg-forest-600/95 text-white p-4 rounded-xl shadow-xl z-1000 backdrop-blur-md border border-forest-500/30">
           <div className="text-xs uppercase tracking-wider text-forest-200/80 mb-1 font-medium">Selected Ward</div>
           <div className="text-base font-display font-medium mb-1">{selectedWard}</div>
           <button 

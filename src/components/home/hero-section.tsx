@@ -1,91 +1,142 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, BookOpen } from "lucide-react";
+import { ArrowRight, BookOpen, Map, MapPin, FileText, Users, Music } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
+// Real preview cards showing actual platform features
+function HeroPreviewCard() {
+  return (
+    <div className="w-full max-w-sm glass-card relative overflow-hidden p-5 flex flex-col gap-4" style={{ transform: "rotateY(-4deg) rotateX(4deg)" }}>
+      {/* Mini header bar */}
+      <div className="flex items-center gap-2 pb-3 border-b border-wiki-border">
+        <div className="h-2 w-2 rounded-full bg-green-400" />
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-wiki-muted">Okunpedia Live</span>
+      </div>
+
+      {/* Featured town card */}
+      <div className="rounded-2xl bg-linear-to-br from-blue-600 to-indigo-600 p-4 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_80%_20%,white,transparent)]" />
+        <div className="flex items-start justify-between mb-3">
+          <div>
+            <p className="text-[10px] uppercase tracking-wider text-blue-200 mb-1">Featured Town</p>
+            <h3 className="text-lg font-bold leading-tight">Kabba</h3>
+            <p className="text-xs text-blue-200 mt-0.5">Capital of Kabba/Bunu LGA</p>
+          </div>
+          <div className="h-8 w-8 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
+            <MapPin className="h-4 w-4" />
+          </div>
+        </div>
+        <div className="flex gap-3 text-[10px] text-blue-100">
+          <span className="flex items-center gap-1"><FileText className="h-3 w-3" /> 8 wiki pages</span>
+          <span className="flex items-center gap-1"><Music className="h-3 w-3" /> 3 festivals</span>
+        </div>
+      </div>
+
+      {/* Stats row */}
+      <div className="grid grid-cols-3 gap-2">
+        {[
+          { icon: MapPin, label: "Towns", value: "24+" },
+          { icon: FileText, label: "Pages", value: "120+" },
+          { icon: Users, label: "Members", value: "340+" },
+        ].map((s) => (
+          <div key={s.label} className="rounded-xl bg-wiki-text/5 p-2.5 text-center">
+            <p className="text-base font-bold text-wiki-text">{s.value}</p>
+            <p className="text-[10px] text-wiki-muted mt-0.5">{s.label}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Community update */}
+      <div className="rounded-xl border border-wiki-border bg-wiki-card/50 p-3">
+        <div className="flex items-center gap-2 mb-1.5">
+          <span className="flex h-2 w-2 rounded-full bg-green-400 shrink-0" />
+          <span className="text-[10px] font-semibold text-wiki-muted uppercase tracking-wider">Community Feed</span>
+        </div>
+        <p className="text-xs text-wiki-secondary leading-relaxed line-clamp-2">
+          New article added: "The History of the Owé Kingdom and its Founding Traditions"
+        </p>
+      </div>
+
+      {/* CTA */}
+      <div className="flex items-center justify-between rounded-xl bg-wiki-text/5 px-3 py-2.5 group cursor-pointer">
+        <span className="text-xs font-semibold text-wiki-text">Explore Ọ̀kun Land</span>
+        <ArrowRight className="h-3.5 w-3.5 text-wiki-muted group-hover:translate-x-0.5 transition-transform" />
+      </div>
+    </div>
+  );
+}
+
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden" style={{ background: "linear-gradient(180deg, #050810 0%, #0a0f1a 50%, var(--color-wiki-bg) 100%)" }}>
-      {/* Stars */}
-      <div className="absolute inset-0 stars-bg opacity-60 pointer-events-none" />
-
-      {/* Deep forest nebula glow */}
-      <div className="absolute inset-0 pointer-events-none" style={{
-        background: `
-          radial-gradient(ellipse 80% 50% at 20% 20%, rgba(45,89,72,0.1), transparent 50%),
-          radial-gradient(ellipse 60% 60% at 80% 30%, rgba(224,153,32,0.06), transparent 50%),
-          radial-gradient(ellipse 90% 70% at 50% 90%, rgba(45,89,72,0.05), transparent 50%)
-        `,
-      }} />
-
-      {/* Floating orbs */}
-      <motion.div
-        className="absolute -top-20 -left-20 w-80 h-80 rounded-full blur-3xl pointer-events-none"
-        style={{ background: "rgba(45,89,72,0.06)" }}
-        animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full blur-3xl pointer-events-none"
-        style={{ background: "rgba(224,153,32,0.04)" }}
-        animate={{ x: [0, -30, 0], y: [0, 20, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
-
-      <div className="relative max-w-[860px] mx-auto px-4 sm:px-6 py-20 sm:py-28 text-center">
-        {/* Floating icon */}
-        <motion.div
-          className="mx-auto mb-8 w-16 h-16 flex items-center justify-center rounded-2xl bg-forest-600/10 text-forest-600 dark:bg-forest-500/20 dark:text-forest-400 border border-forest-500/20 shadow-lg shadow-forest-500/10"
-          animate={{ y: [0, -8, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <BookOpen className="h-10 w-10" />
-        </motion.div>
-
-        <motion.h1
-          className="text-5xl sm:text-6xl lg:text-8xl font-display font-medium mb-6 tracking-tight leading-[1.1] text-wiki-text"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <span>
-            Discover Ọ̀kun Land
-          </span>
-        </motion.h1>
-
-        <motion.p
-          className="text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed text-wiki-secondary"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          A community-driven encyclopedia documenting the rich history, culture,
-          and heritage of Ọ̀kun-speaking towns in Kogi State, Nigeria.
-        </motion.p>
-
-        <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <Link href="/towns">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button size="lg">
-                Explore Towns <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+    <section className="relative overflow-hidden pt-16 pb-24 lg:pt-24 lg:pb-32">
+      <div className="relative max-w-5xl mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left Text Content */}
+          <div className="text-left space-y-8 z-10">
+            <motion.div
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 font-medium text-sm"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <BookOpen className="w-4 h-4" />
+              <span>Okunpedia — Living encyclopedia</span>
             </motion.div>
-          </Link>
-          <Link href="/auth/register">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button size="lg" variant="secondary">
-                Contribute
-              </Button>
+
+            <motion.h1
+              className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold tracking-tight text-wiki-text leading-[1.1]"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              Discover the <br />
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-indigo-500 dark:from-blue-400 dark:to-indigo-300">
+                Heart of Ọ̀kun
+              </span>
+            </motion.h1>
+
+            <motion.p
+              className="text-lg sm:text-xl leading-relaxed text-wiki-secondary max-w-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              Immerse yourself in the history, culture, and heritage of Ọ̀kun-speaking towns
+              through our beautiful, community-driven encyclopedia.
+            </motion.p>
+
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 pt-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <Link href="/towns" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full rounded-2xl shadow-lg shadow-blue-500/20 active:scale-95 transition-all text-base px-8 h-14">
+                  Explore Towns <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+              <Link href="/map" className="w-full sm:w-auto">
+                <Button size="lg" variant="outline" className="w-full rounded-2xl active:scale-95 transition-all text-base px-8 h-14 bg-wiki-card/50 backdrop-blur-md border-wiki-border">
+                  <Map className="mr-2 h-5 w-5 text-wiki-muted" /> View Map
+                </Button>
+              </Link>
             </motion.div>
-          </Link>
-        </motion.div>
+          </div>
+
+          {/* Right — Real Platform Preview */}
+          <motion.div
+            className="relative lg:h-[520px] flex items-center justify-center lg:justify-end z-0"
+            initial={{ opacity: 0, scale: 0.9, rotateX: 10 }}
+            animate={{ opacity: 1, scale: 1, rotateX: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 100 }}
+            style={{ perspective: "1000px" }}
+          >
+            <HeroPreviewCard />
+          </motion.div>
+        </div>
       </div>
     </section>
   );

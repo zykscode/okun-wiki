@@ -17,6 +17,7 @@ interface CommunityUpdate {
   id: string
   content: string
   createdAt: string
+  isSOS?: boolean
   author: UpdateAuthor
 }
 
@@ -29,6 +30,7 @@ export function RealtimeFeed({ communityId, initialUpdates }: RealtimeFeedProps)
   const { data: session } = useSession()
   const [updates, setUpdates] = useState<CommunityUpdate[]>(initialUpdates || [])
   const [content, setContent] = useState("")
+  const [isSOS, setIsSOS] = useState(false)
   const [posting, setPosting] = useState(false)
 
   // Polling for updates to simulate real-time feature requested by user without migrating to Supabase
@@ -58,13 +60,22 @@ export function RealtimeFeed({ communityId, initialUpdates }: RealtimeFeedProps)
       const response = await fetch(`/api/communities/${communityId}/updates`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content })
+        body: JSON.stringify({ content, isSOS })
       })
 
       if (response.ok) {
         const newUpdate = await response.json()
-        setUpdates(prev => [newUpdate, ...prev])
+        setUpdates(prev => {
+           // Basic optimistic sort: SOS on top
+           const all = [newUpdate, ...prev]
+           return all.sort((a, b) => {
+             if (a.isSOS && !b.isSOS) return -1;
+             if (!a.isSOS && b.isSOS) return 1;
+             return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+           });
+        })
         setContent("")
+        setIsSOS(false)
       }
     } catch (error) {
       console.error("Error posting update:", error)
@@ -103,12 +114,22 @@ export function RealtimeFeed({ communityId, initialUpdates }: RealtimeFeedProps)
                     }
                   }}
                 />
-                <div className="flex justify-end">
+                <div className="flex justify-between items-center">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input 
+                      type="checkbox" 
+                      checked={isSOS}
+                      onChange={(e) => setIsSOS(e.target.checked)}
+                      className="rounded border-gray-300 text-red-600 focus:ring-red-500"
+                    />
+                    <span className="text-sm font-medium text-red-600">Mark as S.O.S Emergency</span>
+                  </label>
                   <Button 
                     onClick={handlePost} 
                     disabled={!content.trim() || posting}
+                    variant={isSOS ? "destructive" : "default"}
                   >
-                    {posting ? "Posting..." : "Post Update"}
+                    {posting ? "Posting..." : isSOS ? "Send S.O.S" : "Post Update"}
                   </Button>
                 </div>
               </div>
@@ -122,7 +143,10 @@ export function RealtimeFeed({ communityId, initialUpdates }: RealtimeFeedProps)
           <p className="text-gray-500 text-center py-8">No updates yet. Be the first to post!</p>
         ) : (
           updates.map((update) => (
-            <Card key={update.id}>
+            <Card key={update.id} className={update.isSOS ? "border-red-500 bg-red-50 dark:bg-red-950 shadow-[0_0_15px_rgba(239,68,68,0.3)] animate-pulse-border relative overflow-hidden" : ""}>
+              {update.isSOS && (
+                <div className="absolute top-0 left-0 w-full h-1 bg-red-600"></div>
+              )}
               <CardContent className="pt-6">
                 <div className="flex gap-4">
                   <Avatar>
@@ -135,8 +159,11 @@ export function RealtimeFeed({ communityId, initialUpdates }: RealtimeFeedProps)
                       <span className="text-sm text-gray-500">
                         {new Date(update.createdAt).toLocaleDateString()}
                       </span>
+                      {update.isSOS && (
+                        <span className="text-xs font-bold bg-red-600 text-white px-2 py-0.5 rounded-full ml-2 uppercase animate-pulse">S.O.S</span>
+                      )}
                     </div>
-                    <p className="text-gray-800 whitespace-pre-wrap">{update.content}</p>
+                    <p className={`whitespace-pre-wrap ${update.isSOS ? 'text-red-900 dark:text-red-100 font-medium' : 'text-gray-800'}`}>{update.content}</p>
                   </div>
                 </div>
               </CardContent>

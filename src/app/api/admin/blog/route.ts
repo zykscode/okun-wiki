@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { logActivity } from "@/lib/actions/auth";
+import { sanitizeHtml } from "@/lib/sanitize";
 
 export async function POST(req: NextRequest) {
   const session = await auth()
@@ -13,9 +14,28 @@ export async function POST(req: NextRequest) {
   }
 
   const data = await req.json();
+  const { tags, ...postData } = data;
+
+  // Process tags: "culture, history" -> connectOrCreate
+  const tagList = typeof tags === "string" 
+    ? tags.split(",").map(t => t.trim()).filter(Boolean) 
+    : [];
+  
+  const tagConnectOrCreate = tagList.map(name => ({
+    where: { name },
+    create: { name }
+  }));
+
   try {
     const post = await db.blogPost.create({
-      data: { ...data, authorId: session.user.id },
+      data: { 
+        ...postData, 
+        content: sanitizeHtml(postData.content || ""), 
+        authorId: session.user.id,
+        tags: {
+          connectOrCreate: tagConnectOrCreate
+        }
+      },
     });
     await logActivity(session.user.id, "created_post", `post:${post.slug}`, post.title);
     return NextResponse.json(post, { status: 201 });
