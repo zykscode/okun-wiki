@@ -61,7 +61,7 @@ function HeroPreviewCard() {
 
       {/* CTA */}
       <div className="flex items-center justify-between rounded-xl bg-wiki-text/5 px-3 py-2.5 group cursor-pointer">
-        <span className="text-xs font-semibold text-wiki-text">Explore Ọ̀kun Land</span>
+        <span className="text-xs font-semibold text-wiki-text">Explore Okun Land</span>
         <ArrowRight className="h-3.5 w-3.5 text-wiki-muted group-hover:translate-x-0.5 transition-transform" />
       </div>
     </div>
@@ -93,7 +93,7 @@ export function HeroSection() {
             >
               Discover the <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-indigo-500 dark:from-blue-400 dark:to-indigo-300">
-                Heart of Ọ̀kun
+                Heart of Okun
               </span>
             </motion.h1>
 
@@ -103,7 +103,7 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Immerse yourself in the history, culture, and heritage of Ọ̀kun-speaking towns
+              Immerse yourself in the history, culture, and heritage of Okun-speaking towns
               through our beautiful, community-driven encyclopedia.
             </motion.p>
 

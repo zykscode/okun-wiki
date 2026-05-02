@@ -13,7 +13,7 @@ export default function AboutPage() {
         <BookOpen className="h-16 w-16 text-primary-500 mx-auto mb-4" />
         <h1 className="text-4xl font-bold text-wiki-text">About Okunpedia</h1>
         <p className="text-lg text-wiki-muted mt-3 max-w-2xl mx-auto">
-          Preserving and celebrating the rich heritage of Ọ̀kun people through
+          Preserving and celebrating the rich heritage of Okun people through
           community-driven documentation.
         </p>
       </div>
@@ -22,17 +22,17 @@ export default function AboutPage() {
         <h2>Our Mission</h2>
         <p>
           Okunpedia is a community-driven encyclopedia dedicated to documenting the
-          history, culture, geography, and heritage of Ọ̀kun-speaking towns and
-          communities in Kogi State, Nigeria. The Ọ̀kun people, a subgroup of the
+          history, culture, geography, and heritage of Okun-speaking towns and
+          communities in Kogi State, Nigeria. The Okun people, a subgroup of the
           Yoruba, have a rich cultural heritage that deserves to be preserved and
           shared with the world.
         </p>
 
-        <h2>What is Ọ̀kun?</h2>
+        <h2>What is Okun?</h2>
         <p>
-          Ọ̀kun refers to the Yoruba-speaking people of Kogi State, primarily found
+          Okun refers to the Yoruba-speaking people of Kogi State, primarily found
           in five Local Government Areas: Kabba/Bunu, Ijumu, Mopa-Muro, Yagba East,
-          and Yagba West. The name &ldquo;Ọ̀kun&rdquo; is derived from the traditional greeting
+          and Yagba West. The name &ldquo;Okun&rdquo; is derived from the traditional greeting
           among these people, and it represents a shared cultural identity that binds
           these communities together.
         </p>
@@ -50,14 +50,14 @@ export default function AboutPage() {
             <Globe className="h-8 w-8 text-primary-500 mx-auto mb-3" />
             <h3 className="font-semibold mb-2">Visibility</h3>
             <p className="text-sm text-wiki-muted">
-              Making Ọ̀kun culture accessible to the world.
+              Making Okun culture accessible to the world.
             </p>
           </div>
           <div className="text-center p-6 bg-primary-50 rounded-lg">
             <Users className="h-8 w-8 text-primary-500 mx-auto mb-3" />
             <h3 className="font-semibold mb-2">Community</h3>
             <p className="text-sm text-wiki-muted">
-              Connecting Ọ̀kun people across the globe.
+              Connecting Okun people across the globe.
             </p>
           </div>
         </div>
@@ -65,14 +65,14 @@ export default function AboutPage() {
         <h2>How to Contribute</h2>
         <p>
           Okunpedia is built by the community, for the community. If you have
-          knowledge about any Ọ̀kun town — its history, festivals, prominent figures,
+          knowledge about any Okun town — its history, festivals, prominent figures,
           or cultural practices — we welcome your contributions. Simply create an
           account and start adding or editing content.
         </p>
         <p>
           Every piece of information matters, whether it&apos;s a detailed historical
           account or a small anecdote about a local tradition. Together, we can build
-          the most comprehensive resource about Ọ̀kun land.
+          the most comprehensive resource about Okun land.
         </p>
       </div>
     </div>

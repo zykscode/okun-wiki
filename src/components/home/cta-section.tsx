@@ -20,10 +20,10 @@ export function CTASection() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl font-display font-medium text-wiki-text mb-4">
-            Know an Ọ̀kun town?
+            Know an Okun town?
           </h2>
           <p className="text-wiki-secondary max-w-xl mx-auto mb-8 leading-relaxed text-lg">
-            Help us document the heritage of Ọ̀kun people. Every story, every tradition,
+            Help us document the heritage of Okun people. Every story, every tradition,
             every piece of history matters.
           </p>
           <Link href="/auth/register">

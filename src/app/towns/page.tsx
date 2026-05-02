@@ -6,7 +6,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Towns",
-  description: "Browse all documented Ọ̀kun towns in Kogi State, Nigeria.",
+  description: "Browse all documented Okun towns in Kogi State, Nigeria.",
 };
 
 interface TownsPageProps {
@@ -29,9 +29,9 @@ export default async function TownsPage({ searchParams }: TownsPageProps) {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-wiki-text">Ọ̀kun Towns</h1>
+        <h1 className="text-3xl font-bold text-wiki-text">Okun Towns</h1>
         <p className="text-wiki-muted mt-2">
-          Browse and explore the towns of Ọ̀kun land in Kogi State
+          Browse and explore the towns of Okun land in Kogi State
         </p>
       </div>
 

@@ -59,10 +59,10 @@ export function AppleScrollSequence() {
           {/* Background Image */}
           <div className="absolute inset-0 z-0">
             <Image 
-              src="/images/home-tour/landscape.png" 
+              src="/images/home-tour/landscape.jpeg" 
               alt="Okun Landscape" 
               fill
-              className="object-cover opacity-60 mix-blend-screen"
+              className="object-cover opacity-80 mix-blend-screen"
               priority
             />
             {/* Gradient overlay to make text readable */}
@@ -79,7 +79,7 @@ export function AppleScrollSequence() {
               Okunpedia.
             </h1>
             <p className="text-xl md:text-3xl font-medium text-neutral-200 mt-2 tracking-tight drop-shadow-lg">
-              Profoundly Ọ̀kun. Deeply connected.
+              Profoundly Okun. Deeply connected.
             </p>
           </motion.div>
         </motion.div>
@@ -181,7 +181,7 @@ export function AppleScrollSequence() {
                 Real-time Situation Reports.
               </h2>
               <p className="text-xl md:text-2xl text-neutral-400 max-w-2xl mx-auto mb-12">
-                A dedicated channel for critical updates and emergency situation reports across all Ọ̀kun towns. Built for safety, not for chat.
+                A dedicated channel for critical updates and emergency situation reports across all Okun towns. Built for safety, not for chat.
               </p>
               
               {/* Live Global SOS Feed */}

@@ -63,7 +63,7 @@ export function GlobalSosFeed() {
           </span>
           <span className="text-green-400 font-bold text-sm tracking-widest uppercase">All Clear</span>
         </div>
-        <p className="text-neutral-300 text-sm">There are currently no active emergency or S.O.S reports in Ọ̀kun land.</p>
+        <p className="text-neutral-300 text-sm">There are currently no active emergency or S.O.S reports in Okun land.</p>
       </div>
     )
   }

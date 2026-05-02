@@ -9,7 +9,7 @@ export default function CommunitiesPage() {
             Community Directory
           </h1>
           <p className="text-wiki-muted">
-            Discover and connect with Ọ̀kun communities preserving their heritage and culture.
+            Discover and connect with Okun communities preserving their heritage and culture.
           </p>
         </div>
         

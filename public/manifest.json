@@ -1,7 +1,7 @@
 {
-  "name": "Ọ̀kun Wiki",
-  "short_name": "Ọ̀kun Wiki",
-  "description": "The Encyclopedia of Ọ̀kun Land — documenting the history, culture, and heritage of Ọ̀kun towns in Kogi State, Nigeria.",
+  "name": "Okunpedia",
+  "short_name": "Okunpedia",
+  "description": "The Encyclopedia of Okun Land — documenting the history, culture, and heritage of Okun towns in Kogi State, Nigeria.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0f1117",
@@ -66,12 +66,12 @@
     {
       "name": "Browse Towns",
       "url": "/towns",
-      "description": "Browse all documented Ọ̀kun towns"
+      "description": "Browse all documented Okun towns"
     },
     {
       "name": "About",
       "url": "/about",
-      "description": "Learn about the Ọ̀kun Wiki project"
+      "description": "Learn about the Okun Wiki project"
     }
   ]
 }

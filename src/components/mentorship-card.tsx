@@ -1,70 +1,89 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useSession } from "next-auth/react"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { GraduationCap, Handshake, ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface MentorshipCardProps {
-  communityId: string
-  mentorRole?: string
-  menteeRole?: string
+  communityId: string;
 }
 
 export function MentorshipCard({ communityId }: MentorshipCardProps) {
-  const { data: session } = useSession()
-  const [loading, setLoading] = useState(false)
+  const { data: session } = useSession();
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
   
-  const handleRequestMentorship = async () => {
-    if (!session) return
+  const handleRequestMentorship = async (role: "MENTEE" | "MENTOR") => {
+    if (!session) {
+      router.push("/auth/login");
+      return;
+    }
 
-    setLoading(true)
+    setLoading(true);
     try {
-      // API call to create a pending mentorship
       const response = await fetch(`/api/communities/${communityId}/mentorship`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ role: "MENTEE" })
-      })
+        body: JSON.stringify({ role })
+      });
       if (response.ok) {
-        alert("Mentorship request sent!")
+        alert(role === "MENTEE" ? "Mentorship request sent! A mentor will review it soon." : "Thank you for offering to mentor! We've registered your interest.");
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
-    <Card className="hover:shadow-md transition-shadow">
-      <CardHeader>
-        <h2 className="text-xl font-bold">Mentorship Program</h2>
-        <p className="text-sm text-gray-500">
-          Connect with experienced community members to learn, or offer your knowledge to guide emerging members.
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="glass-card p-6 overflow-hidden relative group"
+    >
+      <div className="absolute top-0 right-0 -mt-10 -mr-10 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
+        <GraduationCap size={150} />
+      </div>
+
+      <div className="relative z-10">
+        <h2 className="text-2xl font-bold mb-2 text-wiki-text flex items-center gap-2">
+          <Handshake className="w-6 h-6 text-primary-500" />
+          Mentorship Program
+        </h2>
+        <p className="text-sm text-wiki-muted mb-6 max-w-md">
+          Connect with experienced community members to learn, or offer your knowledge to guide emerging members in Okunland.
         </p>
-      </CardHeader>
-      <CardContent>
-        {session ? (
-          <div className="flex gap-4">
-             <Button
-                disabled={loading}
-                onClick={handleRequestMentorship}
-             >
-                Find a Mentor
-             </Button>
-             <Button
-                disabled={loading}
-                // Option for users offering to mentor
-                onClick={() => alert("Feature to offer mentorship coming soon!")}
-             >
-                Offer Mentorship
-             </Button>
-          </div>
-        ) : (
-          <p className="text-sm text-gray-500">Sign in to join the mentorship program.</p>
+
+        <div className="flex flex-col sm:flex-row gap-4">
+           <Button
+              disabled={loading}
+              onClick={() => handleRequestMentorship("MENTEE")}
+              className="flex-1 justify-between group/btn"
+           >
+              Find a Mentor
+              <ChevronRight className="w-4 h-4 opacity-50 group-hover/btn:opacity-100 group-hover/btn:translate-x-1 transition-all" />
+           </Button>
+           <Button
+              disabled={loading}
+              variant="outline"
+              onClick={() => handleRequestMentorship("MENTOR")}
+              className="flex-1 justify-between group/btn border-primary-500/30 hover:bg-primary-500/10"
+           >
+              Offer Mentorship
+              <ChevronRight className="w-4 h-4 opacity-50 group-hover/btn:opacity-100 group-hover/btn:translate-x-1 transition-all" />
+           </Button>
+        </div>
+        
+        {!session && (
+          <p className="text-xs text-wiki-muted mt-4 text-center">
+            You will be prompted to sign in to join the program.
+          </p>
         )}
-      </CardContent>
-    </Card>
-  )
+      </div>
+    </motion.div>
+  );
 }

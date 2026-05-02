@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 const SETTINGS_FIELDS = [
   { key: "site_name", label: "Site Name", type: "input", defaultValue: "Okunpedia" },
-  { key: "site_tagline", label: "Tagline", type: "input", defaultValue: "The Encyclopedia of Ọ̀kun Land" },
+  { key: "site_tagline", label: "Tagline", type: "input", defaultValue: "The Encyclopedia of Okun Land" },
   { key: "site_description", label: "Description", type: "textarea", defaultValue: "A community-driven encyclopedia..." },
   { key: "contact_email", label: "Contact Email", type: "input", defaultValue: "" },
   { key: "social_twitter", label: "Twitter/X Handle", type: "input", defaultValue: "" },

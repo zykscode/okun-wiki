@@ -8,7 +8,7 @@ import { PenSquare } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Articles and news from the Ọ̀kun community.",
+  description: "Articles and news from the Okun community.",
 };
 
 interface BlogPageProps {
@@ -34,7 +34,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-wiki-text">Community Blog</h1>
-        <p className="text-wiki-muted mt-2">Articles, news, and stories from the Ọ̀kun community</p>
+        <p className="text-wiki-muted mt-2">Articles, news, and stories from the Okun community</p>
       </div>
 
       {/* Category filter */}

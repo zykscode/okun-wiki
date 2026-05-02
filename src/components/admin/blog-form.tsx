@@ -117,13 +117,25 @@ export function BlogForm({ post }: { post?: PostData }) {
                 placeholder="Brief summary of the post…"
               />
               <div>
-                <label className="block text-sm font-medium text-wiki-text mb-2">Content</label>
-                <RichTextEditor
-                  content={content}
-                  onChange={setContent}
-                  placeholder="Write your article here…"
-                  minHeight="400px"
-                />
+                <div className="flex items-center justify-between mb-2">
+                  <label className="block text-sm font-medium text-wiki-text">Content</label>
+                  <span className="text-xs text-wiki-muted">Auto-saving drafted to localStorage</span>
+                </div>
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+                  <RichTextEditor
+                    content={content}
+                    onChange={(val) => { setContent(val); localStorage.setItem("blog_draft", val); }}
+                    placeholder="Write your article here…"
+                    minHeight="500px"
+                  />
+                  <div className="hidden xl:block prose dark:prose-invert max-w-none border border-wiki-border rounded-lg p-6 bg-wiki-card overflow-y-auto" style={{ maxHeight: "500px" }}>
+                    {content ? (
+                      <div dangerouslySetInnerHTML={{ __html: content }} />
+                    ) : (
+                      <p className="text-wiki-muted text-center mt-20">Live Preview</p>
+                    )}
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>

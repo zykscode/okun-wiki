@@ -19,7 +19,7 @@ export async function Header() {
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-display font-medium text-wiki-text tracking-tight transition-colors group-hover:text-forest-600 dark:group-hover:text-forest-400">Okunpedia</span>
-              <span className="hidden sm:block text-[10px] uppercase tracking-wider text-wiki-muted font-medium mt-0.5">The Encyclopedia of Ọ̀kun Land</span>
+              <span className="hidden sm:block text-[10px] uppercase tracking-wider text-wiki-muted font-medium mt-0.5">The Encyclopedia of Okun Land</span>
             </div>
           </Link>
 

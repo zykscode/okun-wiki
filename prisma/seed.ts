@@ -28,20 +28,20 @@ async function main() {
     create: {
       name: "Kabba",
       slug: "kabba",
-      tagline: "The Heart of Ọ̀kun Land",
+      tagline: "The Heart of Okun Land",
       state: "Kogi",
       lga: "Kabba/Bunu",
       coordinates: "7.8283,6.0733",
       population: 106925,
       founded: "Pre-15th century",
-      overview: `Kabba is one of the most prominent towns in Ọ̀kun land and serves as the headquarters of Kabba/Bunu Local Government Area in Kogi State, Nigeria. The town is strategically located at the confluence of cultures, sitting at the crossroads between the Yoruba-speaking southwest and the diverse ethnic groups of central Nigeria.
+      overview: `Kabba is one of the most prominent towns in Okun land and serves as the headquarters of Kabba/Bunu Local Government Area in Kogi State, Nigeria. The town is strategically located at the confluence of cultures, sitting at the crossroads between the Yoruba-speaking southwest and the diverse ethnic groups of central Nigeria.
 
 Kabba has a rich historical significance, having served as a major administrative center during the colonial era. The town was the headquarters of Kabba Province, which at various times encompassed a vast territory. This administrative importance brought infrastructure, education, and commerce to the town early on.
 
 The people of Kabba are known for their warmth, hospitality, and strong cultural traditions. The town celebrates several festivals throughout the year, including the famous Ogun Festival, which honors the deity of iron and warfare. Agriculture remains a backbone of the local economy, with crops such as yam, cassava, rice, and various fruits thriving in the fertile soil.
 
 Kabba is also notable for its educational institutions, including some of the oldest secondary schools in Kogi State. The town has produced numerous professionals, academics, and leaders who have contributed significantly to national development.`,
-      metaDescription: "Discover Kabba — the heart of Ọ̀kun land in Kogi State, Nigeria. Learn about its rich history, culture, and people.",
+      metaDescription: "Discover Kabba — the heart of Okun land in Kogi State, Nigeria. Learn about its rich history, culture, and people.",
       published: true,
       featured: true,
       createdById: admin.id,
@@ -64,7 +64,7 @@ During the 19th century, Kabba experienced significant upheaval due to the Nupe 
 
 The arrival of the British colonial administration in the early 20th century transformed Kabba into a major administrative center. The establishment of Kabba Province brought new infrastructure, including roads, schools, and government buildings. The town became a melting pot of cultures as people from various parts of the province converged for administrative and commercial purposes.
 
-After Nigerian independence in 1960, Kabba continued to play an important role in regional politics and administration. The creation of Kogi State in 1991 brought new opportunities and challenges, with the Ọ̀kun people working to maintain their cultural identity within the broader state framework.`,
+After Nigerian independence in 1960, Kabba continued to play an important role in regional politics and administration. The creation of Kogi State in 1991 brought new opportunities and challenges, with the Okun people working to maintain their cultural identity within the broader state framework.`,
     },
   });
 
@@ -79,7 +79,7 @@ After Nigerian independence in 1960, Kabba continued to play an important role i
       order: 2,
       content: `The culture of Kabba is deeply rooted in Yoruba traditions, enriched by centuries of interaction with neighboring ethnic groups. The people maintain a strong connection to their ancestral customs while adapting to modern life.
 
-Language is a central element of Kabba's cultural identity. The Ọ̀kun dialect spoken in Kabba is distinct from standard Yoruba, featuring unique vocabulary, intonations, and expressions that reflect the community's history and geographical location.
+Language is a central element of Kabba's cultural identity. The Okun dialect spoken in Kabba is distinct from standard Yoruba, featuring unique vocabulary, intonations, and expressions that reflect the community's history and geographical location.
 
 Traditional institutions remain important in Kabba. The Obaro of Kabba is the paramount traditional ruler, whose authority and counsel are respected by the community. The chieftaincy system plays a vital role in maintaining social order, settling disputes, and preserving cultural practices.
 
@@ -108,7 +108,7 @@ Cuisine in Kabba reflects the agricultural bounty of the region. Pounded yam wit
       name: "Chief Solomon Dele Olu",
       title: "Chief",
       role: "Community Leader",
-      biography: "A distinguished community leader and advocate for the development of Kabba and the broader Ọ̀kun area. Known for his tireless efforts in promoting education and infrastructure development in the region.",
+      biography: "A distinguished community leader and advocate for the development of Kabba and the broader Okun area. Known for his tireless efforts in promoting education and infrastructure development in the region.",
       isAlive: true,
     },
   });
@@ -128,13 +128,13 @@ Cuisine in Kabba reflects the agricultural bounty of the region. Pounded yam wit
       coordinates: "7.9847,5.8403",
       population: 45000,
       founded: "Pre-16th century",
-      overview: `Isanlu is the administrative headquarters of Ijumu Local Government Area in Kogi State. It is one of the major towns in Ọ̀kun land, known for its vibrant culture, educational achievements, and strategic importance in the region.
+      overview: `Isanlu is the administrative headquarters of Ijumu Local Government Area in Kogi State. It is one of the major towns in Okun land, known for its vibrant culture, educational achievements, and strategic importance in the region.
 
 The town sits in a picturesque landscape of rolling hills and lush vegetation, surrounded by fertile farmlands that support both subsistence and commercial agriculture. Isanlu's location along major road networks has historically made it a center of trade and commerce in the region.
 
 Isanlu is renowned for its contribution to education in Kogi State and beyond. The town hosts several notable educational institutions and has produced a remarkable number of professionals, academics, and public servants relative to its size.
 
-The cultural life of Isanlu is rich and vibrant, with various festivals and celebrations that mark the agricultural calendar and honor ancestral traditions. The town's people are known for their hospitality, strong community bonds, and commitment to preserving their Ọ̀kun heritage.`,
+The cultural life of Isanlu is rich and vibrant, with various festivals and celebrations that mark the agricultural calendar and honor ancestral traditions. The town's people are known for their hospitality, strong community bonds, and commitment to preserving their Okun heritage.`,
       metaDescription: "Explore Isanlu — gateway to Ijumu in Kogi State. Discover its history, education legacy, and cultural heritage.",
       published: true,
       featured: true,
@@ -176,11 +176,11 @@ In the post-independence era, Isanlu has continued to evolve, balancing moderniz
       coordinates: "8.1500,5.9667",
       population: 35000,
       founded: "Pre-17th century",
-      overview: `Mopa is the headquarters of Mopa-Muro Local Government Area in Kogi State. Nestled in the northern reaches of Ọ̀kun land, Mopa is a town steeped in tradition and known for its strong community spirit.
+      overview: `Mopa is the headquarters of Mopa-Muro Local Government Area in Kogi State. Nestled in the northern reaches of Okun land, Mopa is a town steeped in tradition and known for its strong community spirit.
 
 The town is surrounded by expansive farmlands and natural vegetation, reflecting the agricultural heritage that has sustained the community for centuries. Yam farming, in particular, holds a special place in Mopa's economy and culture, with the annual yam festival being one of the highlights of the town's calendar.
 
-Mopa has played a significant role in the political and cultural development of the Ọ̀kun people. The town's leaders have been at the forefront of advocacy for the development of the region and the preservation of Ọ̀kun cultural identity.
+Mopa has played a significant role in the political and cultural development of the Okun people. The town's leaders have been at the forefront of advocacy for the development of the region and the preservation of Okun cultural identity.
 
 Education and youth development are priorities in Mopa, with the community investing in schools and programs that prepare the next generation for leadership while grounding them in their cultural heritage.`,
       metaDescription: "Discover Mopa — a town of unity and tradition in Kogi State. Learn about its culture, festivals, and community spirit.",
@@ -216,7 +216,7 @@ Education and youth development are priorities in Mopa, with the community inves
       coordinates: "8.2167,5.7500",
       population: 52000,
       founded: "Pre-16th century",
-      overview: `Egbe is a prominent town in Yagba West Local Government Area of Kogi State. Known as the "City of Harmony," Egbe holds a special place in the history of Christianity in Nigeria and the broader Ọ̀kun cultural landscape.
+      overview: `Egbe is a prominent town in Yagba West Local Government Area of Kogi State. Known as the "City of Harmony," Egbe holds a special place in the history of Christianity in Nigeria and the broader Okun cultural landscape.
 
 The town gained historical significance through the establishment of one of the earliest missionary stations in the region. This early exposure to Western education gave Egbe a head start in producing educated professionals who went on to serve Nigeria in various capacities.
 

@@ -18,7 +18,7 @@ export function BottomNav() {
   ];
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-wiki-card border-t border-wiki-border pb-safe">
+    <div className="md:hidden fixed bottom-6 left-4 right-4 z-50 bg-wiki-card/80 backdrop-blur-xl saturate-150 border border-wiki-border shadow-lg rounded-3xl pb-safe-offset overflow-hidden">
       <div className="flex items-center justify-around h-16 px-2">
         {navItems.map((item) => {
           // Precise matching for root, startsWith for others

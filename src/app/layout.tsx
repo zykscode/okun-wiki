@@ -13,11 +13,11 @@ const interDisplay = Inter({ subsets: ["latin"], variable: "--font-display", wei
 export const metadata: Metadata = {
   metadataBase: new URL("https://okunpedia.vercel.app"),
   title: {
-    default: "Okunpedia — The Encyclopedia of Ọ̀kun Land",
+    default: "Okunpedia — The Encyclopedia of Okun Land",
     template: "%s | Okunpedia",
   },
   description:
-    "A community-driven encyclopedia documenting the history, culture, and heritage of Ọ̀kun towns in Kogi State, Nigeria.",
+    "A community-driven encyclopedia documenting the history, culture, and heritage of Okun towns in Kogi State, Nigeria.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
