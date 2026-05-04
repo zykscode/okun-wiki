@@ -29,10 +29,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if (!user || !user.password) return null;
 
-        const isValid = await bcrypt.compare(
-          credentials.password as string,
-          user.password
-        );
+        const isValid = await bcrypt.compare(credentials.password as string, user.password);
 
         if (!isValid) return null;
 
@@ -46,17 +43,4 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
-  callbacks: {
-    ...authConfig.callbacks,
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-        token.role = (user as { role?: string }).role;
-      }
-
-      // Ensure we always have the latest role if needed, 
-      // but for now we follow the token pattern.
-      return token;
-    },
-  }
 });

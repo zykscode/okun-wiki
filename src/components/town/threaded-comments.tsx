@@ -36,24 +36,24 @@ export function ThreadedComments({ townId, pageId }: ThreadedCommentsProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const params = new URLSearchParams();
+        if (townId) params.append("townId", townId);
+        if (pageId) params.append("pageId", pageId);
+
+        const res = await fetch(`/api/comments?${params.toString()}`);
+        if (res.ok) {
+          const data = await res.json();
+          setComments(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch comments", error);
+      }
+    };
+
     fetchComments();
   }, [townId, pageId]);
-
-  const fetchComments = async () => {
-    try {
-      const params = new URLSearchParams();
-      if (townId) params.append("townId", townId);
-      if (pageId) params.append("pageId", pageId);
-      
-      const res = await fetch(`/api/comments?${params.toString()}`);
-      if (res.ok) {
-        const data = await res.json();
-        setComments(data);
-      }
-    } catch (error) {
-      console.error("Failed to fetch comments", error);
-    }
-  };
 
   const handlePostComment = async (parentId: string | null = null) => {
     if (!session) return;
@@ -71,15 +71,15 @@ export function ThreadedComments({ townId, pageId }: ThreadedCommentsProps) {
       if (res.ok) {
         const created = await res.json();
         if (parentId) {
-          setComments(prev => prev.map(c => 
-            c.id === parentId 
-              ? { ...c, replies: [...(c.replies || []), created] }
-              : c
-          ));
+          setComments((prev) =>
+            prev.map((c) =>
+              c.id === parentId ? { ...c, replies: [...(c.replies || []), created] } : c,
+            ),
+          );
           setReplyingTo(null);
           setReplyContent("");
         } else {
-          setComments(prev => [created, ...prev]);
+          setComments((prev) => [created, ...prev]);
           setNewComment("");
         }
       }
@@ -90,15 +90,15 @@ export function ThreadedComments({ townId, pageId }: ThreadedCommentsProps) {
     }
   };
 
-  const CommentNode = ({ comment, isReply = false }: { comment: Comment, isReply?: boolean }) => (
-    <motion.div 
+  const CommentNode = ({ comment, isReply = false }: { comment: Comment; isReply?: boolean }) => (
+    <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       className={`flex gap-3 ${isReply ? "mt-4 ml-8 border-l-2 border-wiki-border pl-4" : "mt-6"}`}
     >
       <Avatar className="w-8 h-8">
         <AvatarImage src={comment.author.image || undefined} />
-        <AvatarFallback>{comment.author.name?.[0] || 'U'}</AvatarFallback>
+        <AvatarFallback>{comment.author.name?.[0] || "U"}</AvatarFallback>
       </Avatar>
       <div className="flex-1 space-y-1">
         <div className="flex items-center gap-2">
@@ -107,11 +107,14 @@ export function ThreadedComments({ townId, pageId }: ThreadedCommentsProps) {
             {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
           </span>
         </div>
-        <p className="text-sm text-wiki-text" dangerouslySetInnerHTML={{ __html: comment.content }} />
-        
+        <p
+          className="text-sm text-wiki-text"
+          dangerouslySetInnerHTML={{ __html: comment.content }}
+        />
+
         {!isReply && session && (
           <div className="pt-1">
-            <button 
+            <button
               onClick={() => setReplyingTo(replyingTo === comment.id ? null : comment.id)}
               className="text-xs font-medium text-primary-500 hover:underline"
             >
@@ -122,7 +125,7 @@ export function ThreadedComments({ townId, pageId }: ThreadedCommentsProps) {
 
         <AnimatePresence>
           {replyingTo === comment.id && (
-            <motion.div 
+            <motion.div
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
@@ -135,8 +138,14 @@ export function ThreadedComments({ townId, pageId }: ThreadedCommentsProps) {
                 className="min-h-[80px] text-sm bg-wiki-input border-wiki-border"
               />
               <div className="flex justify-end gap-2 mt-2">
-                <Button variant="ghost" size="sm" onClick={() => setReplyingTo(null)}>Cancel</Button>
-                <Button size="sm" onClick={() => handlePostComment(comment.id)} disabled={isSubmitting || !replyContent.trim()}>
+                <Button variant="ghost" size="sm" onClick={() => setReplyingTo(null)}>
+                  Cancel
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={() => handlePostComment(comment.id)}
+                  disabled={isSubmitting || !replyContent.trim()}
+                >
                   Reply
                 </Button>
               </div>
@@ -146,7 +155,7 @@ export function ThreadedComments({ townId, pageId }: ThreadedCommentsProps) {
 
         {comment.replies && comment.replies.length > 0 && (
           <div className="mt-2 space-y-2">
-            {comment.replies.map(reply => (
+            {comment.replies.map((reply) => (
               <CommentNode key={reply.id} comment={reply} isReply={true} />
             ))}
           </div>
@@ -158,12 +167,12 @@ export function ThreadedComments({ townId, pageId }: ThreadedCommentsProps) {
   return (
     <div className="glass-panel p-6">
       <h3 className="text-xl font-bold mb-6">Community Discussion</h3>
-      
+
       {session ? (
         <div className="flex gap-4 mb-8">
           <Avatar>
             <AvatarImage src={session.user?.image || undefined} />
-            <AvatarFallback>{session.user?.name?.[0] || 'U'}</AvatarFallback>
+            <AvatarFallback>{session.user?.name?.[0] || "U"}</AvatarFallback>
           </Avatar>
           <div className="flex-1 space-y-3">
             <Textarea
@@ -173,7 +182,10 @@ export function ThreadedComments({ townId, pageId }: ThreadedCommentsProps) {
               className="min-h-[100px] bg-wiki-input border-wiki-border"
             />
             <div className="flex justify-end">
-              <Button onClick={() => handlePostComment(null)} disabled={isSubmitting || !newComment.trim()}>
+              <Button
+                onClick={() => handlePostComment(null)}
+                disabled={isSubmitting || !newComment.trim()}
+              >
                 Post Comment
               </Button>
             </div>
@@ -190,9 +202,11 @@ export function ThreadedComments({ townId, pageId }: ThreadedCommentsProps) {
 
       <div className="space-y-6 divide-y divide-wiki-border/50">
         {comments.length === 0 ? (
-          <p className="text-center text-wiki-muted py-8">No comments yet. Be the first to share your thoughts!</p>
+          <p className="text-center text-wiki-muted py-8">
+            No comments yet. Be the first to share your thoughts!
+          </p>
         ) : (
-          comments.map(comment => <CommentNode key={comment.id} comment={comment} />)
+          comments.map((comment) => <CommentNode key={comment.id} comment={comment} />)
         )}
       </div>
     </div>

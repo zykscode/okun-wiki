@@ -21,7 +21,11 @@ interface HistoryListProps {
   currentContent: string;
 }
 
-export function HistoryList({ pageId, initialVersions, currentContent }: HistoryListProps) {
+export function HistoryList({
+  pageId: _pageId,
+  initialVersions,
+  currentContent,
+}: HistoryListProps) {
   const [selectedVersions, setSelectedVersions] = useState<string[]>([]);
   const [comparing, setComparing] = useState(false);
 
@@ -29,7 +33,8 @@ export function HistoryList({ pageId, initialVersions, currentContent }: History
   const currentVersion: Version = {
     id: "current",
     content: currentContent,
-    version: initialVersions.length > 0 ? Math.max(...initialVersions.map(v => v.version)) + 1 : 1,
+    version:
+      initialVersions.length > 0 ? Math.max(...initialVersions.map((v) => v.version)) + 1 : 1,
     editSummary: "Current Version",
     createdAt: new Date().toISOString(),
     createdBy: "System",
@@ -49,23 +54,32 @@ export function HistoryList({ pageId, initialVersions, currentContent }: History
   const v2 = allVersions.find((v) => v.id === selectedVersions[1]);
 
   // Sort by version number to ensure correct comparison direction
-  const [oldV, newV] = v1 && v2 
-    ? (v1.version < v2.version ? [v1, v2] : [v2, v1])
-    : [null, null];
+  const [oldV, newV] = v1 && v2 ? (v1.version < v2.version ? [v1, v2] : [v2, v1]) : [null, null];
 
   if (comparing && oldV && newV) {
     return (
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold">Comparing v{oldV.version} vs v{newV.version}</h2>
-          <Button onClick={() => { setComparing(false); setSelectedVersions([]); }}>Back to List</Button>
+          <h2 className="text-lg font-semibold">
+            Comparing v{oldV.version} vs v{newV.version}
+          </h2>
+          <Button
+            onClick={() => {
+              setComparing(false);
+              setSelectedVersions([]);
+            }}
+          >
+            Back to List
+          </Button>
         </div>
         <div className="border border-wiki-border rounded-xl overflow-hidden bg-white dark:bg-zinc-900">
           <ReactDiffViewer
             oldValue={oldV.content}
             newValue={newV.content}
             splitView={true}
-            useDarkTheme={typeof window !== 'undefined' && document.documentElement.classList.contains('dark')}
+            useDarkTheme={
+              typeof window !== "undefined" && document.documentElement.classList.contains("dark")
+            }
           />
         </div>
       </div>
@@ -78,10 +92,7 @@ export function HistoryList({ pageId, initialVersions, currentContent }: History
         <p className="text-sm text-wiki-muted">
           Select two versions to compare. ({selectedVersions.length}/2 selected)
         </p>
-        <Button 
-          disabled={selectedVersions.length !== 2} 
-          onClick={() => setComparing(true)}
-        >
+        <Button disabled={selectedVersions.length !== 2} onClick={() => setComparing(true)}>
           Compare Versions
         </Button>
       </div>
@@ -99,14 +110,14 @@ export function HistoryList({ pageId, initialVersions, currentContent }: History
           </thead>
           <tbody className="divide-y divide-wiki-border">
             {allVersions.map((v) => (
-              <tr 
-                key={v.id} 
-                className={`hover:bg-wiki-hover transition-colors cursor-pointer ${selectedVersions.includes(v.id) ? 'bg-primary-500/5' : ''}`}
+              <tr
+                key={v.id}
+                className={`hover:bg-wiki-hover transition-colors cursor-pointer ${selectedVersions.includes(v.id) ? "bg-primary-500/5" : ""}`}
                 onClick={() => handleSelect(v.id)}
               >
                 <td className="px-4 py-3">
-                  <input 
-                    type="checkbox" 
+                  <input
+                    type="checkbox"
                     checked={selectedVersions.includes(v.id)}
                     onChange={() => {}} // Handled by row click
                     className="rounded border-wiki-border"

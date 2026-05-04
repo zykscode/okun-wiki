@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   description: "Articles and news from the Okun community.",
 };
 
+export const dynamic = "force-dynamic";
+
 interface BlogPageProps {
   searchParams: Promise<{ category?: string }>;
 }
@@ -28,7 +30,16 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     include: { author: { select: { name: true, image: true } } },
   });
 
-  const categories = ["NEWS", "CULTURE", "HISTORY", "OPINION", "EVENTS", "EDUCATION", "DEVELOPMENT", "GENERAL"];
+  const categories = [
+    "NEWS",
+    "CULTURE",
+    "HISTORY",
+    "OPINION",
+    "EVENTS",
+    "EDUCATION",
+    "DEVELOPMENT",
+    "GENERAL",
+  ];
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
@@ -39,7 +50,10 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
       {/* Category filter */}
       <div className="flex gap-2 flex-wrap mb-8">
-        <Link href="/blog" className={`px-3 py-1.5 rounded-lg text-sm no-underline transition-colors ${!params.category ? "bg-primary-500 text-white" : "bg-wiki-card border border-wiki-border text-wiki-muted hover:bg-wiki-hover"}`}>
+        <Link
+          href="/blog"
+          className={`px-3 py-1.5 rounded-lg text-sm no-underline transition-colors ${!params.category ? "bg-primary-500 text-white" : "bg-wiki-card border border-wiki-border text-wiki-muted hover:bg-wiki-hover"}`}
+        >
           All
         </Link>
         {categories.map((cat) => (
@@ -62,18 +76,26 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                   {post.coverImage && (
                     <div className="w-full sm:w-48 h-32 rounded-lg overflow-hidden shrink-0 bg-primary-100">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={post.coverImage} alt={post.title} className="w-full h-full object-cover" />
+                      <img
+                        src={post.coverImage}
+                        alt={post.title}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                   )}
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <Badge variant="primary">{post.category.charAt(0) + post.category.slice(1).toLowerCase()}</Badge>
+                      <Badge variant="primary">
+                        {post.category.charAt(0) + post.category.slice(1).toLowerCase()}
+                      </Badge>
                       <span className="text-xs text-wiki-muted">{formatDate(post.createdAt)}</span>
                     </div>
                     <h2 className="text-xl font-display font-semibold text-wiki-text group-hover:text-forest-600 dark:group-hover:text-forest-400 transition-colors">
                       {post.title}
                     </h2>
-                    {post.excerpt && <p className="text-sm text-wiki-muted mt-2 line-clamp-2">{post.excerpt}</p>}
+                    {post.excerpt && (
+                      <p className="text-sm text-wiki-muted mt-2 line-clamp-2">{post.excerpt}</p>
+                    )}
                     <p className="text-xs text-wiki-muted mt-3">By {post.author.name}</p>
                   </div>
                 </CardContent>

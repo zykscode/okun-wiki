@@ -8,11 +8,16 @@ import { motion } from "framer-motion";
 // Real preview cards showing actual platform features
 function HeroPreviewCard() {
   return (
-    <div className="w-full max-w-sm glass-card relative overflow-hidden p-5 flex flex-col gap-4" style={{ transform: "rotateY(-4deg) rotateX(4deg)" }}>
+    <div
+      className="w-full max-w-sm glass-card relative overflow-hidden p-5 flex flex-col gap-4"
+      style={{ transform: "rotateY(-4deg) rotateX(4deg)" }}
+    >
       {/* Mini header bar */}
       <div className="flex items-center gap-2 pb-3 border-b border-wiki-border">
         <div className="h-2 w-2 rounded-full bg-green-400" />
-        <span className="text-[11px] font-semibold uppercase tracking-wider text-wiki-muted">Okunpedia Live</span>
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-wiki-muted">
+          Okunpedia Live
+        </span>
       </div>
 
       {/* Featured town card */}
@@ -29,8 +34,12 @@ function HeroPreviewCard() {
           </div>
         </div>
         <div className="flex gap-3 text-[10px] text-blue-100">
-          <span className="flex items-center gap-1"><FileText className="h-3 w-3" /> 8 wiki pages</span>
-          <span className="flex items-center gap-1"><Music className="h-3 w-3" /> 3 festivals</span>
+          <span className="flex items-center gap-1">
+            <FileText className="h-3 w-3" /> 8 wiki pages
+          </span>
+          <span className="flex items-center gap-1">
+            <Music className="h-3 w-3" /> 3 festivals
+          </span>
         </div>
       </div>
 
@@ -52,10 +61,12 @@ function HeroPreviewCard() {
       <div className="rounded-xl border border-wiki-border bg-wiki-card/50 p-3">
         <div className="flex items-center gap-2 mb-1.5">
           <span className="flex h-2 w-2 rounded-full bg-green-400 shrink-0" />
-          <span className="text-[10px] font-semibold text-wiki-muted uppercase tracking-wider">Community Feed</span>
+          <span className="text-[10px] font-semibold text-wiki-muted uppercase tracking-wider">
+            Community Feed
+          </span>
         </div>
         <p className="text-xs text-wiki-secondary leading-relaxed line-clamp-2">
-          New article added: "The History of the Owé Kingdom and its Founding Traditions"
+          New article added: &quot;The History of the Owé Kingdom and its Founding Traditions&quot;
         </p>
       </div>
 
@@ -103,8 +114,8 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Immerse yourself in the history, culture, and heritage of Okun-speaking towns
-              through our beautiful, community-driven encyclopedia.
+              Immerse yourself in the history, culture, and heritage of Okun-speaking towns through
+              our beautiful, community-driven encyclopedia.
             </motion.p>
 
             <motion.div
@@ -114,12 +125,19 @@ export function HeroSection() {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               <Link href="/towns" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full rounded-2xl shadow-lg shadow-blue-500/20 active:scale-95 transition-all text-base px-8 h-14">
+                <Button
+                  size="lg"
+                  className="w-full rounded-2xl shadow-lg shadow-blue-500/20 active:scale-95 transition-all text-base px-8 h-14"
+                >
                   Explore Towns <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link href="/map" className="w-full sm:w-auto">
-                <Button size="lg" variant="outline" className="w-full rounded-2xl active:scale-95 transition-all text-base px-8 h-14 bg-wiki-card/50 backdrop-blur-md border-wiki-border">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full rounded-2xl active:scale-95 transition-all text-base px-8 h-14 bg-wiki-card/50 backdrop-blur-md border-wiki-border"
+                >
                   <Map className="mr-2 h-5 w-5 text-wiki-muted" /> View Map
                 </Button>
               </Link>

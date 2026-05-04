@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth";
 import DOMPurify from "isomorphic-dompurify";
 
 export async function GET(req: Request) {
@@ -29,9 +29,9 @@ export async function GET(req: Request) {
           include: {
             author: { select: { id: true, name: true, image: true } },
             // Could go deeper if needed, but 1 level is good for now
-          }
-        }
-      }
+          },
+        },
+      },
     });
 
     return NextResponse.json(comments);
@@ -67,7 +67,7 @@ export async function POST(req: Request) {
       },
       include: {
         author: { select: { id: true, name: true, image: true } },
-      }
+      },
     });
 
     return NextResponse.json(comment);

@@ -41,7 +41,8 @@ Kabba has a rich historical significance, having served as a major administrativ
 The people of Kabba are known for their warmth, hospitality, and strong cultural traditions. The town celebrates several festivals throughout the year, including the famous Ogun Festival, which honors the deity of iron and warfare. Agriculture remains a backbone of the local economy, with crops such as yam, cassava, rice, and various fruits thriving in the fertile soil.
 
 Kabba is also notable for its educational institutions, including some of the oldest secondary schools in Kogi State. The town has produced numerous professionals, academics, and leaders who have contributed significantly to national development.`,
-      metaDescription: "Discover Kabba — the heart of Okun land in Kogi State, Nigeria. Learn about its rich history, culture, and people.",
+      metaDescription:
+        "Discover Kabba — the heart of Okun land in Kogi State, Nigeria. Learn about its rich history, culture, and people.",
       published: true,
       featured: true,
       createdById: admin.id,
@@ -94,10 +95,11 @@ Cuisine in Kabba reflects the agricultural bounty of the region. Pounded yam wit
     data: {
       townId: kabba.id,
       name: "Ogun Festival",
-      description: "The annual Ogun Festival is one of the most celebrated cultural events in Kabba. It honors Ogun, the Yoruba deity of iron, war, and labor. The festival features traditional dances, masquerade displays, and communal feasting.",
+      description:
+        "The annual Ogun Festival is one of the most celebrated cultural events in Kabba. It honors Ogun, the Yoruba deity of iron, war, and labor. The festival features traditional dances, masquerade displays, and communal feasting.",
       period: "Annual — August/September",
-      significance: "The festival reinforces cultural identity, honors ancestral traditions, and serves as a homecoming event for indigenes living outside Kabba.",
-      images: "[]",
+      significance:
+        "The festival reinforces cultural identity, honors ancestral traditions, and serves as a homecoming event for indigenes living outside Kabba.",
     },
   });
 
@@ -108,7 +110,8 @@ Cuisine in Kabba reflects the agricultural bounty of the region. Pounded yam wit
       name: "Chief Solomon Dele Olu",
       title: "Chief",
       role: "Community Leader",
-      biography: "A distinguished community leader and advocate for the development of Kabba and the broader Okun area. Known for his tireless efforts in promoting education and infrastructure development in the region.",
+      biography:
+        "A distinguished community leader and advocate for the development of Kabba and the broader Okun area. Known for his tireless efforts in promoting education and infrastructure development in the region.",
       isAlive: true,
     },
   });
@@ -135,7 +138,8 @@ The town sits in a picturesque landscape of rolling hills and lush vegetation, s
 Isanlu is renowned for its contribution to education in Kogi State and beyond. The town hosts several notable educational institutions and has produced a remarkable number of professionals, academics, and public servants relative to its size.
 
 The cultural life of Isanlu is rich and vibrant, with various festivals and celebrations that mark the agricultural calendar and honor ancestral traditions. The town's people are known for their hospitality, strong community bonds, and commitment to preserving their Okun heritage.`,
-      metaDescription: "Explore Isanlu — gateway to Ijumu in Kogi State. Discover its history, education legacy, and cultural heritage.",
+      metaDescription:
+        "Explore Isanlu — gateway to Ijumu in Kogi State. Discover its history, education legacy, and cultural heritage.",
       published: true,
       featured: true,
       createdById: admin.id,
@@ -183,7 +187,8 @@ The town is surrounded by expansive farmlands and natural vegetation, reflecting
 Mopa has played a significant role in the political and cultural development of the Okun people. The town's leaders have been at the forefront of advocacy for the development of the region and the preservation of Okun cultural identity.
 
 Education and youth development are priorities in Mopa, with the community investing in schools and programs that prepare the next generation for leadership while grounding them in their cultural heritage.`,
-      metaDescription: "Discover Mopa — a town of unity and tradition in Kogi State. Learn about its culture, festivals, and community spirit.",
+      metaDescription:
+        "Discover Mopa — a town of unity and tradition in Kogi State. Learn about its culture, festivals, and community spirit.",
       published: true,
       featured: true,
       createdById: admin.id,
@@ -194,10 +199,11 @@ Education and youth development are priorities in Mopa, with the community inves
     data: {
       townId: mopa.id,
       name: "New Yam Festival",
-      description: "The New Yam Festival is a major cultural celebration in Mopa, marking the beginning of the harvest season. The festival features thanksgiving rituals, feasting on freshly harvested yams, traditional dances, and community gatherings.",
+      description:
+        "The New Yam Festival is a major cultural celebration in Mopa, marking the beginning of the harvest season. The festival features thanksgiving rituals, feasting on freshly harvested yams, traditional dances, and community gatherings.",
       period: "Annual — September/October",
-      significance: "Celebrates the agricultural cycle, gives thanks for a successful harvest, and reinforces community bonds. It is also an occasion for homecoming and family reunions.",
-      images: "[]",
+      significance:
+        "Celebrates the agricultural cycle, gives thanks for a successful harvest, and reinforces community bonds. It is also an occasion for homecoming and family reunions.",
     },
   });
 
@@ -223,7 +229,8 @@ The town gained historical significance through the establishment of one of the 
 Egbe sits in a scenic landscape with beautiful hills, streams, and lush vegetation. The town's natural beauty, combined with its historical monuments and cultural sites, makes it a potential destination for cultural tourism in Kogi State.
 
 The people of Egbe are known for their warmth, intellectual curiosity, and strong sense of community. The town maintains vibrant traditional institutions alongside modern civic structures, creating a unique blend of old and new.`,
-      metaDescription: "Explore Egbe — the City of Harmony in Kogi State. Discover its missionary history, natural beauty, and cultural heritage.",
+      metaDescription:
+        "Explore Egbe — the City of Harmony in Kogi State. Discover its missionary history, natural beauty, and cultural heritage.",
       published: true,
       featured: true,
       createdById: admin.id,
@@ -255,7 +262,8 @@ In the contemporary era, Egbe continues to honor its heritage while embracing pr
       name: "Rev. S. A. Adebiyi",
       title: "Rev.",
       role: "Religious Leader & Educator",
-      biography: "One of the pioneering Nigerian clergymen who worked alongside the missionaries in Egbe. His contributions to education and community development laid the foundation for Egbe's reputation as a center of learning.",
+      biography:
+        "One of the pioneering Nigerian clergymen who worked alongside the missionaries in Egbe. His contributions to education and community development laid the foundation for Egbe's reputation as a center of learning.",
       isAlive: false,
       birthYear: 1910,
       deathYear: 1985,

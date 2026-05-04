@@ -1,0 +1,18 @@
+
+> okunpedia@0.1.0 build /home/zyk/Desktop/Projects/okun-wiki
+> next build
+
+   ▲ Next.js 15.5.15
+   - Environments: .env
+   - Experiments (use with caution):
+     · serverActions
+
+   Creating an optimized production build ...
+ ✓ (pwa) Compiling for server...
+ ✓ (pwa) Compiling for server...
+ ✓ (pwa) Compiling for client (static)...
+ ○ (pwa) Service worker: /home/zyk/Desktop/Projects/okun-wiki/public/sw.js
+ ○ (pwa)   URL: /sw.js
+ ○ (pwa)   Scope: /
+ ✓ (pwa) Found a custom worker implementation at /home/zyk/Desktop/Projects/okun-wiki/worker/index.ts.
+ ✓ (pwa) Building the custom worker to /home/zyk/Desktop/Projects/okun-wiki/public/worker-a2e48c5c057017e1.js...

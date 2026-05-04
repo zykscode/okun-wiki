@@ -1,7 +1,7 @@
 import { Metadata } from "next";
-import { auth } from "@/auth";
-import prisma from "@/lib/prisma";
+import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { Handshake, GraduationCap, Users } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export default async function MentorshipDashboard() {
   }
 
   // Normally, fetch from prisma. For now we use placeholder structure since we don't have the exact mentorship fields seeded yet.
-  
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 mt-16 md:mt-24 space-y-8">
       <div className="text-center space-y-4">
@@ -37,7 +37,7 @@ export default async function MentorshipDashboard() {
           <p className="text-3xl font-display font-bold">0</p>
           <p className="text-sm text-wiki-muted">Currently active mentorships</p>
         </div>
-        
+
         <div className="glass-panel p-6 flex flex-col items-center justify-center text-center space-y-3">
           <div className="p-4 bg-green-500/10 rounded-full text-green-500 mb-2">
             <GraduationCap size={32} />
@@ -60,11 +60,15 @@ export default async function MentorshipDashboard() {
       <div className="glass-panel p-8 mt-12 text-center">
         <h3 className="text-2xl font-bold mb-4">No Active Mentorships</h3>
         <p className="text-wiki-muted mb-6">
-          You haven't connected with a mentor or mentee yet. Visit a community page to find your match.
+          You haven&apos;t connected with a mentor or mentee yet. Visit a community page to find
+          your match.
         </p>
-        <a href="/communities" className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-primary-500 text-white font-medium hover:bg-primary-600 transition-colors">
+        <Link
+          href="/communities"
+          className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-primary-500 text-white font-medium hover:bg-primary-600 transition-colors"
+        >
           Explore Communities
-        </a>
+        </Link>
       </div>
     </div>
   );

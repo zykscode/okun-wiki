@@ -4,9 +4,11 @@ import withPWAInit from "@ducanh2912/next-pwa";
 const withPWA = withPWAInit({
   dest: "public",
   register: true,
-  skipWaiting: true,
   disable: process.env.NODE_ENV === "development",
-  customWorkerDir: "worker",
+  customWorkerSrc: "worker",
+  workboxOptions: {
+    skipWaiting: true,
+  },
 });
 
 const nextConfig: NextConfig = {
@@ -22,6 +24,7 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "5mb",
     },
   },
+  serverExternalPackages: ["jose", "bcryptjs", "isomorphic-dompurify", "jsdom"],
   async headers() {
     return [
       {

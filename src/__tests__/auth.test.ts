@@ -64,10 +64,20 @@ describe("Credentials Auth Logic", () => {
       id: "1",
       email: "test@example.com",
       password: "hashedpassword",
-    } as any);
+    } as {
+      id: string;
+      email: string;
+      name: string | null;
+      image: string | null;
+      password: string | null;
+      role: string;
+    });
     vi.mocked(bcrypt.compare).mockResolvedValueOnce(false);
 
-    const result = await authorizeCredentials({ email: "test@example.com", password: "wrongpassword" });
+    const result = await authorizeCredentials({
+      email: "test@example.com",
+      password: "wrongpassword",
+    });
     expect(result).toBeNull();
   });
 
@@ -77,12 +87,22 @@ describe("Credentials Auth Logic", () => {
       email: "test@example.com",
       name: "Test User",
       image: "image.png",
-      role: "USER",
+      role: "USER" as const,
       password: "hashedpassword",
-    } as any);
+    } as {
+      id: string;
+      email: string;
+      name: string | null;
+      image: string | null;
+      password: string | null;
+      role: string;
+    });
     vi.mocked(bcrypt.compare).mockResolvedValueOnce(true);
 
-    const result = await authorizeCredentials({ email: "test@example.com", password: "correctpassword" });
+    const result = await authorizeCredentials({
+      email: "test@example.com",
+      password: "correctpassword",
+    });
     expect(result).toEqual({
       id: "1",
       email: "test@example.com",

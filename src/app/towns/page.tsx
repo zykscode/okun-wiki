@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   description: "Browse all documented Okun towns in Kogi State, Nigeria.",
 };
 
+export const dynamic = "force-dynamic";
+
 interface TownsPageProps {
   searchParams: Promise<{ q?: string; lga?: string }>;
 }
@@ -21,9 +23,7 @@ export default async function TownsPage({ searchParams }: TownsPageProps) {
   // Get unique LGAs for filter
   const lgas = [...new Set(towns.map((t) => t.lga))].sort();
 
-  const filteredTowns = params.lga
-    ? towns.filter((t) => t.lga === params.lga)
-    : towns;
+  const filteredTowns = params.lga ? towns.filter((t) => t.lga === params.lga) : towns;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">

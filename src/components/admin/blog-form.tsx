@@ -10,7 +10,14 @@ import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { slugify } from "@/lib/utils";
 
 const CATEGORIES = [
-  "NEWS", "CULTURE", "HISTORY", "OPINION", "EVENTS", "EDUCATION", "DEVELOPMENT", "GENERAL",
+  "NEWS",
+  "CULTURE",
+  "HISTORY",
+  "OPINION",
+  "EVENTS",
+  "EDUCATION",
+  "DEVELOPMENT",
+  "GENERAL",
 ];
 
 interface PostData {
@@ -21,7 +28,7 @@ interface PostData {
   content: string;
   coverImage: string | null;
   category: string;
-  tags?: string | { id: string, name: string }[] | null;
+  tags?: string | { id: string; name: string }[] | null;
   published: boolean;
   featured: boolean;
 }
@@ -38,8 +45,8 @@ export function BlogForm({ post }: { post?: PostData }) {
   const [category, setCategory] = useState(post?.category || "GENERAL");
   const [tags, setTags] = useState(
     Array.isArray(post?.tags)
-      ? post.tags.map((t: any) => t.name).join(", ")
-      : (post?.tags as string) || ""
+      ? post.tags.map((t: { id: string; name: string }) => t.name).join(", ")
+      : (post?.tags as string) || "",
   );
   const [published, setPublished] = useState(post?.published ?? false);
   const [featured, setFeatured] = useState(post?.featured ?? false);
@@ -56,9 +63,15 @@ export function BlogForm({ post }: { post?: PostData }) {
         method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          title, slug, excerpt: excerpt || null, content,
-          coverImage: coverImage || null, category,
-          tags: tags || null, published, featured,
+          title,
+          slug,
+          excerpt: excerpt || null,
+          content,
+          coverImage: coverImage || null,
+          category,
+          tags: tags || null,
+          published,
+          featured,
         }),
       });
 
@@ -119,16 +132,24 @@ export function BlogForm({ post }: { post?: PostData }) {
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <label className="block text-sm font-medium text-wiki-text">Content</label>
-                  <span className="text-xs text-wiki-muted">Auto-saving drafted to localStorage</span>
+                  <span className="text-xs text-wiki-muted">
+                    Auto-saving drafted to localStorage
+                  </span>
                 </div>
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
                   <RichTextEditor
                     content={content}
-                    onChange={(val) => { setContent(val); localStorage.setItem("blog_draft", val); }}
+                    onChange={(val) => {
+                      setContent(val);
+                      localStorage.setItem("blog_draft", val);
+                    }}
                     placeholder="Write your article here…"
                     minHeight="500px"
                   />
-                  <div className="hidden xl:block prose dark:prose-invert max-w-none border border-wiki-border rounded-lg p-6 bg-wiki-card overflow-y-auto" style={{ maxHeight: "500px" }}>
+                  <div
+                    className="hidden xl:block prose dark:prose-invert max-w-none border border-wiki-border rounded-lg p-6 bg-wiki-card overflow-y-auto"
+                    style={{ maxHeight: "500px" }}
+                  >
                     {content ? (
                       <div dangerouslySetInnerHTML={{ __html: content }} />
                     ) : (
@@ -148,11 +169,21 @@ export function BlogForm({ post }: { post?: PostData }) {
             </CardHeader>
             <CardContent className="space-y-4">
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" checked={published} onChange={(e) => setPublished(e.target.checked)} className="rounded" />
+                <input
+                  type="checkbox"
+                  checked={published}
+                  onChange={(e) => setPublished(e.target.checked)}
+                  className="rounded"
+                />
                 <span className="text-sm text-wiki-text">Published</span>
               </label>
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" checked={featured} onChange={(e) => setFeatured(e.target.checked)} className="rounded" />
+                <input
+                  type="checkbox"
+                  checked={featured}
+                  onChange={(e) => setFeatured(e.target.checked)}
+                  className="rounded"
+                />
                 <span className="text-sm text-wiki-text">Featured</span>
               </label>
             </CardContent>

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { MapPin } from "lucide-react";
-import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 
@@ -34,7 +33,9 @@ export function TownCard({ town }: TownCardProps) {
               <img src={primaryImage.url} alt={town.name} className="w-full h-full object-cover" />
             ) : (
               <>
-                  <span className="text-5xl font-display font-medium text-forest-600/20 dark:text-forest-400/20 select-none">{town.name.charAt(0)}</span>
+                <span className="text-5xl font-display font-medium text-forest-600/20 dark:text-forest-400/20 select-none">
+                  {town.name.charAt(0)}
+                </span>
               </>
             )}
           </div>
@@ -45,9 +46,16 @@ export function TownCard({ town }: TownCardProps) {
             {town.tagline && <p className="text-sm italic text-wiki-muted mt-1">{town.tagline}</p>}
             <div className="flex items-center gap-1 mt-2 mb-4">
               <MapPin className="h-3 w-3 text-wiki-muted" />
-              <Badge variant="secondary" className="font-medium bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 border-none">{town.lga} LGA</Badge>
+              <Badge
+                variant="default"
+                className="font-medium bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 border-none"
+              >
+                {town.lga} LGA
+              </Badge>
             </div>
-            <p className="text-sm text-wiki-secondary leading-relaxed mt-auto border-t border-wiki-border pt-4 line-clamp-2">{town.overview.substring(0, 120)}...</p>
+            <p className="text-sm text-wiki-secondary leading-relaxed mt-auto border-t border-wiki-border pt-4 line-clamp-2">
+              {town.overview.substring(0, 120)}...
+            </p>
           </div>
         </div>
       </Link>
