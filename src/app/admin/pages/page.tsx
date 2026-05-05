@@ -30,15 +30,20 @@ export default async function AdminPagesPage() {
                   {!page.published && <Badge variant="default">Draft</Badge>}
                 </div>
                 <p className="text-sm text-wiki-muted mt-1">
-                  {page._count.versions} versions · {page._count.comments} comments · Updated {formatDate(page.updatedAt)}
+                  {page._count.versions} versions · {page._count.comments} comments · Updated{" "}
+                  {formatDate(page.updatedAt)}
                 </p>
               </div>
               <div className="flex items-center gap-2 ml-4">
                 <Link href={`/towns/${page.town.slug}/${page.slug}`}>
-                  <Button variant="ghost" size="sm"><Eye className="h-4 w-4" /></Button>
+                  <Button variant="ghost" size="sm">
+                    <Eye className="h-4 w-4" />
+                  </Button>
                 </Link>
                 <Link href={`/admin/pages/${page.id}/edit`}>
-                  <Button variant="outline" size="sm"><Edit className="h-4 w-4" /></Button>
+                  <Button variant="outline" size="sm">
+                    <Edit className="h-4 w-4" />
+                  </Button>
                 </Link>
               </div>
             </CardContent>

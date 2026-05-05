@@ -6,8 +6,12 @@ export async function PATCH(req: NextRequest) {
   const session = await auth();
   if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const admin = await db.user.findUnique({ where: { id: session.user.id }, select: { role: true } });
-  if (!admin || admin.role !== "ADMIN") return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  const admin = await db.user.findUnique({
+    where: { id: session.user.id },
+    select: { role: true },
+  });
+  if (!admin || admin.role !== "ADMIN")
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
   const { commentId, action } = await req.json();
 

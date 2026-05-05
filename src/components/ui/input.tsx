@@ -21,7 +21,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           className={cn(
             "w-full rounded-xl border border-wiki-border bg-wiki-input px-4 py-2.5 text-sm text-wiki-text placeholder:text-wiki-muted focus:outline-none focus:ring-2 focus:ring-forest-500/30 focus:border-forest-500 transition-all duration-200 theme-transition",
             error && "border-red-500 focus:ring-red-500/30",
-            className
+            className,
           )}
           style={{ backdropFilter: "blur(12px)" }}
           {...props}
@@ -29,7 +29,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
       </div>
     );
-  }
+  },
 );
 
 Input.displayName = "Input";

@@ -34,9 +34,7 @@ sw.addEventListener("push", (event: PushEvent) => {
     data: {
       url: data.url || "/",
     },
-    vibrate: data.isSOS
-      ? [200, 100, 200, 100, 200, 100, 200]
-      : [100, 50, 100],
+    vibrate: data.isSOS ? [200, 100, 200, 100, 200, 100, 200] : [100, 50, 100],
 
     requireInteraction: !!data.isSOS,
 
@@ -56,22 +54,16 @@ sw.addEventListener("push", (event: PushEvent) => {
     renotify: true,
   } as unknown as NotificationOptions;
 
-  event.waitUntil(
-    sw.registration.showNotification(title, options)
-  );
+  event.waitUntil(sw.registration.showNotification(title, options));
 });
 
 // Notification Click
 sw.addEventListener("notificationclick", (event: NotificationEvent) => {
   event.notification.close();
 
-  const targetUrl =
-    event.notification.data?.url || "/";
+  const targetUrl = event.notification.data?.url || "/";
 
-  const urlToOpen = new URL(
-    targetUrl,
-    sw.location.origin
-  ).href;
+  const urlToOpen = new URL(targetUrl, sw.location.origin).href;
 
   event.waitUntil(
     sw.clients
@@ -88,7 +80,7 @@ sw.addEventListener("notificationclick", (event: NotificationEvent) => {
         }
 
         return sw.clients.openWindow(urlToOpen);
-      })
+      }),
   );
 });
 
@@ -109,7 +101,6 @@ async function syncQueuedComments() {
     // 2. Read pending comments
     // 3. Send to API
     // 4. Remove successful ones
-
   } catch (error) {
     console.error("Background sync failed:", error);
   }

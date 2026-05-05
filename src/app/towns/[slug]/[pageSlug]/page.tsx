@@ -19,10 +19,7 @@ export async function generateMetadata({ params }: TownSubPageProps): Promise<Me
 export default async function TownSubPage({ params }: TownSubPageProps) {
   const { slug, pageSlug } = await params;
 
-  const [town, pageResult] = await Promise.all([
-    getTownBySlug(slug),
-    getTownPage(slug, pageSlug),
-  ]);
+  const [town, pageResult] = await Promise.all([getTownBySlug(slug), getTownPage(slug, pageSlug)]);
 
   if (!town || !pageResult) notFound();
 
@@ -40,11 +37,11 @@ export default async function TownSubPage({ params }: TownSubPageProps) {
         <div className="flex-1 min-w-0">
           <div className="mb-6">
             <p className="text-sm text-wiki-muted mb-1">
-              <a href={`/towns/${slug}`} className="hover:underline">{town.name}</a>
+              <a href={`/towns/${slug}`} className="hover:underline">
+                {town.name}
+              </a>
             </p>
-            <h1 className="text-3xl font-bold text-wiki-text">
-              {pageResult.page.title}
-            </h1>
+            <h1 className="text-3xl font-bold text-wiki-text">{pageResult.page.title}</h1>
           </div>
 
           <div className="wiki-content bg-white rounded-lg border border-wiki-border p-6 sm:p-8">

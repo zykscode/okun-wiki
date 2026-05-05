@@ -12,8 +12,8 @@ export default function OfflinePage() {
         </div>
         <h1 className="text-2xl font-bold text-wiki-text mb-2">You&apos;re offline</h1>
         <p className="text-wiki-muted max-w-md">
-          It looks like you&apos;ve lost your internet connection. Don&apos;t worry — 
-          previously visited pages may still be available. Try again when you&apos;re back online.
+          It looks like you&apos;ve lost your internet connection. Don&apos;t worry — previously
+          visited pages may still be available. Try again when you&apos;re back online.
         </p>
         <div className="mt-6 flex items-center justify-center gap-2 text-primary-500">
           <BookOpen className="h-5 w-5" />

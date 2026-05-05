@@ -9,13 +9,28 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 const SETTINGS_FIELDS = [
   { key: "site_name", label: "Site Name", type: "input", defaultValue: "Okunpedia" },
-  { key: "site_tagline", label: "Tagline", type: "input", defaultValue: "The Encyclopedia of Okun Land" },
-  { key: "site_description", label: "Description", type: "textarea", defaultValue: "A community-driven encyclopedia..." },
+  {
+    key: "site_tagline",
+    label: "Tagline",
+    type: "input",
+    defaultValue: "The Encyclopedia of Okun Land",
+  },
+  {
+    key: "site_description",
+    label: "Description",
+    type: "textarea",
+    defaultValue: "A community-driven encyclopedia...",
+  },
   { key: "contact_email", label: "Contact Email", type: "input", defaultValue: "" },
   { key: "social_twitter", label: "Twitter/X Handle", type: "input", defaultValue: "" },
   { key: "social_facebook", label: "Facebook URL", type: "input", defaultValue: "" },
   { key: "analytics_id", label: "Google Analytics ID", type: "input", defaultValue: "" },
-  { key: "maintenance_mode", label: "Maintenance Mode (yes/no)", type: "input", defaultValue: "no" },
+  {
+    key: "maintenance_mode",
+    label: "Maintenance Mode (yes/no)",
+    type: "input",
+    defaultValue: "no",
+  },
 ];
 
 export function SettingsForm({ settings }: { settings: Record<string, string> }) {
@@ -50,9 +65,13 @@ export function SettingsForm({ settings }: { settings: Record<string, string> })
     <form onSubmit={handleSubmit}>
       <div className="space-y-6">
         <Card>
-          <CardHeader><h2 className="font-semibold text-wiki-text">General</h2></CardHeader>
+          <CardHeader>
+            <h2 className="font-semibold text-wiki-text">General</h2>
+          </CardHeader>
           <CardContent className="space-y-4">
-            {SETTINGS_FIELDS.filter((f) => !f.key.startsWith("social_") && !f.key.startsWith("analytics")).map((field) => (
+            {SETTINGS_FIELDS.filter(
+              (f) => !f.key.startsWith("social_") && !f.key.startsWith("analytics"),
+            ).map((field) =>
               field.type === "textarea" ? (
                 <Textarea
                   key={field.key}
@@ -69,15 +88,19 @@ export function SettingsForm({ settings }: { settings: Record<string, string> })
                   label={field.label}
                   defaultValue={settings[field.key] || field.defaultValue}
                 />
-              )
-            ))}
+              ),
+            )}
           </CardContent>
         </Card>
 
         <Card>
-          <CardHeader><h2 className="font-semibold text-wiki-text">Social & Analytics</h2></CardHeader>
+          <CardHeader>
+            <h2 className="font-semibold text-wiki-text">Social & Analytics</h2>
+          </CardHeader>
           <CardContent className="space-y-4">
-            {SETTINGS_FIELDS.filter((f) => f.key.startsWith("social_") || f.key.startsWith("analytics")).map((field) => (
+            {SETTINGS_FIELDS.filter(
+              (f) => f.key.startsWith("social_") || f.key.startsWith("analytics"),
+            ).map((field) => (
               <Input
                 key={field.key}
                 id={field.key}
@@ -93,7 +116,9 @@ export function SettingsForm({ settings }: { settings: Record<string, string> })
           <Button type="submit" disabled={loading}>
             {loading ? "Saving..." : "Save Settings"}
           </Button>
-          {saved && <span className="text-sm text-green-600 dark:text-green-400">✓ Settings saved</span>}
+          {saved && (
+            <span className="text-sm text-green-600 dark:text-green-400">✓ Settings saved</span>
+          )}
         </div>
       </div>
     </form>

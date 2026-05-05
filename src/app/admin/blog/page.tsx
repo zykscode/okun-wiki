@@ -17,7 +17,9 @@ export default async function AdminBlogPage() {
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-wiki-text">Blog Posts</h1>
         <Link href="/admin/blog/new">
-          <Button size="sm"><Plus className="h-4 w-4 mr-1" /> New Post</Button>
+          <Button size="sm">
+            <Plus className="h-4 w-4 mr-1" /> New Post
+          </Button>
         </Link>
       </div>
 
@@ -29,9 +31,15 @@ export default async function AdminBlogPage() {
                 <div className="flex items-center gap-2 flex-wrap">
                   <h3 className="font-semibold text-wiki-text">{post.title}</h3>
                   {post.published ? (
-                    <Badge variant="primary"><Eye className="h-3 w-3 mr-1" />Published</Badge>
+                    <Badge variant="primary">
+                      <Eye className="h-3 w-3 mr-1" />
+                      Published
+                    </Badge>
                   ) : (
-                    <Badge variant="default"><EyeOff className="h-3 w-3 mr-1" />Draft</Badge>
+                    <Badge variant="default">
+                      <EyeOff className="h-3 w-3 mr-1" />
+                      Draft
+                    </Badge>
                   )}
                   <Badge variant="earth">{post.category}</Badge>
                 </div>
@@ -41,10 +49,14 @@ export default async function AdminBlogPage() {
               </div>
               <div className="flex items-center gap-2 ml-4">
                 <Link href={`/blog/${post.slug}`}>
-                  <Button variant="ghost" size="sm"><Eye className="h-4 w-4" /></Button>
+                  <Button variant="ghost" size="sm">
+                    <Eye className="h-4 w-4" />
+                  </Button>
                 </Link>
                 <Link href={`/admin/blog/${post.id}/edit`}>
-                  <Button variant="outline" size="sm"><Edit className="h-4 w-4" /></Button>
+                  <Button variant="outline" size="sm">
+                    <Edit className="h-4 w-4" />
+                  </Button>
                 </Link>
               </div>
             </CardContent>

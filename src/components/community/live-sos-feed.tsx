@@ -45,9 +45,11 @@ export function LiveSOSFeed() {
     <div className="space-y-4">
       <div className="flex items-center gap-2 px-1">
         <AlertTriangle className="w-5 h-5 text-red-500 animate-pulse" />
-        <h3 className="text-sm font-bold tracking-wider text-red-500 uppercase">Live Emergency Feed</h3>
+        <h3 className="text-sm font-bold tracking-wider text-red-500 uppercase">
+          Live Emergency Feed
+        </h3>
       </div>
-      
+
       <div className="relative space-y-3">
         <AnimatePresence>
           {sosUpdates.map((update) => (
@@ -66,7 +68,10 @@ export function LiveSOSFeed() {
                     {update.community.name}
                   </span>
                   <span className="text-[10px] text-wiki-muted">
-                    {new Date(update.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    {new Date(update.createdAt).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
                   </span>
                 </div>
                 <p className="text-sm text-wiki-text line-clamp-2 leading-relaxed">

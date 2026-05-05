@@ -2,13 +2,15 @@ import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 import { BlogForm } from "@/components/admin/blog-form";
 
-interface Props { params: Promise<{ id: string }> }
+interface Props {
+  params: Promise<{ id: string }>;
+}
 
 export default async function EditBlogPostPage({ params }: Props) {
   const { id } = await params;
   const post = await db.blogPost.findUnique({
     where: { id },
-    include: { tags: true }
+    include: { tags: true },
   });
   if (!post) notFound();
 

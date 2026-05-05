@@ -25,7 +25,9 @@ export default async function AdminCommentsPage() {
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap mb-1">
-                    <span className="font-medium text-sm text-wiki-text">{comment.author.name || comment.author.email}</span>
+                    <span className="font-medium text-sm text-wiki-text">
+                      {comment.author.name || comment.author.email}
+                    </span>
                     {comment.flagged && <Badge variant="default">🚩 Flagged</Badge>}
                     {!comment.approved && <Badge variant="default">Pending</Badge>}
                     {comment.town && <Badge variant="primary">{comment.town.name}</Badge>}

@@ -5,25 +5,56 @@ import Link from "next/link";
 import { formatDate } from "@/lib/utils";
 
 export default async function AdminDashboard() {
-  const [townCount, pageCount, userCount, postCount, commentCount, recentActivity] = await Promise.all([
-    db.town.count(),
-    db.townPage.count(),
-    db.user.count(),
-    db.blogPost.count(),
-    db.comment.count(),
-    db.activityLog.findMany({
-      take: 10,
-      orderBy: { createdAt: "desc" },
-      include: { user: { select: { name: true, email: true } } },
-    }),
-  ]);
+  const [townCount, pageCount, userCount, postCount, commentCount, recentActivity] =
+    await Promise.all([
+      db.town.count(),
+      db.townPage.count(),
+      db.user.count(),
+      db.blogPost.count(),
+      db.comment.count(),
+      db.activityLog.findMany({
+        take: 10,
+        orderBy: { createdAt: "desc" },
+        include: { user: { select: { name: true, email: true } } },
+      }),
+    ]);
 
   const stats = [
-    { label: "Towns", value: townCount, icon: MapPin, href: "/admin/towns", color: "text-green-500" },
-    { label: "Wiki Pages", value: pageCount, icon: FileText, href: "/admin/pages", color: "text-blue-500" },
-    { label: "Users", value: userCount, icon: Users, href: "/admin/users", color: "text-purple-500" },
-    { label: "Blog Posts", value: postCount, icon: PenSquare, href: "/admin/blog", color: "text-orange-500" },
-    { label: "Comments", value: commentCount, icon: MessageSquare, href: "/admin/comments", color: "text-pink-500" },
+    {
+      label: "Towns",
+      value: townCount,
+      icon: MapPin,
+      href: "/admin/towns",
+      color: "text-green-500",
+    },
+    {
+      label: "Wiki Pages",
+      value: pageCount,
+      icon: FileText,
+      href: "/admin/pages",
+      color: "text-blue-500",
+    },
+    {
+      label: "Users",
+      value: userCount,
+      icon: Users,
+      href: "/admin/users",
+      color: "text-purple-500",
+    },
+    {
+      label: "Blog Posts",
+      value: postCount,
+      icon: PenSquare,
+      href: "/admin/blog",
+      color: "text-orange-500",
+    },
+    {
+      label: "Comments",
+      value: commentCount,
+      icon: MessageSquare,
+      href: "/admin/comments",
+      color: "text-pink-500",
+    },
   ];
 
   return (

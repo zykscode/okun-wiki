@@ -12,15 +12,15 @@ interface EditTownPageProps {
 
 export default async function EditTownPage({ params }: EditTownPageProps) {
   const { id } = await params;
-  const town = await db.town.findUnique({ 
+  const town = await db.town.findUnique({
     where: { id },
     include: {
       amenities: true,
       needs: true,
-      families: true
-    }
+      families: true,
+    },
   });
-  
+
   if (!town) notFound();
 
   return (

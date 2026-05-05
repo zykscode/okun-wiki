@@ -16,10 +16,7 @@ export async function POST(req: NextRequest) {
 
     const existing = await db.user.findUnique({ where: { email } });
     if (existing) {
-      return NextResponse.json(
-        { error: "Email already registered" },
-        { status: 409 }
-      );
+      return NextResponse.json({ error: "Email already registered" }, { status: 409 });
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
@@ -34,18 +31,12 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       { user: { id: user.id, name: user.name, email: user.email } },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json(
-        { error: error.errors[0].message },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: error.errors[0].message }, { status: 400 });
     }
-    return NextResponse.json(
-      { error: "Something went wrong" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
   }
 }

@@ -42,14 +42,16 @@ export function TownForm({ town }: { town?: TownData }) {
     const data = {
       name: formData.get("name") as string,
       slug: formData.get("slug") as string,
-      tagline: formData.get("tagline") as string || null,
+      tagline: (formData.get("tagline") as string) || null,
       lga: formData.get("lga") as string,
-      state: formData.get("state") as string || "Kogi",
-      coordinates: formData.get("coordinates") as string || null,
-      population: formData.get("population") ? parseInt(formData.get("population") as string) : null,
-      founded: formData.get("founded") as string || null,
+      state: (formData.get("state") as string) || "Kogi",
+      coordinates: (formData.get("coordinates") as string) || null,
+      population: formData.get("population")
+        ? parseInt(formData.get("population") as string)
+        : null,
+      founded: (formData.get("founded") as string) || null,
       overview,
-      metaDescription: formData.get("metaDescription") as string || null,
+      metaDescription: (formData.get("metaDescription") as string) || null,
       published: formData.get("published") === "on",
       featured: formData.get("featured") === "on",
     };
@@ -90,14 +92,19 @@ export function TownForm({ town }: { town?: TownData }) {
         {/* Main content */}
         <div className="lg:col-span-2 space-y-6">
           <Card>
-            <CardHeader><h2 className="font-semibold text-wiki-text">Basic Info</h2></CardHeader>
+            <CardHeader>
+              <h2 className="font-semibold text-wiki-text">Basic Info</h2>
+            </CardHeader>
             <CardContent className="space-y-4">
               <Input
                 id="name"
                 name="name"
                 label="Town Name"
                 value={name}
-                onChange={(e) => { setName(e.target.value); if (!town) setSlug(slugify(e.target.value)); }}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  if (!town) setSlug(slugify(e.target.value));
+                }}
                 required
               />
               <Input
@@ -108,7 +115,12 @@ export function TownForm({ town }: { town?: TownData }) {
                 onChange={(e) => setSlug(e.target.value)}
                 required
               />
-              <Input id="tagline" name="tagline" label="Tagline" defaultValue={town?.tagline || ""} />
+              <Input
+                id="tagline"
+                name="tagline"
+                label="Tagline"
+                defaultValue={town?.tagline || ""}
+              />
               <div>
                 <label className="block text-sm font-medium text-wiki-text mb-2">Overview</label>
                 <RichTextEditor
@@ -118,7 +130,12 @@ export function TownForm({ town }: { town?: TownData }) {
                   minHeight="300px"
                 />
               </div>
-              <Textarea id="metaDescription" name="metaDescription" label="Meta Description (SEO)" defaultValue={town?.metaDescription || ""} />
+              <Textarea
+                id="metaDescription"
+                name="metaDescription"
+                label="Meta Description (SEO)"
+                defaultValue={town?.metaDescription || ""}
+              />
             </CardContent>
           </Card>
         </div>
@@ -126,33 +143,67 @@ export function TownForm({ town }: { town?: TownData }) {
         {/* Sidebar */}
         <div className="space-y-6">
           <Card>
-            <CardHeader><h2 className="font-semibold text-wiki-text">Publishing</h2></CardHeader>
+            <CardHeader>
+              <h2 className="font-semibold text-wiki-text">Publishing</h2>
+            </CardHeader>
             <CardContent className="space-y-4">
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" name="published" defaultChecked={town?.published} className="rounded" />
+                <input
+                  type="checkbox"
+                  name="published"
+                  defaultChecked={town?.published}
+                  className="rounded"
+                />
                 <span className="text-sm text-wiki-text">Published</span>
               </label>
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" name="featured" defaultChecked={town?.featured} className="rounded" />
+                <input
+                  type="checkbox"
+                  name="featured"
+                  defaultChecked={town?.featured}
+                  className="rounded"
+                />
                 <span className="text-sm text-wiki-text">Featured on homepage</span>
               </label>
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader><h2 className="font-semibold text-wiki-text">Location</h2></CardHeader>
+            <CardHeader>
+              <h2 className="font-semibold text-wiki-text">Location</h2>
+            </CardHeader>
             <CardContent className="space-y-4">
               <Input id="lga" name="lga" label="LGA" defaultValue={town?.lga || ""} required />
               <Input id="state" name="state" label="State" defaultValue={town?.state || "Kogi"} />
-              <Input id="coordinates" name="coordinates" label="Coordinates" placeholder="lat,lng" defaultValue={town?.coordinates || ""} />
+              <Input
+                id="coordinates"
+                name="coordinates"
+                label="Coordinates"
+                placeholder="lat,lng"
+                defaultValue={town?.coordinates || ""}
+              />
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader><h2 className="font-semibold text-wiki-text">Details</h2></CardHeader>
+            <CardHeader>
+              <h2 className="font-semibold text-wiki-text">Details</h2>
+            </CardHeader>
             <CardContent className="space-y-4">
-              <Input id="population" name="population" label="Population" type="number" defaultValue={town?.population || ""} />
-              <Input id="founded" name="founded" label="Founded" placeholder="e.g. Pre-15th century" defaultValue={town?.founded || ""} />
+              <Input
+                id="population"
+                name="population"
+                label="Population"
+                type="number"
+                defaultValue={town?.population || ""}
+              />
+              <Input
+                id="founded"
+                name="founded"
+                label="Founded"
+                placeholder="e.g. Pre-15th century"
+                defaultValue={town?.founded || ""}
+              />
             </CardContent>
           </Card>
 

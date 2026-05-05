@@ -1,4 +1,4 @@
-import { CommunityDirectory } from "@/components/community-directory"
+import { CommunityDirectory } from "@/components/community-directory";
 
 export default function CommunitiesPage() {
   return (
@@ -12,9 +12,9 @@ export default function CommunitiesPage() {
             Discover and connect with Okun communities preserving their heritage and culture.
           </p>
         </div>
-        
+
         <CommunityDirectory showJoinButton={true} />
       </div>
     </div>
-  )
+  );
 }

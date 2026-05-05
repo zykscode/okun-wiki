@@ -24,9 +24,13 @@ export default function TownsError({
         </div>
       </div>
       <h1 className="text-xl font-bold text-wiki-text mb-2">Failed to load towns</h1>
-      <p className="text-wiki-muted text-sm mb-8">There was an error fetching town data. Please try again.</p>
+      <p className="text-wiki-muted text-sm mb-8">
+        There was an error fetching town data. Please try again.
+      </p>
       <div className="flex gap-3 justify-center">
-        <Button onClick={reset} className="gap-2"><RefreshCw className="h-4 w-4" /> Retry</Button>
+        <Button onClick={reset} className="gap-2">
+          <RefreshCw className="h-4 w-4" /> Retry
+        </Button>
         <Button variant="outline" asChild>
           <Link href="/" className="no-underline flex items-center gap-2">
             <MapPin className="h-4 w-4" /> Homepage

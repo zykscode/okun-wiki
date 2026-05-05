@@ -22,9 +22,7 @@ export function BottomNav() {
       <div className="flex items-center justify-around h-16 px-2">
         {navItems.map((item) => {
           // Precise matching for root, startsWith for others
-          const isActive = item.href === "/" 
-            ? pathname === "/" 
-            : pathname.startsWith(item.href);
+          const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
 
           return (
             <Link
@@ -32,19 +30,23 @@ export function BottomNav() {
               href={item.href}
               className="relative flex flex-col items-center justify-center w-full h-full no-underline"
             >
-              <div className={cn(
-                "flex items-center justify-center p-1.5 rounded-full transition-colors",
-                isActive ? "text-forest-600 dark:text-forest-400" : "text-wiki-muted"
-              )}>
+              <div
+                className={cn(
+                  "flex items-center justify-center p-1.5 rounded-full transition-colors",
+                  isActive ? "text-forest-600 dark:text-forest-400" : "text-wiki-muted",
+                )}
+              >
                 <item.icon className="w-6 h-6" strokeWidth={isActive ? 2.5 : 2} />
               </div>
-              <span className={cn(
-                "text-[10px] font-medium mt-0.5 transition-colors",
-                isActive ? "text-forest-600 dark:text-forest-400" : "text-wiki-muted"
-              )}>
+              <span
+                className={cn(
+                  "text-[10px] font-medium mt-0.5 transition-colors",
+                  isActive ? "text-forest-600 dark:text-forest-400" : "text-wiki-muted",
+                )}
+              >
                 {item.label}
               </span>
-              
+
               {/* Active Indicator Dot */}
               {isActive && (
                 <motion.div

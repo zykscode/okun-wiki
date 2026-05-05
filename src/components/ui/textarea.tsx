@@ -21,7 +21,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           className={cn(
             "w-full rounded-xl border border-wiki-border bg-wiki-input px-4 py-2.5 text-sm text-wiki-text placeholder:text-wiki-muted focus:outline-none focus:ring-2 focus:ring-forest-500/30 focus:border-forest-500 transition-all duration-200 min-h-[100px] theme-transition",
             error && "border-red-500 focus:ring-red-500/30",
-            className
+            className,
           )}
           style={{ backdropFilter: "blur(12px)" }}
           {...props}
@@ -29,7 +29,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
       </div>
     );
-  }
+  },
 );
 
 Textarea.displayName = "Textarea";

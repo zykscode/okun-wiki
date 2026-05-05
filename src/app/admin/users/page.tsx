@@ -20,7 +20,15 @@ export default async function AdminUsersPage() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
                   <h3 className="font-semibold text-wiki-text">{user.name || "Unnamed"}</h3>
-                  <Badge variant={user.role === "ADMIN" ? "primary" : user.role === "EDITOR" ? "earth" : "default"}>
+                  <Badge
+                    variant={
+                      user.role === "ADMIN"
+                        ? "primary"
+                        : user.role === "EDITOR"
+                          ? "earth"
+                          : "default"
+                    }
+                  >
                     {user.role}
                   </Badge>
                   <Badge variant={user.status === "ACTIVE" ? "primary" : "default"}>
@@ -28,10 +36,15 @@ export default async function AdminUsersPage() {
                   </Badge>
                 </div>
                 <p className="text-sm text-wiki-muted mt-1">
-                  {user.email} · Joined {formatDate(user.createdAt)} · {user._count.createdTowns} towns · {user._count.blogPosts} posts
+                  {user.email} · Joined {formatDate(user.createdAt)} · {user._count.createdTowns}{" "}
+                  towns · {user._count.blogPosts} posts
                 </p>
               </div>
-              <UserRoleSelect userId={user.id} currentRole={user.role} currentStatus={user.status} />
+              <UserRoleSelect
+                userId={user.id}
+                currentRole={user.role}
+                currentStatus={user.status}
+              />
             </CardContent>
           </Card>
         ))}

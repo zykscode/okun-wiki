@@ -28,7 +28,9 @@ export default function SearchPage() {
         const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
         const data = await res.json();
         setResults(data);
-      } catch { /* ignore */ }
+      } catch {
+        /* ignore */
+      }
       setLoading(false);
     }, 300);
 
@@ -39,7 +41,11 @@ export default function SearchPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         <h1 className="text-3xl font-bold text-wiki-text mb-6 text-center">Search Okunpedia</h1>
 
         <div className="relative mb-8">
@@ -70,17 +76,25 @@ export default function SearchPage() {
                 <div className="space-y-6">
                   {results.towns.length > 0 && (
                     <div>
-                      <h2 className="text-sm font-semibold text-wiki-muted uppercase tracking-wider mb-3">Towns</h2>
+                      <h2 className="text-sm font-semibold text-wiki-muted uppercase tracking-wider mb-3">
+                        Towns
+                      </h2>
                       <div className="space-y-2">
                         {results.towns.map((town) => (
-                          <Link key={town.slug} href={`/towns/${town.slug}`} className="no-underline block">
+                          <Link
+                            key={town.slug}
+                            href={`/towns/${town.slug}`}
+                            className="no-underline block"
+                          >
                             <div className="p-4 rounded-lg border border-wiki-border bg-wiki-card hover:bg-wiki-hover transition-colors theme-transition">
                               <div className="flex items-center gap-2">
                                 <MapPin className="h-4 w-4 text-primary-500" />
                                 <span className="font-medium text-wiki-text">{town.name}</span>
                                 <Badge variant="outline">{town.lga}</Badge>
                               </div>
-                              {town.tagline && <p className="text-sm text-wiki-muted mt-1">{town.tagline}</p>}
+                              {town.tagline && (
+                                <p className="text-sm text-wiki-muted mt-1">{town.tagline}</p>
+                              )}
                             </div>
                           </Link>
                         ))}
@@ -90,17 +104,29 @@ export default function SearchPage() {
 
                   {results.posts.length > 0 && (
                     <div>
-                      <h2 className="text-sm font-semibold text-wiki-muted uppercase tracking-wider mb-3">Blog Posts</h2>
+                      <h2 className="text-sm font-semibold text-wiki-muted uppercase tracking-wider mb-3">
+                        Blog Posts
+                      </h2>
                       <div className="space-y-2">
                         {results.posts.map((post) => (
-                          <Link key={post.slug} href={`/blog/${post.slug}`} className="no-underline block">
+                          <Link
+                            key={post.slug}
+                            href={`/blog/${post.slug}`}
+                            className="no-underline block"
+                          >
                             <div className="p-4 rounded-lg border border-wiki-border bg-wiki-card hover:bg-wiki-hover transition-colors theme-transition">
                               <div className="flex items-center gap-2">
                                 <PenSquare className="h-4 w-4 text-primary-500" />
                                 <span className="font-medium text-wiki-text">{post.title}</span>
-                                <Badge variant="primary">{post.category.charAt(0) + post.category.slice(1).toLowerCase()}</Badge>
+                                <Badge variant="primary">
+                                  {post.category.charAt(0) + post.category.slice(1).toLowerCase()}
+                                </Badge>
                               </div>
-                              {post.excerpt && <p className="text-sm text-wiki-muted mt-1 line-clamp-1">{post.excerpt}</p>}
+                              {post.excerpt && (
+                                <p className="text-sm text-wiki-muted mt-1 line-clamp-1">
+                                  {post.excerpt}
+                                </p>
+                              )}
                             </div>
                           </Link>
                         ))}

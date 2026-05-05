@@ -10,7 +10,10 @@ export function MobileNav() {
 
   return (
     <div className="md:hidden">
-      <button onClick={() => setOpen(true)} className="p-2 text-wiki-muted hover:text-wiki-text cursor-pointer">
+      <button
+        onClick={() => setOpen(true)}
+        className="p-2 text-wiki-muted hover:text-wiki-text cursor-pointer"
+      >
         <Menu className="h-5 w-5" />
       </button>
 
@@ -38,9 +41,14 @@ export function MobileNav() {
                   <div className="p-2 rounded-xl bg-forest-600/10 text-forest-600 dark:bg-forest-500/20 dark:text-forest-400">
                     <BookOpen className="h-4 w-4" />
                   </div>
-                  <span className="text-xl font-display font-medium text-wiki-text tracking-tight">Okunpedia</span>
+                  <span className="text-xl font-display font-medium text-wiki-text tracking-tight">
+                    Okunpedia
+                  </span>
                 </div>
-                <button onClick={() => setOpen(false)} className="p-2 cursor-pointer text-wiki-muted hover:text-wiki-text rounded-xl hover:bg-forest-50 dark:hover:bg-forest-900/20 transition-all duration-200">
+                <button
+                  onClick={() => setOpen(false)}
+                  className="p-2 cursor-pointer text-wiki-muted hover:text-wiki-text rounded-xl hover:bg-forest-50 dark:hover:bg-forest-900/20 transition-all duration-200"
+                >
                   <X className="h-5 w-5" />
                 </button>
               </div>

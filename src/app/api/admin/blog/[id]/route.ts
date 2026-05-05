@@ -5,11 +5,11 @@ import { logActivity } from "@/lib/actions/auth";
 import { sanitizeHtml } from "@/lib/sanitize";
 
 async function checkEditor() {
-  const session = await auth()
-  if (!session?.user?.id) return null
-  const user = await db.user.findUnique({ where: { id: session.user.id }, select: { role: true } })
-  if (!user || !["ADMIN", "EDITOR"].includes(user.role)) return null
-  return session.user.id
+  const session = await auth();
+  if (!session?.user?.id) return null;
+  const user = await db.user.findUnique({ where: { id: session.user.id }, select: { role: true } });
+  if (!user || !["ADMIN", "EDITOR"].includes(user.role)) return null;
+  return session.user.id;
 }
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -21,26 +21,30 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   const { tags, ...postData } = data;
 
   // Process tags
-  const tagList = typeof tags === "string" 
-    ? tags.split(",").map(t => t.trim()).filter(Boolean) 
-    : [];
-  
-  const tagConnectOrCreate = tagList.map(name => ({
+  const tagList =
+    typeof tags === "string"
+      ? tags
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean)
+      : [];
+
+  const tagConnectOrCreate = tagList.map((name) => ({
     where: { name },
-    create: { name }
+    create: { name },
   }));
 
   try {
-    const post = await db.blogPost.update({ 
-      where: { id }, 
+    const post = await db.blogPost.update({
+      where: { id },
       data: {
         ...postData,
         content: sanitizeHtml(postData.content || ""),
         tags: {
           set: [], // Disconnect existing tags
-          connectOrCreate: tagConnectOrCreate
-        }
-      } 
+          connectOrCreate: tagConnectOrCreate,
+        },
+      },
     });
     await logActivity(userId, "updated_post", `post:${post.slug}`, post.title);
     return NextResponse.json(post);

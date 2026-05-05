@@ -20,13 +20,10 @@ export default function NotFound() {
           </div>
         </div>
 
-        <h1 className="text-2xl font-bold text-wiki-text mb-3">
-          This page doesn&apos;t exist
-        </h1>
+        <h1 className="text-2xl font-bold text-wiki-text mb-3">This page doesn&apos;t exist</h1>
         <p className="text-wiki-muted text-sm leading-relaxed mb-8">
-          The page you&apos;re looking for may have been moved, renamed, or
-          hasn&apos;t been written yet. This is a community-driven encyclopedia —
-          perhaps you could create it?
+          The page you&apos;re looking for may have been moved, renamed, or hasn&apos;t been written
+          yet. This is a community-driven encyclopedia — perhaps you could create it?
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center">

@@ -18,7 +18,10 @@ export default async function AdminActivityPage() {
           {logs.length > 0 ? (
             <div className="space-y-4">
               {logs.map((log) => (
-                <div key={log.id} className="flex items-start gap-3 text-sm border-b border-wiki-border last:border-0 pb-3 last:pb-0">
+                <div
+                  key={log.id}
+                  className="flex items-start gap-3 text-sm border-b border-wiki-border last:border-0 pb-3 last:pb-0"
+                >
                   <Activity className="h-4 w-4 text-primary-500 mt-0.5 shrink-0" />
                   <div className="flex-1">
                     <p className="text-wiki-text">

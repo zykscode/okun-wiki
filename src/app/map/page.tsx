@@ -1,4 +1,4 @@
-import InteractiveMap from "@/components/interactive-map"
+import InteractiveMap from "@/components/interactive-map";
 
 export default function MapPage() {
   return (
@@ -10,5 +10,5 @@ export default function MapPage() {
         </div>
       </main>
     </div>
-  )
+  );
 }

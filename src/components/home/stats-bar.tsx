@@ -15,7 +15,7 @@ function AnimatedNumber({ value, duration = 1.5 }: { value: number; duration?: n
     const end = value;
     const stepTime = Math.max(Math.floor((duration * 1000) / Math.max(end, 1)), 20);
     const timer = setInterval(() => {
-      start += Math.ceil(end / (duration * 1000 / stepTime));
+      start += Math.ceil(end / ((duration * 1000) / stepTime));
       if (start >= end) {
         setDisplay(end);
         clearInterval(timer);
@@ -63,7 +63,9 @@ export function StatsBar({ stats }: StatsBarProps) {
               <p className="text-3xl lg:text-4xl font-display font-bold text-wiki-text tracking-tight mb-1">
                 <AnimatedNumber value={item.value} />
               </p>
-              <p className="text-xs uppercase tracking-wider text-wiki-muted font-semibold">{item.label}</p>
+              <p className="text-xs uppercase tracking-wider text-wiki-muted font-semibold">
+                {item.label}
+              </p>
             </motion.div>
           ))}
         </div>

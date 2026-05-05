@@ -2,7 +2,9 @@ import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 import { PageEditForm } from "@/components/admin/page-edit-form";
 
-interface Props { params: Promise<{ id: string }> }
+interface Props {
+  params: Promise<{ id: string }>;
+}
 
 export default async function EditPagePage({ params }: Props) {
   const { id } = await params;

@@ -8,7 +8,11 @@ import { AuthProvider } from "@/components/auth/auth-provider";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-const interDisplay = Inter({ subsets: ["latin"], variable: "--font-display", weight: ["500", "600", "700", "800"] });
+const interDisplay = Inter({
+  subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["500", "600", "700", "800"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://okunpedia.vercel.app"),

@@ -49,7 +49,7 @@ function ToolbarButton({ onClick, active, disabled, title, children }: ToolbarBu
         active
           ? "bg-blue-500/15 text-blue-600 dark:text-blue-400"
           : "text-wiki-secondary hover:bg-wiki-hover hover:text-wiki-text",
-        disabled && "opacity-30 cursor-not-allowed"
+        disabled && "opacity-30 cursor-not-allowed",
       )}
     >
       {children}
@@ -116,14 +116,24 @@ export function RichTextEditor({
   if (!editor) return null;
 
   return (
-    <div className={cn("rounded-xl border border-wiki-border bg-wiki-card overflow-hidden", className)}>
+    <div
+      className={cn("rounded-xl border border-wiki-border bg-wiki-card overflow-hidden", className)}
+    >
       {/* Toolbar */}
       <div className="flex flex-wrap items-center gap-0.5 p-2 border-b border-wiki-border bg-wiki-bg/50">
         {/* History */}
-        <ToolbarButton title="Undo" onClick={() => editor.chain().focus().undo().run()} disabled={!editor.can().undo()}>
+        <ToolbarButton
+          title="Undo"
+          onClick={() => editor.chain().focus().undo().run()}
+          disabled={!editor.can().undo()}
+        >
           <Undo className="h-3.5 w-3.5" />
         </ToolbarButton>
-        <ToolbarButton title="Redo" onClick={() => editor.chain().focus().redo().run()} disabled={!editor.can().redo()}>
+        <ToolbarButton
+          title="Redo"
+          onClick={() => editor.chain().focus().redo().run()}
+          disabled={!editor.can().redo()}
+        >
           <Redo className="h-3.5 w-3.5" />
         </ToolbarButton>
 
@@ -208,7 +218,10 @@ export function RichTextEditor({
         >
           <Quote className="h-3.5 w-3.5" />
         </ToolbarButton>
-        <ToolbarButton title="Horizontal rule" onClick={() => editor.chain().focus().setHorizontalRule().run()}>
+        <ToolbarButton
+          title="Horizontal rule"
+          onClick={() => editor.chain().focus().setHorizontalRule().run()}
+        >
           <Minus className="h-3.5 w-3.5" />
         </ToolbarButton>
 
@@ -244,7 +257,10 @@ export function RichTextEditor({
           <Link2 className="h-3.5 w-3.5" />
         </ToolbarButton>
         {editor.isActive("link") && (
-          <ToolbarButton title="Remove link" onClick={() => editor.chain().focus().unsetLink().run()}>
+          <ToolbarButton
+            title="Remove link"
+            onClick={() => editor.chain().focus().unsetLink().run()}
+          >
             <Link2Off className="h-3.5 w-3.5" />
           </ToolbarButton>
         )}

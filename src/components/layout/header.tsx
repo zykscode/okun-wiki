@@ -9,7 +9,10 @@ export async function Header() {
   const session = await auth();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-wiki-border theme-transition" style={{ background: "var(--color-wiki-card)", backdropFilter: "blur(16px)" }}>
+    <header
+      className="sticky top-0 z-50 border-b border-wiki-border theme-transition"
+      style={{ background: "var(--color-wiki-card)", backdropFilter: "blur(16px)" }}
+    >
       <div className="max-w-[860px] mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -18,8 +21,12 @@ export async function Header() {
               <BookOpen className="h-5 w-5" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-display font-medium text-wiki-text tracking-tight transition-colors group-hover:text-forest-600 dark:group-hover:text-forest-400">Okunpedia</span>
-              <span className="hidden sm:block text-[10px] uppercase tracking-wider text-wiki-muted font-medium mt-0.5">The Encyclopedia of Okun Land</span>
+              <span className="text-xl font-display font-medium text-wiki-text tracking-tight transition-colors group-hover:text-forest-600 dark:group-hover:text-forest-400">
+                Okunpedia
+              </span>
+              <span className="hidden sm:block text-[10px] uppercase tracking-wider text-wiki-muted font-medium mt-0.5">
+                The Encyclopedia of Okun Land
+              </span>
             </div>
           </Link>
 
@@ -59,8 +66,14 @@ export async function Header() {
               <UserMenu user={session.user} />
             ) : (
               <div className="hidden md:flex items-center gap-2">
-                <Link href="/auth/login"><Button variant="ghost" size="sm">Log in</Button></Link>
-                <Link href="/auth/register"><Button size="sm">Sign up</Button></Link>
+                <Link href="/auth/login">
+                  <Button variant="ghost" size="sm">
+                    Log in
+                  </Button>
+                </Link>
+                <Link href="/auth/register">
+                  <Button size="sm">Sign up</Button>
+                </Link>
               </div>
             )}
           </div>

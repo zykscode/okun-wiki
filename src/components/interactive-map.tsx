@@ -51,10 +51,8 @@ export default function InteractiveMap() {
           (f) =>
             f.properties.statename === "Kogi" &&
             OKUN_LGAS.some(
-              (lga) =>
-                f.properties.lganame.includes(lga) ||
-                lga.includes(f.properties.lganame)
-            )
+              (lga) => f.properties.lganame.includes(lga) || lga.includes(f.properties.lganame),
+            ),
         );
         setWardGeoJSON({ type: "FeatureCollection", features: okunWards });
         setLoadingMap(false);

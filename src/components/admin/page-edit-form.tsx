@@ -117,8 +117,10 @@ export function PageEditForm({ page }: { page: PageData }) {
                   onChange={(e) => setOrder(parseInt(e.target.value) || 0)}
                 />
               </div>
-              <p className="text-xs text-wiki-muted">Type: {page.type} · Slug: {page.slug}</p>
-              
+              <p className="text-xs text-wiki-muted">
+                Type: {page.type} · Slug: {page.slug}
+              </p>
+
               <div className="pt-4 border-t border-wiki-border">
                 <Link href={`/admin/pages/${page.id}/history`}>
                   <Button variant="outline" size="sm" className="w-full" type="button">

@@ -30,7 +30,7 @@ export async function getTownBySlug(slug: string) {
         orderBy: { order: "asc" },
       },
       festivals: {
-        include: { images: true }
+        include: { images: true },
       },
       people: true,
       images: true,
@@ -39,7 +39,7 @@ export async function getTownBySlug(slug: string) {
       needs: true,
       families: true,
       neighbors: {
-        include: { neighbor: { select: { name: true, slug: true } } }
+        include: { neighbor: { select: { name: true, slug: true } } },
       },
       comments: {
         where: { parentId: null },
@@ -48,12 +48,12 @@ export async function getTownBySlug(slug: string) {
           author: { select: { id: true, name: true, image: true } },
           replies: {
             include: {
-              author: { select: { id: true, name: true, image: true } }
+              author: { select: { id: true, name: true, image: true } },
             },
-            orderBy: { createdAt: "asc" }
-          }
-        }
-      }
+            orderBy: { createdAt: "asc" },
+          },
+        },
+      },
     },
   });
 }

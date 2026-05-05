@@ -6,11 +6,16 @@ import { formatDate } from "@/lib/utils";
 import { ArrowLeft, Calendar, User, Eye } from "lucide-react";
 import Link from "next/link";
 
-interface Props { params: Promise<{ slug: string }> }
+interface Props {
+  params: Promise<{ slug: string }>;
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = await db.blogPost.findUnique({ where: { slug }, select: { title: true, excerpt: true } });
+  const post = await db.blogPost.findUnique({
+    where: { slug },
+    select: { title: true, excerpt: true },
+  });
   if (!post) return { title: "Not Found" };
   return { title: post.title, description: post.excerpt || undefined };
 }
@@ -19,9 +24,9 @@ export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
   const post = await db.blogPost.findUnique({
     where: { slug, published: true },
-    include: { 
+    include: {
       author: { select: { name: true, bio: true, image: true } },
-      tags: true
+      tags: true,
     },
   });
 
@@ -32,7 +37,10 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <article className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
-      <Link href="/blog" className="inline-flex items-center gap-1 text-sm text-wiki-muted hover:text-primary-500 no-underline mb-6">
+      <Link
+        href="/blog"
+        className="inline-flex items-center gap-1 text-sm text-wiki-muted hover:text-primary-500 no-underline mb-6"
+      >
         <ArrowLeft className="h-4 w-4" /> Back to blog
       </Link>
 
@@ -49,14 +57,25 @@ export default async function BlogPostPage({ params }: Props) {
         </Badge>
         <h1 className="text-3xl sm:text-4xl font-bold text-wiki-text mb-4">{post.title}</h1>
         <div className="flex items-center gap-4 text-sm text-wiki-muted flex-wrap">
-          <span className="flex items-center gap-1"><User className="h-4 w-4" />{post.author.name}</span>
-          <span className="flex items-center gap-1"><Calendar className="h-4 w-4" />{formatDate(post.createdAt)}</span>
-          <span className="flex items-center gap-1"><Eye className="h-4 w-4" />{post.views + 1} views</span>
+          <span className="flex items-center gap-1">
+            <User className="h-4 w-4" />
+            {post.author.name}
+          </span>
+          <span className="flex items-center gap-1">
+            <Calendar className="h-4 w-4" />
+            {formatDate(post.createdAt)}
+          </span>
+          <span className="flex items-center gap-1">
+            <Eye className="h-4 w-4" />
+            {post.views + 1} views
+          </span>
         </div>
         {post.tags.length > 0 && (
           <div className="flex gap-2 mt-3">
             {post.tags.map((tag) => (
-              <Badge key={tag.id} variant="outline">{tag.name}</Badge>
+              <Badge key={tag.id} variant="outline">
+                {tag.name}
+              </Badge>
             ))}
           </div>
         )}

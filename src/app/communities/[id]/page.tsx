@@ -7,14 +7,14 @@ import { MentorshipCard } from "@/components/mentorship-card";
 import { RealtimeFeed } from "@/components/realtime-feed";
 
 interface CommunityUpdate {
-  id: string
-  content: string
-  createdAt: string
+  id: string;
+  content: string;
+  createdAt: string;
   author: {
-    id: string
-    name: string | null
-    image: string | null
-  }
+    id: string;
+    name: string | null;
+    image: string | null;
+  };
 }
 
 interface CommunityDetails {
@@ -33,7 +33,7 @@ export default function CommunityDetailPage() {
   const params = useParams();
   const router = useRouter();
   const communityId = params.id as string;
-  
+
   const [community, setCommunity] = useState<CommunityDetails | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -51,18 +51,18 @@ export default function CommunityDetailPage() {
         setLoading(false);
       }
     };
-    
+
     if (communityId) {
       fetchCommunity();
     }
   }, [communityId]);
 
   if (loading) {
-     return (
-        <div className="min-h-screen bg-gray-50 flex justify-center items-center">
-           <p className="text-gray-500">Loading community details...</p>
-        </div>
-     );
+    return (
+      <div className="min-h-screen bg-gray-50 flex justify-center items-center">
+        <p className="text-gray-500">Loading community details...</p>
+      </div>
+    );
   }
 
   if (!community) {
@@ -71,7 +71,7 @@ export default function CommunityDetailPage() {
         <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-900 mb-4">Community Not Found</h1>
-            <button 
+            <button
               onClick={() => router.back()}
               className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
             >
@@ -85,18 +85,17 @@ export default function CommunityDetailPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-6">
-          <button 
+          <button
             onClick={() => router.back()}
             className="flex items-center text-blue-600 hover:text-blue-800 mb-4"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Directory
           </button>
-          
+
           <h1 className="text-4xl font-bold text-gray-900 mb-2">{community.name}</h1>
           <div className="flex items-center text-gray-600 space-x-4">
             <div className="flex items-center">
@@ -118,20 +117,16 @@ export default function CommunityDetailPage() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Overview</h2>
               <p className="text-gray-700 leading-relaxed">
-                 {community.description || "No description provided."}
+                {community.description || "No description provided."}
               </p>
             </div>
 
             {/* Realtime Updates Feed */}
-            <RealtimeFeed 
-              communityId={community.id} 
-              initialUpdates={community.articles || []} 
-            />
+            <RealtimeFeed communityId={community.id} initialUpdates={community.articles || []} />
           </div>
 
           {/* Sidebar */}
           <div className="space-y-6">
-            
             {/* Find/Offer Mentorship */}
             <MentorshipCard communityId={community.id} />
 
@@ -139,8 +134,8 @@ export default function CommunityDetailPage() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <h3 className="text-xl font-bold text-gray-900 mb-4">Explore</h3>
               <div className="space-y-3">
-                <button 
-                  onClick={() => router.push('/map')}
+                <button
+                  onClick={() => router.push("/map")}
                   className="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
                 >
                   View on Interactive Map

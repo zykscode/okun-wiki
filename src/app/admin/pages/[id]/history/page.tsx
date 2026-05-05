@@ -5,19 +5,21 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
-interface Props { params: Promise<{ id: string }> }
+interface Props {
+  params: Promise<{ id: string }>;
+}
 
 export default async function PageHistoryPage({ params }: Props) {
   const { id } = await params;
-  
+
   const page = await db.townPage.findUnique({
     where: { id },
     include: {
       town: { select: { name: true } },
       versions: {
         orderBy: { version: "desc" },
-      }
-    }
+      },
+    },
   });
 
   if (!page) notFound();
@@ -41,11 +43,15 @@ export default async function PageHistoryPage({ params }: Props) {
 
       <div className="bg-wiki-card border border-wiki-border rounded-xl p-6 theme-transition">
         <p className="text-wiki-muted mb-6">
-          Showing edit history for <strong>{page.title}</strong> in <strong>{page.town.name}</strong>.
-          You can compare versions to see what changed over time.
+          Showing edit history for <strong>{page.title}</strong> in{" "}
+          <strong>{page.town.name}</strong>. You can compare versions to see what changed over time.
         </p>
 
-        <HistoryList pageId={id} initialVersions={JSON.parse(JSON.stringify(page.versions))} currentContent={page.content} />
+        <HistoryList
+          pageId={id}
+          initialVersions={JSON.parse(JSON.stringify(page.versions))}
+          currentContent={page.content}
+        />
       </div>
     </div>
   );
