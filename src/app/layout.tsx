@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/footer";
 import { BottomNav } from "@/components/layout/bottom-nav";
 import { AuthProvider } from "@/components/auth/auth-provider";
 import { ThemeProvider } from "@/components/theme/theme-provider";
+import siteMetadata from "@/data/siteMetadata";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const interDisplay = Inter({
@@ -16,12 +17,44 @@ const interDisplay = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://okunpedia.vercel.app"),
-  title: {
-    default: "Okunpedia — The Encyclopedia of Okun Land",
-    template: "%s | Okunpedia",
+  icons: {
+    icon: [
+      { url: "/static/favicons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/static/favicons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: "/static/favicons/apple-touch-icon.png",
   },
-  description:
-    "A community-driven encyclopedia documenting the history, culture, and heritage of Okun towns in Kogi State, Nigeria.",
+  openGraph: {
+    title: siteMetadata.title,
+    description: siteMetadata.description,
+    url: "/",
+    siteName: siteMetadata.title,
+    images: [siteMetadata.socialBanner],
+    locale: "en_US",
+    type: "website",
+  },
+  alternates: {
+    canonical: "/",
+    types: {
+      "application/rss+xml": `${siteMetadata.siteUrl}/feed.xml`,
+    },
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  twitter: {
+    title: siteMetadata.title,
+    card: "summary_large_image",
+    images: [siteMetadata.socialBanner],
+  },
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
@@ -42,7 +75,6 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
