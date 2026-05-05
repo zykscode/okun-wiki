@@ -4,6 +4,9 @@ import { BookOpen, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { UserMenu } from "./user-menu";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
+import PageLogo from "../ui/page-logo";
+
+import { cn, WhyteInktrap } from "@/lib/utils";
 
 export async function Header() {
   const session = await auth();
@@ -13,12 +16,13 @@ export async function Header() {
       className="sticky top-0 z-50 border-b border-wiki-border theme-transition"
       style={{ background: "var(--color-wiki-card)", backdropFilter: "blur(16px)" }}
     >
-      <div className="max-w-[860px] mx-auto px-4 sm:px-6">
+      <div className="max-w-full mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 no-underline group">
             <div className="p-2 rounded-xl bg-forest-600/10 text-forest-600 dark:bg-forest-500/20 dark:text-forest-400 group-hover:bg-forest-600 group-hover:text-white dark:group-hover:bg-forest-500 transition-all duration-300">
-              <BookOpen className="h-5 w-5" />
+              {/* <BookOpen  /> */}
+              <PageLogo />
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-display font-medium text-wiki-text tracking-tight transition-colors group-hover:text-forest-600 dark:group-hover:text-forest-400">
@@ -31,7 +35,7 @@ export async function Header() {
           </Link>
 
           {/* Navigation */}
-          <nav className="hidden md:flex items-center gap-5">
+          <nav className={`hidden md:flex items-center gap-5 {cn(WhyteInktrap.variable)} `}>
             {[
               { href: "/", label: "Home" },
               { href: "/towns", label: "Towns" },
@@ -42,7 +46,7 @@ export async function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="relative text-sm font-medium text-wiki-muted hover:text-wiki-text transition-colors group py-1"
+                className="relative text-xl font-medium text-wiki-muted hover:text-wiki-text transition-colors group py-1"
               >
                 {link.label}
                 <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-forest-500 transition-all duration-300 group-hover:w-full rounded-full"></span>
