@@ -5,161 +5,116 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Hyper-Modern Apple-style Frosted Glass Aesthetic */
+  /* === Okun Brand Palette === */
+  --color-forest-50: #f2fdf5;
+  --color-forest-100: #e6f7eb;
+  --color-forest-200: #c2e9cd;
+  --color-forest-300: #9bdcad;
+  --color-forest-400: #4caf6f;
+  --color-forest-500: #2d8a4e; /* Deep Forest Green */
+  --color-forest-600: #1a5c34;
+  --color-forest-700: #124024;
+  --color-forest-800: #0a2615;
+  --color-forest-900: #05140b;
 
-  --color-forest-50: #f5f5f7;
-  --color-forest-100: #e5e5ea;
-  --color-forest-200: #d1d1d6;
-  --color-forest-300: #c7c7cc;
-  --color-forest-400: #aeaeb2;
-  --color-forest-500: #007aff; /* Apple Blue Accent */
-  --color-forest-600: #0056b3;
-  --color-forest-700: #004080;
-  --color-forest-800: #002b5e;
-  --color-forest-900: #001f3f;
+  /* Muted Gold Accents */
+  --color-gold-50: #fffcf0;
+  --color-gold-100: #fef8d3;
+  --color-gold-200: #fdf0a7;
+  --color-gold-300: #fce87b;
+  --color-gold-400: #fbdc4f;
+  --color-gold-500: #d4af37; /* Royal Gold */
+  --color-gold-600: #a68a2b;
+  --color-gold-700: #78631f;
 
-  /* Neutral/Subtle accents */
-  --color-gold-50: #fbfbfd;
-  --color-gold-100: #f2f2f7;
-  --color-gold-200: #e5e5ea;
-  --color-gold-300: #d1d1d6;
-  --color-gold-400: #c7c7cc;
-  --color-gold-500: #8e8e93;
-  --color-gold-600: #636366;
-  --color-gold-700: #48484a;
-
-  /* Semantic tokens — light mode */
-  --color-wiki-bg: #f5f5f7; /* Signature Apple Light Gray */
-  --color-wiki-card: rgba(255, 255, 255, 0.7); /* Frosted Glass */
+  /* === Semantic Design Tokens — Light Mode === */
+  --color-wiki-bg: #f8fafc;
+  --color-wiki-card: rgba(255, 255, 255, 0.75);
   --color-wiki-card-strong: #ffffff;
-  --color-wiki-border: rgba(0, 0, 0, 0.05);
-  --color-wiki-border-accent: rgba(0, 122, 255, 0.3);
-  --color-wiki-text: #1d1d1f;
-  --color-wiki-secondary: #86868b;
-  --color-wiki-muted: #aeaeb2;
-  --color-wiki-hover: rgba(0, 0, 0, 0.04);
-  --color-wiki-input: rgba(0, 0, 0, 0.04);
-  --color-wiki-overlay: rgba(255, 255, 255, 0.5);
-  --color-wiki-elevated: rgba(255, 255, 255, 0.9);
+  --color-wiki-border: rgba(15, 23, 42, 0.08);
+  --color-wiki-border-accent: rgba(45, 138, 78, 0.2);
+  --color-wiki-text: #0f172a;
+  --color-wiki-secondary: #475569;
+  --color-wiki-muted: #94a3b8;
+  --color-wiki-hover: rgba(15, 23, 42, 0.04);
+  --color-wiki-input: #ffffff;
+  --color-wiki-overlay: rgba(255, 255, 255, 0.8);
+  --color-wiki-elevated: #ffffff;
+  --color-wiki-primary: #2d8a4e;
 
-  --color-primary-500: #007aff;
-  --color-primary-600: #0056b3;
-  --color-primary-700: #004080;
+  --color-primary-500: #2d8a4e;
+  --color-primary-600: #1a5c34;
+  --color-primary-700: #124024;
 
-  --font-sans:
-    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-display:
-    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-sans: "Inter", var(--font-whyteinktrap), sans-serif;
+  --font-display: var(--font-whyteinktrap), "Inter", sans-serif;
 }
 
+/* === Dark Mode Overrides === */
 .dark {
-  --color-wiki-bg: #000000; /* Pure Pitch Black */
-  --color-wiki-card: rgba(28, 28, 30, 0.6); /* Translucent dark gray */
-  --color-wiki-card-strong: #1c1c1e;
+  --color-wiki-bg: #020617;
+  --color-wiki-card: rgba(15, 23, 42, 0.6);
+  --color-wiki-card-strong: #0f172a;
   --color-wiki-border: rgba(255, 255, 255, 0.08);
-  --color-wiki-border-accent: rgba(10, 132, 255, 0.4);
-  --color-wiki-text: #f5f5f7;
-  --color-wiki-secondary: #86868b;
-  --color-wiki-muted: #636366;
-  --color-wiki-hover: rgba(255, 255, 255, 0.08);
-  --color-wiki-input: rgba(255, 255, 255, 0.1);
-  --color-wiki-overlay: rgba(0, 0, 0, 0.7);
-  --color-wiki-elevated: rgba(44, 44, 46, 0.9);
+  --color-wiki-border-accent: rgba(76, 175, 111, 0.3);
+  --color-wiki-text: #f8fafc;
+  --color-wiki-secondary: #94a3b8;
+  --color-wiki-muted: #64748b;
+  --color-wiki-hover: rgba(255, 255, 255, 0.06);
+  --color-wiki-input: rgba(15, 23, 42, 0.8);
+  --color-wiki-overlay: rgba(2, 6, 23, 0.8);
+  --color-wiki-elevated: #1e293b;
+  --color-wiki-primary: #4caf6f;
 
-  --color-primary-500: #0a84ff; /* Lighter iOS Blue */
-  --color-primary-600: #007aff;
-  --color-primary-700: #0056b3;
+  --color-primary-500: #4caf6f;
+  --color-primary-600: #2d8a4e;
+  --color-primary-700: #1a5c34;
 
-  --background: oklch(0 0 0);
-  --foreground: oklch(0.98 0 0);
-  --card: oklch(0.18 0 0);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.15 0 0);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.6 0.16 260);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.2 0 0);
-  --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.2 0 0);
-  --muted-foreground: oklch(0.7 0 0);
-  --accent: oklch(0.2 0 0);
-  --accent-foreground: oklch(0.98 0 0);
-  --destructive: oklch(0.6 0.2 25);
-  --border: oklch(0.2 0 0);
-  --input: oklch(0.2 0 0);
-  --ring: oklch(0.6 0.16 260);
+  /* Shadcn token overrides for dark */
+  --background: #020617;
+  --foreground: #f8fafc;
+  --card: #0f172a;
+  --card-foreground: #f8fafc;
+  --popover: #0f172a;
+  --popover-foreground: #f8fafc;
+  --primary: #2d8a4e;
+  --primary-foreground: #ffffff;
+  --secondary: #1e293b;
+  --secondary-foreground: #f8fafc;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #1e293b;
+  --accent-foreground: #f8fafc;
+  --border: #1e293b;
+  --input: #1e293b;
+  --ring: #2d8a4e;
+  --destructive: #7f1d1d;
 }
 
-@layer base {
-  body {
-    @apply bg-wiki-bg text-wiki-text antialiased;
-    font-family: var(--font-sans);
-    transition:
-      background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-      color 0.4s ease;
-    @apply bg-background text-foreground;
-    overscroll-behavior-y: none;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-bold tracking-tight text-wiki-text;
-  }
+/* === Shadcn / Base Tokens (Light) === */
+:root {
+  --radius: 1.5rem;
+  --background: oklch(0.98 0 0);
+  --foreground: oklch(0.1 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.1 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.1 0 0);
+  --primary: #2d8a4e;
+  --primary-foreground: #ffffff;
+  --secondary: oklch(0.96 0 0);
+  --secondary-foreground: oklch(0.2 0 0);
+  --muted: oklch(0.96 0 0);
+  --muted-foreground: oklch(0.45 0 0);
+  --accent: oklch(0.96 0 0);
+  --accent-foreground: oklch(0.2 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.94 0 0);
+  --input: oklch(0.94 0 0);
+  --ring: #2d8a4e;
 }
 
-/* Stunning Glass Card */
-.glass-card {
-  @apply bg-wiki-card rounded-[2rem];
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
-  transition:
-    transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-    box-shadow 0.3s ease;
-  border: 1px solid var(--color-wiki-border);
-}
-
-.glass-panel {
-  @apply bg-wiki-card rounded-2xl;
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border: 1px solid var(--color-wiki-border);
-}
-
-.dark .glass-card {
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.glass-card:active {
-  transform: scale(0.96);
-}
-
-/* Beautiful dynamic background orb */
-.ambient-glow {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  background:
-    radial-gradient(circle at 15% 50%, rgba(0, 122, 255, 0.08), transparent 50%),
-    radial-gradient(circle at 85% 30%, rgba(94, 92, 230, 0.08), transparent 50%);
-  pointer-events: none;
-}
-
-.dark .ambient-glow {
-  background:
-    radial-gradient(circle at 15% 50%, rgba(10, 132, 255, 0.15), transparent 40%),
-    radial-gradient(circle at 85% 30%, rgba(94, 92, 230, 0.15), transparent 40%);
-}
-
+/* === Inline Theme Map (required by shadcn) === */
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -168,6 +123,7 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -188,28 +144,198 @@
   --color-ring: var(--ring);
 }
 
-:root {
-  --radius: 1.5rem;
-  --background: oklch(0.98 0 0);
-  --foreground: oklch(0.1 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.1 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.1 0 0);
-  --primary: oklch(0.6 0.16 260);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.96 0 0);
-  --secondary-foreground: oklch(0.2 0 0);
-  --muted: oklch(0.96 0 0);
-  --muted-foreground: oklch(0.45 0 0);
-  --accent: oklch(0.96 0 0);
-  --accent-foreground: oklch(0.2 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.94 0 0);
-  --input: oklch(0.94 0 0);
-  --ring: oklch(0.6 0.16 260);
+/* === Base Styles === */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-wiki-bg text-wiki-text antialiased;
+    font-family: var(--font-sans);
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold tracking-tight text-wiki-text;
+    font-family: var(--font-display);
+  }
+
+  a {
+    @apply text-forest-600 dark:text-forest-400;
+  }
+
+  ::selection {
+    background-color: rgba(45, 138, 78, 0.2);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-forest-500);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
 }
 
+/* === Utility: Smooth theme transition === */
+.theme-transition,
+.theme-transition * {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+}
+
+/* === Glass Components === */
+.glass-card {
+  @apply bg-wiki-card rounded-[2rem];
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--color-wiki-border);
+  transition:
+    transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.3s ease;
+}
+
+.dark .glass-card {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 4px 24px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-card:active {
+  transform: scale(0.97);
+}
+
+.glass-panel {
+  @apply bg-wiki-card rounded-2xl;
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid var(--color-wiki-border);
+}
+
+/* === Ambient Background Glow === */
+.ambient-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 15% 50%, rgba(45, 138, 78, 0.06), transparent 50%),
+    radial-gradient(circle at 85% 30%, rgba(212, 175, 55, 0.05), transparent 50%);
+  pointer-events: none;
+}
+
+.dark .ambient-glow {
+  background:
+    radial-gradient(circle at 15% 50%, rgba(45, 138, 78, 0.14), transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(212, 175, 55, 0.1), transparent 40%);
+}
+
+/* === Wiki / Blog Prose Content === */
+.wiki-content {
+  @apply text-wiki-text leading-relaxed;
+  font-size: 1rem;
+}
+
+.wiki-content > * + * {
+  margin-top: 1.25em;
+}
+
+.wiki-content h1 {
+  @apply text-3xl font-bold mt-8 mb-4;
+}
+.wiki-content h2 {
+  @apply text-2xl font-bold mt-8 mb-3 pb-2 border-b border-wiki-border;
+}
+.wiki-content h3 {
+  @apply text-xl font-bold mt-6 mb-2;
+}
+.wiki-content h4 {
+  @apply text-lg font-semibold mt-4 mb-1;
+}
+
+.wiki-content p {
+  @apply text-wiki-secondary leading-relaxed;
+  margin-bottom: 1em;
+}
+
+.wiki-content ul,
+.wiki-content ol {
+  @apply pl-6 text-wiki-secondary space-y-1;
+  margin-bottom: 1em;
+}
+
+.wiki-content ul {
+  list-style-type: disc;
+}
+.wiki-content ol {
+  list-style-type: decimal;
+}
+
+.wiki-content a {
+  @apply text-forest-600 dark:text-forest-400 underline underline-offset-2 hover:text-forest-700 dark:hover:text-forest-300;
+  transition: color 0.15s ease;
+}
+
+.wiki-content blockquote {
+  @apply pl-4 border-l-4 border-forest-500 text-wiki-muted italic;
+  margin: 1.5em 0;
+}
+
+.wiki-content pre {
+  @apply bg-wiki-card-strong rounded-xl p-4 overflow-x-auto text-sm;
+  border: 1px solid var(--color-wiki-border);
+}
+
+.wiki-content code {
+  @apply font-mono text-sm bg-forest-50 dark:bg-forest-900/30 text-forest-700 dark:text-forest-300 px-1.5 py-0.5 rounded-md;
+}
+
+.wiki-content pre code {
+  @apply bg-transparent text-wiki-text p-0;
+}
+
+.wiki-content table {
+  @apply w-full text-sm border-collapse;
+  margin: 1.5em 0;
+}
+
+.wiki-content th {
+  @apply bg-wiki-hover font-semibold text-wiki-text px-3 py-2 text-left border border-wiki-border;
+}
+
+.wiki-content td {
+  @apply px-3 py-2 text-wiki-secondary border border-wiki-border;
+}
+
+.wiki-content img {
+  @apply rounded-xl max-w-full;
+}
+
+.wiki-content hr {
+  @apply border-wiki-border my-8;
+}
+
+.wiki-content strong {
+  @apply font-semibold text-wiki-text;
+}
+
+/* === No Scrollbar === */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

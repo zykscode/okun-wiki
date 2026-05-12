@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import type { TownInfo, WardFeature } from "@/components/leaflet-map";
+import { towns as staticTowns } from "@/data/towns";
 
 // Create a dynamic map component to avoid SSR issues
 const LeafletMap = dynamic(() => import("@/components/leaflet-map"), {
@@ -30,17 +31,21 @@ const OKUN_LGAS = ["Kabba/Bunu", "Yagba West", "Yagba East", "Mopa-Muro", "Ijumu
 export default function InteractiveMap() {
   const router = useRouter();
   const [selectedWard, setSelectedWard] = useState<string | null>(null);
-  const [towns, setTowns] = useState<TownInfo[]>([]);
+  const [towns] = useState<TownInfo[]>(
+    () =>
+      staticTowns.map((t) => ({
+        id: t.id,
+        name: t.name,
+        slug: t.slug,
+        lga: t.lga,
+        coordinates: t.coordinates ? t.coordinates.split(",").map(Number) : [0, 0],
+        featured: t.featured,
+        tagline: t.tagline,
+        population: t.population,
+      })) as unknown as TownInfo[],
+  );
   const [wardGeoJSON, setWardGeoJSON] = useState<object | null>(null);
   const [loadingMap, setLoadingMap] = useState(true);
-
-  // Fetch towns from API
-  useEffect(() => {
-    fetch("/api/map/towns")
-      .then((res) => res.json())
-      .then((data) => setTowns(data))
-      .catch((err) => console.error("Failed to fetch towns:", err));
-  }, []);
 
   // Fetch ward GeoJSON from public directory (not bundled)
   useEffect(() => {

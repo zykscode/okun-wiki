@@ -4,19 +4,37 @@ import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { BottomNav } from "@/components/layout/bottom-nav";
-import { AuthProvider } from "@/components/auth/auth-provider";
 import { ThemeProvider } from "@/components/theme/theme-provider";
+import { WhyteInktrap } from "@/lib/utils";
 import siteMetadata from "@/data/siteMetadata";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-const interDisplay = Inter({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["500", "600", "700", "800"],
+  variable: "--font-sans",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://okunpedia.vercel.app"),
+  metadataBase: new URL(siteMetadata.siteUrl),
+  title: {
+    default: siteMetadata.title,
+    template: `%s — ${siteMetadata.title}`,
+  },
+  description: siteMetadata.description,
+  keywords: [
+    "Okun",
+    "Kogi State",
+    "Nigeria",
+    "Yoruba",
+    "encyclopedia",
+    "history",
+    "culture",
+    "Kabba",
+    "Ijumu",
+    "Yagba",
+  ],
+  authors: [{ name: siteMetadata.author }],
+  creator: siteMetadata.author,
   icons: {
     icon: [
       { url: "/static/favicons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -27,11 +45,17 @@ export const metadata: Metadata = {
   openGraph: {
     title: siteMetadata.title,
     description: siteMetadata.description,
-    url: "/",
+    url: siteMetadata.siteUrl,
     siteName: siteMetadata.title,
-    images: [siteMetadata.socialBanner],
+    images: [{ url: siteMetadata.socialBanner, width: 1200, height: 630, alt: siteMetadata.title }],
     locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteMetadata.title,
+    description: siteMetadata.description,
+    images: [siteMetadata.socialBanner],
   },
   alternates: {
     canonical: "/",
@@ -50,50 +74,44 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  twitter: {
-    title: siteMetadata.title,
-    card: "summary_large_image",
-    images: [siteMetadata.socialBanner],
-  },
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Okunpedia",
+    title: siteMetadata.title,
   },
-  formatDetection: {
-    telephone: false,
-  },
+  formatDetection: { telephone: false },
 };
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+    { media: "(prefers-color-scheme: light)", color: "#f8fafc" },
+    { media: "(prefers-color-scheme: dark)", color: "#020617" },
   ],
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
+  maximumScale: 5,
 };
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${WhyteInktrap.variable}`}
+    >
       <head>
         <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png" />
       </head>
-      <body className={`${inter.variable} ${interDisplay.variable} min-h-screen flex flex-col`}>
-        <div className="ambient-glow" />
+      <body className="min-h-screen flex flex-col bg-wiki-bg">
+        <div className="ambient-glow" aria-hidden="true" />
         <ThemeProvider>
-          <AuthProvider>
-            <Header />
-            <main className="flex-1 pb-16 md:pb-0">{children}</main>
-            <BottomNav />
-            <Footer />
-          </AuthProvider>
+          <Header />
+          <main id="main-content" className="flex-1 pb-20 md:pb-0" tabIndex={-1}>
+            {children}
+          </main>
+          <BottomNav />
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

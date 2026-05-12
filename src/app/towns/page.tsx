@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { getTowns, searchTowns } from "@/lib/actions/town";
-import { TownCard } from "@/components/town/town-card";
+import { towns } from "@/data/towns";
+import { TownCard } from "@/features/town/town-card";
 import { Search, MapPin } from "lucide-react";
 import { Metadata } from "next";
 
@@ -9,21 +9,29 @@ export const metadata: Metadata = {
   description: "Browse all documented Okun towns in Kogi State, Nigeria.",
 };
 
-export const dynamic = "force-dynamic";
-
 interface TownsPageProps {
   searchParams: Promise<{ q?: string; lga?: string }>;
 }
 
 export default async function TownsPage({ searchParams }: TownsPageProps) {
   const params = await searchParams;
-  const query = params.q;
-  const towns = query ? await searchTowns(query) : await getTowns();
+  const query = params.q?.toLowerCase();
 
-  // Get unique LGAs for filter
+  let filteredTowns = query
+    ? towns.filter(
+        (t) =>
+          t.name.toLowerCase().includes(query) ||
+          t.lga.toLowerCase().includes(query) ||
+          t.overview.toLowerCase().includes(query),
+      )
+    : towns;
+
+  // Get unique LGAs for filter from all towns
   const lgas = [...new Set(towns.map((t) => t.lga))].sort();
 
-  const filteredTowns = params.lga ? towns.filter((t) => t.lga === params.lga) : towns;
+  if (params.lga) {
+    filteredTowns = filteredTowns.filter((t) => t.lga === params.lga);
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">

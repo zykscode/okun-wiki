@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Map, Users, BookOpen, User } from "lucide-react";
+import { Home, Map, Users, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
@@ -13,8 +13,7 @@ export function BottomNav() {
     { href: "/", label: "Home", icon: Home },
     { href: "/towns", label: "Towns", icon: BookOpen },
     { href: "/map", label: "Map", icon: Map },
-    { href: "/communities", label: "Connect", icon: Users },
-    { href: "/profile", label: "Profile", icon: User },
+    { href: "/blog", label: "Blog", icon: Users },
   ];
 
   return (

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -32,7 +31,6 @@ interface CommunityDirectoryProps {
 }
 
 export function CommunityDirectory({ showJoinButton = false }: CommunityDirectoryProps) {
-  const { data: session } = useSession();
   const [communities, setCommunities] = useState<Community[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
@@ -40,19 +38,46 @@ export function CommunityDirectory({ showJoinButton = false }: CommunityDirector
   const [joiningCommunity, setJoiningCommunity] = useState<string | null>(null);
   const [joinedIds, setJoinedIds] = useState<Set<string>>(new Set());
 
+  // Mocked session for static behavior
+  const session = { user: { name: "Guest" } };
+
   useEffect(() => {
     // Moved fetchCommunities inside useEffect to avoid exhaustive-deps warning
     const fetchCommunities = async () => {
       try {
-        const params = new URLSearchParams();
-        if (searchQuery) params.append("query", searchQuery);
-        if (selectedRegion && selectedRegion !== "all") params.append("region", selectedRegion);
+        // Mock static data to prevent API call errors since the backend is gone
+        const mockData: Community[] = [
+          {
+            id: "1",
+            name: "Okun Tech Community",
+            description: "A hub for developers and tech enthusiasts from Okun land.",
+            region: "Kabba",
+            whatsappLink: "#",
+            telegramLink: "#",
+            _count: { members: 120, articles: 5 },
+          },
+          {
+            id: "2",
+            name: "Yagba Historians",
+            description: "Preserving the rich history of Yagba people.",
+            region: "Isanlu",
+            whatsappLink: null,
+            telegramLink: null,
+            _count: { members: 85, articles: 20 },
+          },
+        ];
 
-        const response = await fetch(`/api/communities?${params}`);
-        if (response.ok) {
-          const data = await response.json();
-          setCommunities(data);
+        let filtered = mockData;
+        if (searchQuery) {
+          filtered = filtered.filter((c) =>
+            c.name.toLowerCase().includes(searchQuery.toLowerCase()),
+          );
         }
+        if (selectedRegion && selectedRegion !== "all") {
+          filtered = filtered.filter((c) => c.region === selectedRegion);
+        }
+
+        setCommunities(filtered);
       } catch (error) {
         console.error("Error fetching communities:", error);
       } finally {
@@ -64,33 +89,19 @@ export function CommunityDirectory({ showJoinButton = false }: CommunityDirector
   }, [searchQuery, selectedRegion]);
 
   const handleJoinCommunity = async (communityId: string) => {
-    if (!session) return;
-
     setJoiningCommunity(communityId);
-    try {
-      const response = await fetch(`/api/communities/${communityId}/join`, {
-        method: "POST",
-      });
-
-      if (response.ok) {
-        // Optimistic update: increment member count, mark as joined
-        setCommunities((prev) =>
-          prev.map((c) =>
-            c.id === communityId
-              ? { ...c, _count: { ...c._count, members: c._count.members + 1 } }
-              : c,
-          ),
-        );
-        setJoinedIds((prev) => new Set(prev).add(communityId));
-      } else {
-        const error = await response.json();
-        console.error("Error joining community:", error);
-      }
-    } catch (error) {
-      console.error("Error joining community:", error);
-    } finally {
+    // Simulate network delay
+    setTimeout(() => {
+      setCommunities((prev) =>
+        prev.map((c) =>
+          c.id === communityId
+            ? { ...c, _count: { ...c._count, members: c._count.members + 1 } }
+            : c,
+        ),
+      );
+      setJoinedIds((prev) => new Set(prev).add(communityId));
       setJoiningCommunity(null);
-    }
+    }, 1000);
   };
 
   const regions = Array.from(

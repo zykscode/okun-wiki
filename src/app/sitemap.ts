@@ -1,19 +1,11 @@
 import { MetadataRoute } from "next";
-import { db } from "@/lib/db";
+import { towns } from "@/data/towns";
+import { getBlogPosts } from "@/lib/blog";
 
 const BASE_URL = "https://okunpedia.vercel.app";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [towns, posts] = await Promise.all([
-    db.town.findMany({
-      where: { published: true },
-      select: { slug: true, updatedAt: true },
-    }),
-    db.blogPost.findMany({
-      where: { published: true },
-      select: { slug: true, updatedAt: true },
-    }),
-  ]);
+  const posts = await getBlogPosts();
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: BASE_URL, lastModified: new Date(), changeFrequency: "daily", priority: 1.0 },
@@ -34,16 +26,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  const townRoutes: MetadataRoute.Sitemap = towns.map((town) => ({
-    url: `${BASE_URL}/towns/${town.slug}`,
-    lastModified: town.updatedAt,
-    changeFrequency: "weekly" as const,
-    priority: 0.8,
-  }));
+  const townRoutes: MetadataRoute.Sitemap = towns
+    .filter((town) => town.featured || true) // or published if added to town interface
+    .map((town) => ({
+      url: `${BASE_URL}/towns/${town.slug}`,
+      lastModified: new Date(), // Local static data doesn't have updatedAt yet
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    }));
 
   const blogRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${BASE_URL}/blog/${post.slug}`,
-    lastModified: post.updatedAt,
+    lastModified: new Date(post.date),
     changeFrequency: "monthly" as const,
     priority: 0.6,
   }));

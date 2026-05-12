@@ -85,6 +85,7 @@ sw.addEventListener("notificationclick", (event: NotificationEvent) => {
 });
 
 // Background Sync
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 sw.addEventListener("sync", (event: any) => {
   if (event.tag === "sync-comments") {
     event.waitUntil(syncQueuedComments());

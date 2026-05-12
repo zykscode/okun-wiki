@@ -1,6 +1,6 @@
 "use client";
 
-import { TownCard } from "@/components/town/town-card";
+import { TownCard } from "@/features/town/town-card";
 import { motion } from "framer-motion";
 
 interface Town {

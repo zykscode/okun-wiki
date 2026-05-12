@@ -1,27 +1,41 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { getTownBySlug, getTownPage } from "@/lib/actions/town";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { towns } from "@/data/towns";
 import { Sidebar } from "@/components/layout/sidebar";
 
 interface TownSubPageProps {
   params: Promise<{ slug: string; pageSlug: string }>;
 }
 
+export async function generateStaticParams() {
+  const params: { slug: string; pageSlug: string }[] = [];
+  towns.forEach((town) => {
+    town.pages.forEach((page) => {
+      params.push({ slug: town.slug, pageSlug: page.slug });
+    });
+  });
+  return params;
+}
+
 export async function generateMetadata({ params }: TownSubPageProps): Promise<Metadata> {
   const { slug, pageSlug } = await params;
-  const result = await getTownPage(slug, pageSlug);
-  if (!result) return { title: "Page not found" };
+  const town = towns.find((t) => t.slug === slug);
+  const page = town?.pages.find((p) => p.slug === pageSlug);
+
+  if (!town || !page) return { title: "Page not found" };
   return {
-    title: `${result.page.title} — ${result.town.name}`,
+    title: `${page.title} — ${town.name}`,
   };
 }
 
 export default async function TownSubPage({ params }: TownSubPageProps) {
   const { slug, pageSlug } = await params;
+  const town = towns.find((t) => t.slug === slug);
+  const page = town?.pages.find((p) => p.slug === pageSlug);
 
-  const [town, pageResult] = await Promise.all([getTownBySlug(slug), getTownPage(slug, pageSlug)]);
-
-  if (!town || !pageResult) notFound();
+  if (!town || !page) notFound();
 
   const pages = town.pages.map((p) => ({
     slug: p.slug,
@@ -41,13 +55,11 @@ export default async function TownSubPage({ params }: TownSubPageProps) {
                 {town.name}
               </a>
             </p>
-            <h1 className="text-3xl font-bold text-wiki-text">{pageResult.page.title}</h1>
+            <h1 className="text-3xl font-bold text-wiki-text">{page.title}</h1>
           </div>
 
-          <div className="wiki-content bg-white rounded-lg border border-wiki-border p-6 sm:p-8">
-            {pageResult.page.content.split("\n\n").map((paragraph, i) => (
-              <p key={i}>{paragraph}</p>
-            ))}
+          <div className="wiki-content bg-white dark:bg-wiki-card border border-wiki-border rounded-xl p-6 sm:p-8 theme-transition prose prose-wiki dark:prose-invert max-w-none">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{page.content}</ReactMarkdown>
           </div>
         </div>
       </div>

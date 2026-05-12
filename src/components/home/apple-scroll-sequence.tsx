@@ -4,9 +4,8 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Map, BookOpen, ShieldAlert, Activity, Users, MapPin } from "lucide-react";
+import { Map, BookOpen, Activity, Users, MapPin } from "lucide-react";
 import Image from "next/image";
-import { GlobalSosFeed } from "./global-sos-feed";
 
 export function AppleScrollSequence() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -17,36 +16,31 @@ export function AppleScrollSequence() {
 
   // Expanded container height for smoother scrolling
   // Ranges:
-  // 0.00 - 0.20: Screen 1 (Hero Landscape)
-  // 0.20 - 0.45: Screen 2 (Culture / History)
-  // 0.45 - 0.70: Screen 3 (Encyclopedia / Bento)
-  // 0.70 - 0.90: Screen 4 (Emergency)
-  // 0.90 - 1.00: Screen 5 (CTA)
+  // 0.00 - 0.25: Screen 1 (Hero Landscape)
+  // 0.25 - 0.55: Screen 2 (Culture / History)
+  // 0.55 - 0.80: Screen 3 (Encyclopedia / Bento)
+  // 0.80 - 1.00: Screen 5 (CTA)
 
   // -- Screen 1: Hero Landscape --
-  const s1Opacity = useTransform(scrollYProgress, [0, 0.15, 0.2], [1, 1, 0]);
-  const s1Scale = useTransform(scrollYProgress, [0, 0.2], [1, 1.1]);
-  const s1Y = useTransform(scrollYProgress, [0, 0.2], ["0%", "-10%"]);
+  const s1Opacity = useTransform(scrollYProgress, [0, 0.2, 0.25], [1, 1, 0]);
+  const s1Scale = useTransform(scrollYProgress, [0, 0.25], [1, 1.1]);
+  const s1Y = useTransform(scrollYProgress, [0, 0.25], ["0%", "-10%"]);
 
   // -- Screen 2: Culture & History --
-  const s2Opacity = useTransform(scrollYProgress, [0.15, 0.25, 0.4, 0.45], [0, 1, 1, 0]);
-  const s2Y = useTransform(scrollYProgress, [0.15, 0.25, 0.4, 0.45], ["10%", "0%", "0%", "-10%"]);
-  const s2ImgScale = useTransform(scrollYProgress, [0.15, 0.45], [1.1, 1]);
+  const s2Opacity = useTransform(scrollYProgress, [0.2, 0.3, 0.5, 0.55], [0, 1, 1, 0]);
+  const s2Y = useTransform(scrollYProgress, [0.2, 0.3, 0.5, 0.55], ["10%", "0%", "0%", "-10%"]);
+  const s2ImgScale = useTransform(scrollYProgress, [0.2, 0.55], [1.1, 1]);
 
   // -- Screen 3: Encyclopedia --
-  const s3Opacity = useTransform(scrollYProgress, [0.4, 0.5, 0.65, 0.7], [0, 1, 1, 0]);
-  const s3Y = useTransform(scrollYProgress, [0.4, 0.5, 0.65, 0.7], ["10%", "0%", "0%", "-10%"]);
-
-  // -- Screen 4: Emergency --
-  const s4Opacity = useTransform(scrollYProgress, [0.65, 0.75, 0.85, 0.9], [0, 1, 1, 0]);
-  const s4Y = useTransform(scrollYProgress, [0.65, 0.75, 0.85, 0.9], ["10%", "0%", "0%", "-10%"]);
+  const s3Opacity = useTransform(scrollYProgress, [0.5, 0.6, 0.75, 0.8], [0, 1, 1, 0]);
+  const s3Y = useTransform(scrollYProgress, [0.5, 0.6, 0.75, 0.8], ["10%", "0%", "0%", "-10%"]);
 
   // -- Screen 5: CTA --
-  const s5Opacity = useTransform(scrollYProgress, [0.85, 0.95, 1], [0, 1, 1]);
-  const s5Scale = useTransform(scrollYProgress, [0.85, 0.95, 1], [0.9, 1, 1]);
+  const s5Opacity = useTransform(scrollYProgress, [0.75, 0.9, 1], [0, 1, 1]);
+  const s5Scale = useTransform(scrollYProgress, [0.75, 0.9, 1], [0.9, 1, 1]);
 
   return (
-    <div ref={containerRef} className="relative h-[600vh] w-full bg-black">
+    <div ref={containerRef} className="relative h-[450vh] w-full bg-black">
       <div className="sticky top-0 h-screen w-full overflow-hidden bg-black flex flex-col items-center justify-center">
         {/* =======================
             SCREEN 1: HERO LANDSCAPE
@@ -198,30 +192,6 @@ export function AppleScrollSequence() {
         </motion.div>
 
         {/* =======================
-            SCREEN 4: EMERGENCY
-        ======================= */}
-        <motion.div
-          style={{ opacity: s4Opacity, y: s4Y }}
-          className="absolute inset-0 flex flex-col items-center justify-center text-center px-4"
-        >
-          <div className="max-w-4xl w-full">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-red-500/10 mb-8">
-              <ShieldAlert className="w-10 h-10 text-red-500" />
-            </div>
-            <h2 className="text-5xl md:text-7xl font-bold text-white tracking-tighter mb-6">
-              Real-time Situation Reports.
-            </h2>
-            <p className="text-xl md:text-2xl text-neutral-400 max-w-2xl mx-auto mb-12">
-              A dedicated channel for critical updates and emergency situation reports across all
-              Okun towns. Built for safety, not for chat.
-            </p>
-
-            {/* Live Global SOS Feed */}
-            <GlobalSosFeed />
-          </div>
-        </motion.div>
-
-        {/* =======================
             SCREEN 5: FINAL CTA
         ======================= */}
         <motion.div
@@ -230,27 +200,27 @@ export function AppleScrollSequence() {
         >
           <Activity className="w-16 h-16 text-white mb-8" />
           <h2 className="text-6xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-neutral-600 tracking-tighter mb-8">
-            Ready to contribute?
+            Explore Okunpedia.
           </h2>
           <p className="text-xl text-neutral-400 max-w-xl mx-auto mb-10">
-            Join the community of editors documenting the history, culture, and needs of our towns.
+            Discover the history, culture, and communities of Okun land.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link href="/auth/register">
+            <Link href="/blog">
               <Button
                 size="lg"
                 className="rounded-full h-14 px-8 bg-blue-600 hover:bg-blue-700 text-white text-lg"
               >
-                Become an Editor
+                Read the Blog
               </Button>
             </Link>
-            <Link href="/about">
+            <Link href="/towns">
               <Button
                 size="lg"
                 variant="ghost"
                 className="rounded-full h-14 px-8 text-white hover:bg-neutral-800 text-lg"
               >
-                Read our Mission
+                Browse Towns
               </Button>
             </Link>
           </div>

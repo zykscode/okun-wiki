@@ -1,43 +1,45 @@
 {
   "name": "Okunpedia",
   "short_name": "Okunpedia",
-  "description": "The Encyclopedia of Okun Land — documenting the history, culture, and heritage of Okun towns in Kogi State, Nigeria.",
+  "description": "A community-driven encyclopedia documenting the history, culture, and heritage of Okun towns in Kogi State, Nigeria.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f1117",
-  "theme_color": "#1a5632",
+  "background_color": "#020617",
+  "theme_color": "#2d8a4e",
   "orientation": "portrait-primary",
   "scope": "/",
+  "lang": "en",
+  "categories": ["education", "reference", "social"],
   "icons": [
     {
       "src": "/icons/icon-72x72.png",
       "sizes": "72x72",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/icons/icon-96x96.png",
       "sizes": "96x96",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/icons/icon-128x128.png",
       "sizes": "128x128",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/icons/icon-144x144.png",
       "sizes": "144x144",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/icons/icon-152x152.png",
       "sizes": "152x152",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/icons/icon-192x192.png",
@@ -49,7 +51,7 @@
       "src": "/icons/icon-384x384.png",
       "sizes": "384x384",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/icons/icon-512x512.png",
@@ -58,20 +60,36 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["education", "reference"],
-  "lang": "en",
-  "dir": "ltr",
-  "screenshots": [],
+  "screenshots": [
+    {
+      "src": "/screenshots/home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Okunpedia Homepage"
+    }
+  ],
   "shortcuts": [
     {
       "name": "Browse Towns",
+      "short_name": "Towns",
+      "description": "Browse all Okun towns",
       "url": "/towns",
-      "description": "Browse all documented Okun towns"
+      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
     },
     {
-      "name": "About",
-      "url": "/about",
-      "description": "Learn about the Okun Wiki project"
+      "name": "Interactive Map",
+      "short_name": "Map",
+      "description": "Explore the Okun region map",
+      "url": "/map",
+      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Community Blog",
+      "short_name": "Blog",
+      "description": "Read community articles",
+      "url": "/blog",
+      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
     }
   ]
 }
