@@ -1,0 +1,494 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+// ─── Geography Taxonomy ───────────────────────────────────────────────────────
+
+model State {
+  id   String @id @default(cuid())
+  name String @unique
+  code String @unique // e.g. "KG" for Kogi
+  lgas LGA[]
+}
+
+model LGA {
+  id      String @id @default(cuid())
+  name    String
+  stateId String
+  state   State  @relation(fields: [stateId], references: [id])
+  towns   Town[]
+
+  @@unique([name, stateId])
+  @@index([stateId])
+}
+
+model Tribe {
+  id          String  @id @default(cuid())
+  name        String  @unique // e.g. "Bunu", "Oworo", "Yagba", "Ijumu"
+  description String?
+  towns       Town[]
+}
+
+// ─── Town & Relations ─────────────────────────────────────────────────────────
+
+model Town {
+  id              String   @id @default(cuid())
+  name            String   @unique
+  slug            String   @unique
+  tagline         String?
+  overview        String
+  metaDescription String?
+  lat             Float? // replaces "coordinates" string
+  lng             Float?
+  population      Int?
+  founded         String?
+  published       Boolean  @default(false)
+  featured        Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Taxonomy FKs
+  lgaId   String
+  lga     LGA    @relation(fields: [lgaId], references: [id])
+  tribeId String?
+  tribe   Tribe?  @relation(fields: [tribeId], references: [id])
+
+  // Content relations
+  images    TownImage[]
+  pages     TownPage[]
+  festivals Festival[]
+  people    ProminentPerson[]
+  amenities Amenity[]
+  needs     CommunityNeed[]
+  families  Family[]
+
+  // Self-referential M2M: Neighboring towns
+  neighboringA TownNeighbor[] @relation("TownA")
+  neighboringB TownNeighbor[] @relation("TownB")
+
+  // M2M: Sister towns (international/regional twins)
+  sisterTownsA SisterTown[] @relation("SisterA")
+  sisterTownsB SisterTown[] @relation("SisterB")
+
+  // Blog cross-references
+  blogPosts BlogPostTown[]
+
+  // Audit
+  createdById String
+  createdBy   User   @relation(fields: [createdById], references: [id])
+
+  @@index([slug])
+  @@index([lgaId])
+  @@index([tribeId])
+  @@index([published])
+  @@index([featured])
+}
+
+/// Self-referential join: neighbouring towns
+model TownNeighbor {
+  id         String  @id @default(cuid())
+  townAId    String
+  townBId    String
+  distanceKm Float?
+  direction  String? // e.g. "North", "SE"
+  townA      Town    @relation("TownA", fields: [townAId], references: [id], onDelete: Cascade)
+  townB      Town    @relation("TownB", fields: [townBId], references: [id], onDelete: Cascade)
+
+  @@unique([townAId, townBId])
+}
+
+/// Sister-town relationship (can be cross-country)
+model SisterTown {
+  id          String  @id @default(cuid())
+  townAId     String
+  townBId     String
+  description String?
+  since       Int? // year the relationship was formalised
+  townA       Town    @relation("SisterA", fields: [townAId], references: [id], onDelete: Cascade)
+  townB       Town    @relation("SisterB", fields: [townBId], references: [id], onDelete: Cascade)
+
+  @@unique([townAId, townBId])
+}
+
+model TownImage {
+  id        String   @id @default(cuid())
+  townId    String
+  url       String
+  caption   String?
+  credit    String?
+  isPrimary Boolean  @default(false)
+  createdAt DateTime @default(now())
+  town      Town     @relation(fields: [townId], references: [id], onDelete: Cascade)
+
+  @@index([townId])
+}
+
+model TownPage {
+  id        String       @id @default(cuid())
+  townId    String
+  type      TownPageType
+  title     String
+  slug      String
+  content   String // MDX string
+  published Boolean      @default(true)
+  order     Int          @default(0)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  town      Town         @relation(fields: [townId], references: [id], onDelete: Cascade)
+  versions  PageVersion[]
+
+  @@unique([townId, slug])
+  @@index([townId])
+}
+
+enum TownPageType {
+  HISTORY
+  CULTURE
+  GEOGRAPHY
+  ECONOMY
+  CUSTOM
+}
+
+model PageVersion {
+  id          String   @id @default(cuid())
+  pageId      String
+  content     String
+  editSummary String?
+  version     Int
+  createdAt   DateTime @default(now())
+  createdById String
+  page        TownPage @relation(fields: [pageId], references: [id], onDelete: Cascade)
+
+  @@index([pageId])
+}
+
+model Festival {
+  id           String         @id @default(cuid())
+  townId       String
+  name         String
+  description  String
+  period       String
+  significance String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  town         Town           @relation(fields: [townId], references: [id], onDelete: Cascade)
+  images       FestivalImage[]
+
+  @@index([townId])
+}
+
+model FestivalImage {
+  id         String   @id @default(cuid())
+  festivalId String
+  url        String
+  caption    String?
+  festival   Festival @relation(fields: [festivalId], references: [id], onDelete: Cascade)
+}
+
+model ProminentPerson {
+  id        String   @id @default(cuid())
+  townId    String
+  name      String
+  title     String?
+  role      String
+  biography String
+  birthYear Int?
+  deathYear Int?
+  isAlive   Boolean  @default(true)
+  imageUrl  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  town      Town     @relation(fields: [townId], references: [id], onDelete: Cascade)
+
+  @@index([townId])
+}
+
+model Amenity {
+  id     String @id @default(cuid())
+  townId String
+  name   String
+  type   String // e.g. "HEALTH", "EDUCATION", "MARKET"
+  status String // e.g. "FUNCTIONAL", "DILAPIDATED"
+  town   Town   @relation(fields: [townId], references: [id], onDelete: Cascade)
+
+  @@index([townId])
+}
+
+model CommunityNeed {
+  id          String @id @default(cuid())
+  townId      String
+  category    String
+  description String
+  urgency     String // e.g. "HIGH", "MEDIUM", "LOW"
+  town        Town   @relation(fields: [townId], references: [id], onDelete: Cascade)
+
+  @@index([townId])
+}
+
+model Family {
+  id           String  @id @default(cuid())
+  townId       String
+  name         String
+  history      String
+  headOfFamily String?
+  town         Town    @relation(fields: [townId], references: [id], onDelete: Cascade)
+
+  @@index([townId])
+}
+
+// ─── Blog ─────────────────────────────────────────────────────────────────────
+
+model BlogPost {
+  id         String       @id @default(cuid())
+  title      String
+  slug       String       @unique
+  excerpt    String?
+  content    String // MDX
+  coverImage String?
+  category   BlogCategory @default(GENERAL)
+  published  Boolean      @default(false)
+  featured   Boolean      @default(false)
+  views      Int          @default(0)
+  authorId   String
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  author     User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  tags         BlogPostTag[]
+  relatedTowns BlogPostTown[]
+
+  @@index([slug])
+  @@index([published])
+  @@index([authorId])
+  @@index([category])
+}
+
+enum BlogCategory {
+  GENERAL
+  HISTORY
+  CULTURE
+  DEVELOPMENT
+  DIASPORA
+  INTERVIEW
+}
+
+model Tag {
+  id    String      @id @default(cuid())
+  name  String      @unique
+  slug  String      @unique
+  posts BlogPostTag[]
+}
+
+/// Join table: blog post ↔ tag (M2M)
+model BlogPostTag {
+  postId String
+  tagId  String
+  post   BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag    Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([postId, tagId])
+}
+
+/// Cross-reference: blog post mentions a town
+model BlogPostTown {
+  postId String
+  townId String
+  post   BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  town   Town     @relation(fields: [townId], references: [id], onDelete: Cascade)
+
+  @@id([postId, townId])
+}
+
+// ─── Users & Auth ─────────────────────────────────────────────────────────────
+
+model User {
+  id            String     @id @default(cuid())
+  email         String     @unique
+  emailVerified DateTime?
+  name          String?
+  image         String?
+  password      String?
+  role          UserRole   @default(USER)
+  status        UserStatus @default(ACTIVE)
+  bio           String?
+  location      String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  accounts         Account[]
+  sessions         Session[]
+  towns            Town[]
+  posts            BlogPost[]
+  comments         Comment[]
+  communityRoles   UserCommunity[]
+  communityUpdates CommunityUpdate[]
+  mentorships      Mentorship[]     @relation("Mentor")
+  menteeship       Mentorship[]     @relation("Mentee")
+  activityLogs     ActivityLog[]
+
+  @@index([email])
+  @@index([role])
+}
+
+enum UserRole {
+  USER
+  EDITOR
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  BANNED
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ─── Comments ─────────────────────────────────────────────────────────────────
+
+model Comment {
+  id        String    @id @default(cuid())
+  content   String
+  townId    String?
+  pageId    String?
+  authorId  String
+  parentId  String?
+  approved  Boolean   @default(true)
+  flagged   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  replies   Comment[] @relation("CommentReplies")
+  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([townId])
+  @@index([pageId])
+  @@index([authorId])
+  @@index([parentId])
+}
+
+// ─── Community & Mentorship ───────────────────────────────────────────────────
+
+model Community {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  region      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  members     UserCommunity[]
+  updates     CommunityUpdate[]
+  mentorships Mentorship[]
+}
+
+model UserCommunity {
+  userId      String
+  communityId String
+  joinedAt    DateTime  @default(now())
+  role        String    @default("MEMBER")
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  community   Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+
+  @@id([userId, communityId])
+}
+
+model CommunityUpdate {
+  id          String    @id @default(cuid())
+  content     String
+  authorId    String
+  communityId String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  author      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  community   Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+
+  @@index([communityId])
+  @@index([createdAt])
+}
+
+model Mentorship {
+  id          String    @id @default(cuid())
+  communityId String
+  mentorId    String?
+  menteeId    String?
+  status      String    @default("PENDING")
+  goal        String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  community   Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+  mentor      User?     @relation("Mentor", fields: [mentorId], references: [id], onDelete: Cascade)
+  mentee      User?     @relation("Mentee", fields: [menteeId], references: [id], onDelete: Cascade)
+
+  @@unique([mentorId, menteeId, communityId])
+  @@index([communityId])
+}
+
+// ─── Audit & Settings ────────────────────────────────────────────────────────
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  target    String
+  details   String?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+}
+
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+
+  @@index([key])
+}
