@@ -1,9 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
-import { BottomNav } from "@/components/layout/bottom-nav";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { WhyteInktrap } from "@/lib/utils";
 import siteMetadata from "@/data/siteMetadata";
@@ -105,14 +102,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body className="min-h-screen flex flex-col bg-wiki-bg">
         <div className="ambient-glow" aria-hidden="true" />
-        <ThemeProvider>
-          <Header />
-          <main id="main-content" className="flex-1 pb-20 md:pb-0" tabIndex={-1}>
-            {children}
-          </main>
-          <BottomNav />
-          <Footer />
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

@@ -25,8 +25,15 @@ function toTitleCase(s: string) {
 }
 
 export async function generateStaticParams() {
-  const posts = await BlogService.getAllPosts();
-  return posts.map((post) => ({ slug: post.slug }));
+  try {
+    const posts = await BlogService.getAllPosts();
+    return posts.map((post) => ({ slug: post.slug }));
+  } catch (error) {
+    console.warn(
+      "⚠️ Could not fetch blog posts during build time static generation. Pages will be generated on-demand at runtime.",
+    );
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -86,7 +93,7 @@ export default async function BlogPostPage({ params }: Props) {
             priority
             sizes="(max-width: 768px) 100vw, 768px"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
         </div>
       )}
 
