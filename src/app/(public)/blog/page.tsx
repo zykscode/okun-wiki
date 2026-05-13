@@ -131,9 +131,11 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                     <div className="flex items-center gap-4 mt-4 pt-4 border-t border-wiki-border text-xs text-wiki-muted">
                       <span className="flex items-center gap-1">
                         <User className="h-3 w-3" aria-hidden="true" />
-                        {post.author}
+                        {post.author?.name || "Okunpedia"}
                       </span>
-                      <time dateTime={post.date}>{formatDate(post.date)}</time>
+                      <time dateTime={post.createdAt.toISOString()}>
+                        {formatDate(post.createdAt.toISOString())}
+                      </time>
                       <span className="ml-auto text-forest-600 dark:text-forest-400 font-medium group-hover:underline">
                         Read →
                       </span>

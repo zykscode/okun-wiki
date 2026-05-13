@@ -1,70 +1,71 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { prisma } from "@/lib/prisma";
+import type { Prisma } from "@prisma/client";
 
-const contentDirectory = path.join(process.cwd(), "src/content/blog");
+// Default includes for blog queries
+const blogIncludes = {
+  tags: { include: { tag: true } },
+  relatedTowns: { include: { town: { select: { name: true, slug: true } } } },
+  author: { select: { name: true, image: true } },
+} satisfies Prisma.BlogPostInclude;
 
-export interface BlogPost {
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: string;
-  author: string;
-  date: string;
-  coverImage?: string;
-  published: boolean;
-  content: string;
-}
+export type BlogPostWithRelations = Prisma.BlogPostGetPayload<{
+  include: typeof blogIncludes;
+}>;
 
 export const BlogService = {
   /**
-   * Fetch all blog posts
+   * Fetch all published blog posts
    */
-  async getAllPosts(): Promise<BlogPost[]> {
-    if (!fs.existsSync(contentDirectory)) return [];
+  async getAllPosts(): Promise<BlogPostWithRelations[]> {
+    return prisma.blogPost.findMany({
+      where: { published: true },
+      include: blogIncludes,
+      orderBy: { createdAt: "desc" },
+    });
+  },
 
-    const fileNames = fs.readdirSync(contentDirectory);
-    const allPostsData = fileNames
-      .filter((fileName) => fileName.endsWith(".mdx"))
-      .map((fileName) => {
-        const slug = fileName.replace(/\.mdx$/, "");
-        const fullPath = path.join(contentDirectory, fileName);
-        const fileContents = fs.readFileSync(fullPath, "utf8");
-        const matterResult = matter(fileContents);
-
-        return {
-          slug,
-          content: matterResult.content,
-          ...(matterResult.data as Omit<BlogPost, "slug" | "content">),
-        };
-      })
-      .filter((post) => post.published);
-
-    return allPostsData.sort((a, b) => {
-      if (a.date < b.date) {
-        return 1;
-      } else {
-        return -1;
-      }
+  /**
+   * Fetch featured blog posts
+   */
+  async getFeaturedPosts(): Promise<BlogPostWithRelations[]> {
+    return prisma.blogPost.findMany({
+      where: { published: true, featured: true },
+      include: blogIncludes,
+      orderBy: { createdAt: "desc" },
+      take: 4,
     });
   },
 
   /**
    * Fetch a single blog post by slug
    */
-  async getPostBySlug(slug: string): Promise<BlogPost | null> {
-    try {
-      const fullPath = path.join(contentDirectory, `${slug}.mdx`);
-      const fileContents = fs.readFileSync(fullPath, "utf8");
-      const matterResult = matter(fileContents);
+  async getPostBySlug(slug: string): Promise<BlogPostWithRelations | null> {
+    return prisma.blogPost.findUnique({
+      where: { slug },
+      include: blogIncludes,
+    });
+  },
 
-      return {
-        slug,
-        content: matterResult.content,
-        ...(matterResult.data as Omit<BlogPost, "slug" | "content">),
-      };
-    } catch (error) {
-      return null;
-    }
+  /**
+   * Fetch all slugs for static param generation
+   */
+  async getAllSlugs(): Promise<string[]> {
+    const posts = await prisma.blogPost.findMany({
+      where: { published: true },
+      select: { slug: true },
+    });
+    return posts.map((p) => p.slug);
+  },
+
+  /**
+   * Fetch posts by category
+   */
+  async getPostsByCategory(category: any): Promise<BlogPostWithRelations[]> {
+    return prisma.blogPost.findMany({
+      where: { published: true, category },
+      include: blogIncludes,
+      orderBy: { createdAt: "desc" },
+    });
   },
 };

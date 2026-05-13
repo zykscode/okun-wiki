@@ -40,6 +40,14 @@ export const TownService = {
     });
   },
 
+  /** Fetch all towns for Admin (including unpublished) */
+  async getAdminTowns(): Promise<TownWithRelations[]> {
+    return prisma.town.findMany({
+      include: townIncludes,
+      orderBy: { name: "asc" },
+    });
+  },
+
   /** Fetch all towns grouped by LGA (for the towns listing page) */
   async getTownsGroupedByLGA(): Promise<Record<string, TownWithRelations[]>> {
     const towns = await prisma.town.findMany({

@@ -7,9 +7,7 @@ import { getToken } from "next-auth/jwt";
  * regardless of their DB role (useful during early setup when no user exists yet).
  * Set in .env:  ADMIN_USER_IDS=cuid1,cuid2
  */
-const ADMIN_ALLOWED_IDS = (process.env.ADMIN_USER_IDS ?? "")
-  .split(",")
-  .filter(Boolean);
+const ADMIN_ALLOWED_IDS = (process.env.ADMIN_USER_IDS ?? "").split(",").filter(Boolean);
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -21,7 +19,7 @@ export async function middleware(request: NextRequest) {
 
   const token = await getToken({
     req: request,
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: process.env.AUTH_SECRET,
   });
 
   // Not authenticated → redirect to sign-in

@@ -5,8 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
 import { ArrowLeft, Calendar, User, Clock } from "lucide-react";
 import Link from "next/link";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+
 import { BlogInteractions } from "@/features/blog/blog-interactions";
 import { ThreadedComments } from "@/features/town/threaded-comments";
 import Image from "next/image";
@@ -39,16 +38,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: post.excerpt,
     openGraph: {
       title: post.title,
-      description: post.excerpt,
+      description: post.excerpt || "",
       type: "article",
-      publishedTime: post.date,
-      authors: [post.author],
+      publishedTime: post.createdAt.toISOString(),
+      authors: [post.author?.name || "Okunpedia"],
       images: post.coverImage ? [{ url: post.coverImage }] : [],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
-      description: post.excerpt,
+      description: post.excerpt || "",
       images: post.coverImage ? [post.coverImage] : [],
     },
   };
@@ -114,22 +113,25 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="flex items-center gap-5 text-sm text-wiki-muted border-t border-wiki-border pt-4">
           <span className="flex items-center gap-1.5">
             <User className="h-4 w-4" aria-hidden="true" />
-            <span>{post.author}</span>
+            <span>{post.author?.name || "Okunpedia"}</span>
           </span>
           <span className="flex items-center gap-1.5">
             <Calendar className="h-4 w-4" aria-hidden="true" />
-            <time dateTime={post.date}>{formatDate(post.date)}</time>
+            <time dateTime={post.createdAt.toISOString()}>
+              {formatDate(post.createdAt.toISOString())}
+            </time>
           </span>
         </div>
       </header>
 
       {/* Blog Interactions (likes, bookmarks, share) */}
-      <BlogInteractions postId={slug} />
+      <BlogInteractions postId={post.id} />
 
       {/* Article content */}
-      <div className="wiki-content bg-wiki-card border border-wiki-border rounded-2xl p-6 sm:p-8 theme-transition">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
-      </div>
+      <div
+        className="wiki-content prose dark:prose-invert max-w-none bg-wiki-card border border-wiki-border rounded-2xl p-6 sm:p-8 theme-transition"
+        dangerouslySetInnerHTML={{ __html: post.content }}
+      />
 
       {/* Author card */}
       <div className="mt-8 p-6 bg-wiki-card border border-wiki-border rounded-2xl theme-transition flex items-center gap-4">
@@ -138,7 +140,7 @@ export default async function BlogPostPage({ params }: Props) {
         </div>
         <div>
           <p className="text-xs text-wiki-muted uppercase tracking-wider mb-1">Written by</p>
-          <h3 className="font-semibold text-wiki-text">{post.author}</h3>
+          <h3 className="font-semibold text-wiki-text">{post.author?.name || "Okunpedia"}</h3>
           <p className="text-sm text-wiki-muted">Okunpedia Editorial Team</p>
         </div>
       </div>

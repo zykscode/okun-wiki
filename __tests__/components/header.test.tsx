@@ -36,7 +36,7 @@ test("Header renders successfully", async () => {
   render(HeaderComponent);
 
   // Check for logo text
-  expect(screen.getByText("Okun Wiki")).toBeInTheDocument();
+  expect(screen.getByText("Okunpedia")).toBeInTheDocument();
 
   // Check for navigation links
   expect(screen.getByText("Home")).toBeInTheDocument();
